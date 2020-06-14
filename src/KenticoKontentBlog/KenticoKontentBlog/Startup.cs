@@ -1,10 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Kentico.Kontent.Delivery;
+using Kentico.Kontent.Delivery.Abstractions;
+using KenticoKontentBlog.Kentico.Delivery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,6 +23,14 @@ namespace KenticoKontentBlog
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            // Enable Delivery Client
+            services.AddHttpClient<IDeliveryHttpClient, DeliveryHttpClient>();
+            services.AddSingleton<ITypeProvider, CustomTypeProvider>();
+            services.AddSingleton<IContentLinkUrlResolver, CustomContentLinkUrlResolver>();
+            services.AddDeliveryClient(Configuration);
+
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

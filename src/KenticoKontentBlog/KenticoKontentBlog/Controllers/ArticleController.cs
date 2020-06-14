@@ -1,5 +1,5 @@
-﻿using Kentico.Kontent.Delivery;
-using KenticoKontentBlog.KenticoModels;
+﻿using Kentico.Kontent.Delivery.Abstractions;
+using KenticoKontentBlog.Kentico.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -13,10 +13,13 @@ namespace KenticoKontentBlog.Controllers
 
         private readonly IConfiguration _configuration;
 
-        public ArticleController(ILogger<ArticleController> logger, IConfiguration configuration)
+        private readonly IDeliveryClientFactory _deliveryClientFactory;
+
+        public ArticleController(ILogger<ArticleController> logger, IConfiguration configuration, IDeliveryClientFactory deliveryClientFactory)
         {
             _logger = logger;
             _configuration = configuration;
+            _deliveryClientFactory = deliveryClientFactory;
         }
 
         [Route("article/{articleStub}")]
@@ -24,7 +27,7 @@ namespace KenticoKontentBlog.Controllers
         {
             try
             {
-                var client = DeliveryClientBuilder.WithProjectId(_configuration["KenticoKontent:DeliveryApi"]).Build();
+                var client = _deliveryClientFactory.Get();
 
                 var model = client.GetItemAsync<BlogArticle>(articleStub).Result.Item;
 

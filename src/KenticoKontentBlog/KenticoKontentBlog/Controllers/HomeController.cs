@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using KenticoKontentBlog.Models;
+using Kentico.Kontent.Delivery.Abstractions;
+using KenticoKontentBlog.Kentico.Models;
+using Kentico.Kontent.Delivery;
 
 namespace KenticoKontentBlog.Controllers
 {
@@ -13,14 +16,22 @@ namespace KenticoKontentBlog.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IDeliveryClientFactory _deliveryClientFactory;
+
+        public HomeController(ILogger<HomeController> logger, IDeliveryClientFactory deliveryClientFactory)
         {
             _logger = logger;
+            _deliveryClientFactory = deliveryClientFactory;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var client = _deliveryClientFactory.Get();
+            var response = await client.GetItemsAsync<BlogArticle>();
+
+            var model = new HomeViewModel { Articles = response.Items.ToList() };
+
+            return View(model);
         }
 
         public IActionResult Privacy()

@@ -1,7 +1,7 @@
 ﻿using Kentico.Kontent.Delivery.Abstractions;
 using System.Collections.Generic;
 
-namespace KenticoKontentBlog.KenticoModels
+namespace KenticoKontentBlog.Kentico.Models
 {
     public partial class BlogArticle
     {
