@@ -1,0 +1,13 @@
+﻿@model KenticoKontentBlog.KenticoModels.BlogArticle
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>@Model.Title</h1>
+@foreach(var headerImage in Model.HeaderImage)
+{
+    <img src="@headerImage.Url" alt="@headerImage.Description" />
+}
+
+@Html.Raw(Model.ArticleContent)
