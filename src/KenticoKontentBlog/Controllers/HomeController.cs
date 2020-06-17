@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+
+using global::Kentico.Kontent.Delivery.Abstractions;
+
+using KenticoKontentBlog.Kentico.Models;
+using KenticoKontentBlog.Models;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using KenticoKontentBlog.Models;
-using Kentico.Kontent.Delivery.Abstractions;
-using KenticoKontentBlog.Kentico.Models;
-using Kentico.Kontent.Delivery;
 
 namespace KenticoKontentBlog.Controllers
 {
@@ -27,6 +27,7 @@ namespace KenticoKontentBlog.Controllers
         public async Task<IActionResult> Index()
         {
             var client = _deliveryClientFactory.Get();
+
             var response = await client.GetItemsAsync<BlogArticle>();
 
             var model = new HomeViewModel { Articles = response.Items.ToList() };
