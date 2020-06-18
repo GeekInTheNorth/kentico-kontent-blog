@@ -1,6 +1,7 @@
 using Kentico.Kontent.Delivery;
 using Kentico.Kontent.Delivery.Abstractions;
 using KenticoKontentBlog.Feature.Article;
+using KenticoKontentBlog.Feature.ArticleList;
 using KenticoKontentBlog.Feature.Home;
 using KenticoKontentBlog.Feature.Kontent.Delivery;
 using Microsoft.AspNetCore.Builder;
@@ -37,6 +38,7 @@ namespace KenticoKontentBlog
             // View Model Builders
             services.AddTransient<IHomeViewModelBuilder, HomeViewModelBuilder>();
             services.AddTransient<IArticleViewModelBuilder, ArticleViewModelBuilder>();
+            services.AddTransient<IArticleListViewModelBuilder, ArticleListViewModelBuilder>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

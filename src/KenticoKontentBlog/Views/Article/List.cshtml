@@ -1,0 +1,15 @@
+﻿@model KenticoKontentBlog.Feature.ArticleList.ArticleListViewModel
+
+@{
+    ViewData["Title"] = Model.CategoryName;
+}
+
+<h1>@Model.CategoryName</h1>
+
+<ul>
+    @foreach (var article in Model.Articles)
+    {
+
+        <li><a href="@Url.Action("Index", "Article", new { articleStub = article.CodeName })">@article.Title</a></li>
+    }
+</ul>

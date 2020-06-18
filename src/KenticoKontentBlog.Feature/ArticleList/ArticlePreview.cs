@@ -1,4 +1,4 @@
-﻿namespace KenticoKontentBlog.Feature.Home
+﻿namespace KenticoKontentBlog.Feature.ArticleList
 {
     public class ArticlePreview
     {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using KenticoKontentBlog.Feature.ArticleList;
+using System.Collections.Generic;
 
 namespace KenticoKontentBlog.Feature.Home
 {

@@ -1,4 +1,5 @@
 ﻿using Kentico.Kontent.Delivery.Abstractions;
+using KenticoKontentBlog.Feature.ArticleList;
 using KenticoKontentBlog.Feature.Kontent.Framework;
 using KenticoKontentBlog.Feature.Kontent.Models;
 using System.Linq;
