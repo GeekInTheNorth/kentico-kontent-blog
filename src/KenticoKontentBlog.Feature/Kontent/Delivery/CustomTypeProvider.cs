@@ -1,10 +1,10 @@
 ﻿using Kentico.Kontent.Delivery.Abstractions;
-using KenticoKontentBlog.Kentico.Models;
+using KenticoKontentBlog.Feature.Kontent.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace KenticoKontentBlog.Kentico.Delivery
+namespace KenticoKontentBlog.Feature.Kontent.Delivery
 {
     public class CustomTypeProvider : ITypeProvider
     {

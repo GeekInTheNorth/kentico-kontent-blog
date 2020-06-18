@@ -1,14 +1,12 @@
-﻿@model KenticoKontentBlog.Kentico.Models.BlogArticle
+﻿@model KenticoKontentBlog.Feature.Article.ArticleViewModel
 
 @{
     ViewData["Title"] = Model.Title;
-    var hasHeroImage = Model.HeaderImage != null && Model.HeaderImage.Any();
-    var heroImage = Model.HeaderImage?.Select(x => x.Url).FirstOrDefault();
 }
 
-@if (hasHeroImage)
+@if (Model.HasHeroImage)
 {
-    <div class="hero-image" style="background-image: url(@heroImage);">
+    <div class="hero-image" style="background-image: url(@Model.HeroImage);">
         <div class="hero-text">
             <h1>@Model.Title</h1>
             <p>@($"Published: {Model.PublishedDate:D}")</p>
@@ -16,19 +14,20 @@
     </div>
 }
 
-@if (!hasHeroImage)
+@if (!Model.HasHeroImage)
 {
     <h1>@Model.Title</h1>
     @if (Model.PublishedDate.HasValue)
     {
         <p class="text-muted small">@($"Published: {Model.PublishedDate:D}")</p>
     }
-    @if (Model.Categories != null || Model.Categories.Any())
+}
+@Html.Raw(Model.Content)
+
+@if (Model.Categories != null || Model.Categories.Any())
+{
+    @foreach (var category in Model.Categories)
     {
-        @foreach (var category in Model.Categories)
-        {
-            @*<a href="#" class="btn-dark btn-secondary">@category.Name</a>*@
-        }
+        <a href="#" class="btn-dark btn-secondary">@category</a>
     }
 }
-@Html.Raw(Model.ArticleContent)

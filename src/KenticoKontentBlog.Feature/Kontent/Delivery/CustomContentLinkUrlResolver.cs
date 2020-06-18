@@ -1,10 +1,11 @@
 ﻿using Kentico.Kontent.Delivery.Abstractions;
+using KenticoKontentBlog.Feature.Kontent.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using System.Globalization;
 
-namespace KenticoKontentBlog.Kentico.Delivery
+namespace KenticoKontentBlog.Feature.Kontent.Delivery
 {
     public class CustomContentLinkUrlResolver : IContentLinkUrlResolver
     {
@@ -25,7 +26,7 @@ namespace KenticoKontentBlog.Kentico.Delivery
 
             switch (link.ContentTypeCodename)
             {
-                case KenticoKontentBlog.Kentico.Models.BlogArticle.Codename:
+                case BlogArticle.Codename:
                     return urlHelper.Action("Index", "Articles", new { articleStub = link.Codename });
                 default:
                     return urlHelper.Action("NotFound", "Errors");

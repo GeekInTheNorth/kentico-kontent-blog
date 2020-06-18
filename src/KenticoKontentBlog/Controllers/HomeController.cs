@@ -1,10 +1,6 @@
 ﻿using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
-
-using global::Kentico.Kontent.Delivery.Abstractions;
-
-using KenticoKontentBlog.Kentico.Models;
+using KenticoKontentBlog.Feature.Home;
 using KenticoKontentBlog.Models;
 
 using Microsoft.AspNetCore.Mvc;
@@ -16,21 +12,17 @@ namespace KenticoKontentBlog.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        private readonly IDeliveryClientFactory _deliveryClientFactory;
+        private readonly IHomeViewModelBuilder _homeViewModelBuilder;
 
-        public HomeController(ILogger<HomeController> logger, IDeliveryClientFactory deliveryClientFactory)
+        public HomeController(ILogger<HomeController> logger, IHomeViewModelBuilder homeViewModelBuilder)
         {
             _logger = logger;
-            _deliveryClientFactory = deliveryClientFactory;
+            _homeViewModelBuilder = homeViewModelBuilder;
         }
 
         public async Task<IActionResult> Index()
         {
-            var client = _deliveryClientFactory.Get();
-
-            var response = await client.GetItemsAsync<BlogArticle>();
-
-            var model = new HomeViewModel { Articles = response.Items.ToList() };
+            var model = await _homeViewModelBuilder.BuildAsync();
 
             return View(model);
         }

@@ -1,43 +1,24 @@
-﻿using Kentico.Kontent.Delivery.Abstractions;
-using KenticoKontentBlog.Kentico.Models;
+﻿using KenticoKontentBlog.Feature.Article;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using System;
+using System.Threading.Tasks;
 
 namespace KenticoKontentBlog.Controllers
 {
     public class ArticleController : Controller
     {
-        private readonly ILogger<ArticleController> _logger;
+        public readonly IArticleViewModelBuilder _viewModelBuilder;
 
-        private readonly IConfiguration _configuration;
-
-        private readonly IDeliveryClientFactory _deliveryClientFactory;
-
-        public ArticleController(ILogger<ArticleController> logger, IConfiguration configuration, IDeliveryClientFactory deliveryClientFactory)
+        public ArticleController(IArticleViewModelBuilder viewModelBuilder)
         {
-            _logger = logger;
-            _configuration = configuration;
-            _deliveryClientFactory = deliveryClientFactory;
+            _viewModelBuilder = viewModelBuilder;
         }
 
         [Route("article/{articleStub}")]
-        public IActionResult Index(string articleStub)
+        public async Task<IActionResult> IndexAsync(string articleStub)
         {
-            try
-            {
-                var client = _deliveryClientFactory.Get();
+            var article = await _viewModelBuilder.WithBlogArticle(articleStub).BuildAsync();
 
-                var model = client.GetItemAsync<BlogArticle>(articleStub).Result.Item;
-
-                return View(model);
-            }
-            catch (Exception exception)
-            {
-                _logger.LogError("Oops", exception);
-                throw;
-            }
+            return View(article);
         }
     }
 }

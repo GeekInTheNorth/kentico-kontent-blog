@@ -1,6 +1,8 @@
 using Kentico.Kontent.Delivery;
 using Kentico.Kontent.Delivery.Abstractions;
-using KenticoKontentBlog.Kentico.Delivery;
+using KenticoKontentBlog.Feature.Article;
+using KenticoKontentBlog.Feature.Home;
+using KenticoKontentBlog.Feature.Kontent.Delivery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -31,6 +33,10 @@ namespace KenticoKontentBlog
             services.AddDeliveryClient(Configuration);
 
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+
+            // View Model Builders
+            services.AddTransient<IHomeViewModelBuilder, HomeViewModelBuilder>();
+            services.AddTransient<IArticleViewModelBuilder, ArticleViewModelBuilder>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

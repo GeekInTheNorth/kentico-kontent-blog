@@ -1,7 +1,7 @@
-﻿@model KenticoKontentBlog.Models.HomeViewModel
+﻿@model KenticoKontentBlog.Feature.Home.HomeViewModel
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
 <div class="text-center">
@@ -12,7 +12,7 @@
         @foreach (var article in Model.Articles)
         {
 
-            <li><a href="@Url.Action("Index", "Article", new { articleStub = article.System.Codename })">@article.Title</a></li>
+            <li><a href="@Url.Action("Index", "Article", new { articleStub = article.CodeName })">@article.Title</a></li>
         }
     </ul>
 
