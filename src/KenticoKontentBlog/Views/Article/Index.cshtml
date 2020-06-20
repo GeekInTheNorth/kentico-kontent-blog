@@ -28,6 +28,6 @@
 {
     @foreach (var category in Model.Categories)
     {
-        <a href="#" class="btn-dark btn-secondary">@category</a>
+        <a asp-controller="Article" asp-action="List" asp-route-category="@category.Key" class="btn btn-dark btn-secondary">@category.Value</a>
     }
 }

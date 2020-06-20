@@ -10,14 +10,8 @@ namespace KenticoKontentBlog.Feature.ArticleList
     {
         private string _categoryCodeName;
 
-        private readonly IContentLinkUrlResolver _contentLinkUrlResolver;
-
-        public ArticleListViewModelBuilder(
-            IDeliveryClientFactory deliveryClientFactory,
-            IContentLinkUrlResolver contentLinkUrlResolver)
-            : base(deliveryClientFactory)
+        public ArticleListViewModelBuilder(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
         {
-            _contentLinkUrlResolver = contentLinkUrlResolver;
         }
 
         public IArticleListViewModelBuilder WithCategory(string categoryCodeName)
@@ -35,7 +29,7 @@ namespace KenticoKontentBlog.Feature.ArticleList
             if (!string.IsNullOrWhiteSpace(_categoryCodeName))
             {
                 articles = articles?.Where(x => x.Categories != null && x.Categories.Any(y => y.Codename.Equals(_categoryCodeName))).ToList();
-                categoryName = articles.SelectMany(x => x.Categories).FirstOrDefault(x => x.Codename.Equals(_categoryCodeName)).Name;
+                categoryName = articles.SelectMany(x => x.Categories).FirstOrDefault(x => x.Codename.Equals(_categoryCodeName))?.Name;
             }
 
             return articles == null ? null : new ArticleListViewModel

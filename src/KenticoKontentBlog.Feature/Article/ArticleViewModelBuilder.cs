@@ -31,7 +31,7 @@ namespace KenticoKontentBlog.Feature.Article
                 Content = article?.ArticleContent,
                 HeroImage = article?.HeaderImage?.FirstOrDefault()?.Url,
                 PublishedDate = article?.PublishedDate,
-                Categories = article?.Categories?.Select(x => x.Name).ToList()
+                Categories = article?.Categories?.ToDictionary(x => x.Codename, y => y.Name)
             };
         }
     }

@@ -15,6 +15,6 @@ namespace KenticoKontentBlog.Feature.Article
 
         public DateTime? PublishedDate { get; set; }
 
-        public List<string> Categories { get; set; }
+        public Dictionary<string, string> Categories { get; set; }
     }
 }
