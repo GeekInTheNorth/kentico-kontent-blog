@@ -6,6 +6,6 @@ namespace KenticoKontentBlog.Feature.ArticleList
     {
         IArticleListViewModelBuilder WithCategory(string categoryCodeName);
 
-        Task<ArticleListViewModel> Build();
+        Task<ArticleListViewModel> BuildAsync();
     }
 }

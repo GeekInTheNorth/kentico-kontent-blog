@@ -1,9 +1,10 @@
-﻿using System;
+﻿using KenticoKontentBlog.Feature.Framework;
+using System;
 using System.Collections.Generic;
 
 namespace KenticoKontentBlog.Feature.Article
 {
-    public class ArticleViewModel
+    public class ArticleViewModel : IPageModel
     {
         public string Title { get; set; }
 
@@ -16,5 +17,7 @@ namespace KenticoKontentBlog.Feature.Article
         public DateTime? PublishedDate { get; set; }
 
         public Dictionary<string, string> Categories { get; set; }
+
+        public Menu Menu { get; set; }
     }
 }

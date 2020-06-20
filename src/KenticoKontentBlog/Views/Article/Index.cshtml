@@ -24,7 +24,7 @@
 }
 @Html.Raw(Model.Content)
 
-@if (Model.Categories != null || Model.Categories.Any())
+@if (Model.Categories != null && Model.Categories.Any())
 {
     @foreach (var category in Model.Categories)
     {

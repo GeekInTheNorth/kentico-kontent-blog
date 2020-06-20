@@ -39,7 +39,7 @@ namespace KenticoKontentBlog.Controllers
         [Route("article/list/{category}")]
         public async Task<IActionResult> ListAsync(string category)
         {
-            var articleList = await _listViewModelBuilder.WithCategory(category).Build();
+            var articleList = await _listViewModelBuilder.WithCategory(category).BuildAsync();
 
             if (articleList?.Articles == null || !articleList.Articles.Any())
             {

@@ -1,12 +1,12 @@
 ﻿using Kentico.Kontent.Delivery.Abstractions;
-using KenticoKontentBlog.Feature.Kontent.Framework;
+using KenticoKontentBlog.Feature.Framework;
 using KenticoKontentBlog.Feature.Kontent.Models;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace KenticoKontentBlog.Feature.ArticleList
 {
-    public class ArticleListViewModelBuilder : BaseViewModelBuilder<BlogArticle>, IArticleListViewModelBuilder
+    public class ArticleListViewModelBuilder : BaseViewModelBuilder<ArticleListViewModel, BlogArticle>, IArticleListViewModelBuilder
     {
         private string _categoryCodeName;
 
@@ -21,7 +21,7 @@ namespace KenticoKontentBlog.Feature.ArticleList
             return this;
         }
 
-        public async Task<ArticleListViewModel> Build()
+        protected override async Task<ArticleListViewModel> BuildModelAsync()
         {
             var articles = await this.ListAsync();
             var categoryName = "All Articles";

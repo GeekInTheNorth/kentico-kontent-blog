@@ -2,8 +2,10 @@ using Kentico.Kontent.Delivery;
 using Kentico.Kontent.Delivery.Abstractions;
 using KenticoKontentBlog.Feature.Article;
 using KenticoKontentBlog.Feature.ArticleList;
+using KenticoKontentBlog.Feature.Error;
 using KenticoKontentBlog.Feature.Home;
 using KenticoKontentBlog.Feature.Kontent.Delivery;
+using KenticoKontentBlog.Feature.Privacy;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -39,6 +41,8 @@ namespace KenticoKontentBlog
             services.AddTransient<IHomeViewModelBuilder, HomeViewModelBuilder>();
             services.AddTransient<IArticleViewModelBuilder, ArticleViewModelBuilder>();
             services.AddTransient<IArticleListViewModelBuilder, ArticleListViewModelBuilder>();
+            services.AddTransient<IPrivacyViewModelBuilder, PrivacyViewModelBuilder>();
+            services.AddTransient<IErrorViewModelBuilder, ErrorViewModelBuilder>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,7 +54,7 @@ namespace KenticoKontentBlog
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }

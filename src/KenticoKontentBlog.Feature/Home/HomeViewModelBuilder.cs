@@ -1,19 +1,19 @@
 ﻿using Kentico.Kontent.Delivery.Abstractions;
 using KenticoKontentBlog.Feature.ArticleList;
-using KenticoKontentBlog.Feature.Kontent.Framework;
+using KenticoKontentBlog.Feature.Framework;
 using KenticoKontentBlog.Feature.Kontent.Models;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace KenticoKontentBlog.Feature.Home
 {
-    public class HomeViewModelBuilder : BaseViewModelBuilder<BlogArticle>, IHomeViewModelBuilder
+    public class HomeViewModelBuilder : BaseViewModelBuilder<HomeViewModel, BlogArticle>, IHomeViewModelBuilder
     {
         public HomeViewModelBuilder(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
         {
         }
 
-        public async Task<HomeViewModel> BuildAsync()
+        protected override async Task<HomeViewModel> BuildModelAsync()
         {
             var articles = await this.ListAsync();
 
