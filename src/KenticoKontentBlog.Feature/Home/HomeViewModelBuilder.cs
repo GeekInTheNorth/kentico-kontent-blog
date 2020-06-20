@@ -19,18 +19,10 @@ namespace KenticoKontentBlog.Feature.Home
 
             return new HomeViewModel
             {
-                Articles = articles.Select(x => Convert(x)).ToList()
-            };
-        }
-
-        private ArticlePreview Convert(BlogArticle blogArticle)
-        {
-            return new ArticlePreview
-            {
-                Title = blogArticle.Title,
-                Description = blogArticle.SeoMetaDataSeoDescription,
-                Image = blogArticle.HeaderImage?.FirstOrDefault()?.Url,
-                CodeName = blogArticle.System.Codename
+                Articles = articles.OrderByDescending(x => x.PublishedDate ?? x.System.LastModified)
+                                   .Take(6)
+                                   .Select(x => new ArticlePreview(x))
+                                   .ToList()
             };
         }
     }

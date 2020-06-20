@@ -1,0 +1,25 @@
+﻿@model List<KenticoKontentBlog.Feature.ArticleList.ArticlePreview>
+
+<div class="row">
+    @foreach (var article in Model)
+    {
+        <div class="col-md-4 article-summary">
+            @if (!string.IsNullOrWhiteSpace(article.Image))
+            {
+                <div class="entry-media" v-show="hasPreviewImage(post)">
+                    <img src="@article.Image" alt="article.Title" class="post-preview-image">
+                </div>
+            }
+
+            <div class="entry-body">
+                <span class="cat">Theatre</span>
+                <h3><a asp-controller="Article" asp-action="Index" asp-route-articleStub="@article.CodeName">@article.Title</a></h3>
+                <p>@article.Description</p>
+                <div class="read-more-date">
+                    <a asp-controller="Article" asp-action="Index" asp-route-articleStub="@article.CodeName" class="btn btn-primary">Read More..</a>
+                    <span class="date">@article.PublishedDate.ToString("dd/MM/yyyy")</span>
+                </div>
+            </div>
+        </div>
+    }
+</div>

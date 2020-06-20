@@ -10,8 +10,14 @@ namespace KenticoKontentBlog.Feature.ArticleList
     {
         private string _categoryCodeName;
 
-        public ArticleListViewModelBuilder(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
+        private readonly IContentLinkUrlResolver _contentLinkUrlResolver;
+
+        public ArticleListViewModelBuilder(
+            IDeliveryClientFactory deliveryClientFactory,
+            IContentLinkUrlResolver contentLinkUrlResolver)
+            : base(deliveryClientFactory)
         {
+            _contentLinkUrlResolver = contentLinkUrlResolver;
         }
 
         public IArticleListViewModelBuilder WithCategory(string categoryCodeName)
@@ -34,19 +40,8 @@ namespace KenticoKontentBlog.Feature.ArticleList
 
             return articles == null ? null : new ArticleListViewModel
             {
-                Articles = articles.Select(x => Convert(x)).ToList(),
+                Articles = articles.Select(x => new ArticlePreview(x)).ToList(),
                 CategoryName = categoryName
-            };
-        }
-
-        private ArticlePreview Convert(BlogArticle blogArticle)
-        {
-            return new ArticlePreview
-            {
-                Title = blogArticle.Title,
-                Description = blogArticle.SeoMetaDataSeoDescription,
-                Image = blogArticle.HeaderImage?.FirstOrDefault()?.Url,
-                CodeName = blogArticle.System.Codename
             };
         }
     }

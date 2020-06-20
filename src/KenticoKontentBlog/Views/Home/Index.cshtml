@@ -6,14 +6,5 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-
-    <ul>
-        @foreach (var article in Model.Articles)
-        {
-
-            <li><a href="@Url.Action("Index", "Article", new { articleStub = article.CodeName })">@article.Title</a></li>
-        }
-    </ul>
-
+    <partial name="_ArticleList" model="Model.Articles" />
 </div>
