@@ -28,6 +28,8 @@ namespace KenticoKontentBlog.Feature.Kontent.Delivery
             {
                 case BlogArticle.Codename:
                     return urlHelper.Action("Index", "Articles", new { articleStub = link.Codename });
+                case AboutUsPage.Codename:
+                    return urlHelper.Action("Index", "GeneralContent", new { contentStub = link.Codename });
                 default:
                     return urlHelper.Action("NotFound", "Errors");
             }

@@ -22,7 +22,11 @@ namespace KenticoKontentBlog.Feature.Framework
         public async Task<TModel> BuildAsync()
         {
             var model = await BuildModelAsync();
-            model.Menu = await BuildMenuAsync();
+
+            if(model != null)
+            {
+                model.Menu = await BuildMenuAsync();
+            }
 
             return model;
         }
