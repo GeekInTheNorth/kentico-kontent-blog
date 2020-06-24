@@ -9,5 +9,7 @@ namespace KenticoKontentBlog.Feature.Home
         public List<ArticlePreview> Articles { get; set; }
 
         public Menu Menu { get; set; }
+
+        public SeoMetaData Seo { get; set; }
     }
 }

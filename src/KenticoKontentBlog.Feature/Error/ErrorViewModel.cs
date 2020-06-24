@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using KenticoKontentBlog.Feature.Framework;
+﻿using KenticoKontentBlog.Feature.Framework;
 
 namespace KenticoKontentBlog.Feature.Error
 {
@@ -10,5 +9,7 @@ namespace KenticoKontentBlog.Feature.Error
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
         public Menu Menu { get; set; }
+
+        public SeoMetaData Seo { get; set; }
     }
 }

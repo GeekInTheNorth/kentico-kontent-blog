@@ -1,6 +1,9 @@
 ﻿using Kentico.Kontent.Delivery.Abstractions;
 using KenticoKontentBlog.Feature.Framework;
 using KenticoKontentBlog.Feature.Kontent.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,8 +13,15 @@ namespace KenticoKontentBlog.Feature.Article
     {
         private string articleCodeName;
 
-        public ArticleViewModelBuilder(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
+        private readonly IUrlHelper _urlHelper;
+
+        public ArticleViewModelBuilder(
+            IDeliveryClientFactory deliveryClientFactory,
+            IUrlHelperFactory urlHelperFactory,
+            IActionContextAccessor actionContextAccessor) : 
+            base(deliveryClientFactory)
         {
+            _urlHelper = urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext);
         }
 
         public IArticleViewModelBuilder WithBlogArticle(string articleCodeName)
@@ -31,7 +41,15 @@ namespace KenticoKontentBlog.Feature.Article
                 Content = article?.ArticleContent,
                 HeroImage = article?.HeaderImage?.FirstOrDefault()?.Url,
                 PublishedDate = article?.PublishedDate,
-                Categories = article?.Categories?.ToDictionary(x => x.Codename, y => y.Name)
+                Categories = article?.Categories?.ToDictionary(x => x.Codename, y => y.Name),
+                Seo = new SeoMetaData
+                {
+                    Title = string.IsNullOrWhiteSpace(article.SeoMetaDataSeoTitle)? article.Title : article.SeoMetaDataSeoTitle,
+                    Description = article.SeoMetaDataSeoDescription,
+                    Image = article.SeoMetaDataSeoImage?.FirstOrDefault()?.Url ?? article.HeaderImage?.FirstOrDefault()?.Url,
+                    ContentType = "article",
+                    CanonicalUrl = _urlHelper.Action("Index", "Article", new { articleStub = article.System.Codename }, "https")
+                }
             };
         }
     }

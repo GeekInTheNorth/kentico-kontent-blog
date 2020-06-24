@@ -5,7 +5,33 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Stotty</title>
+    <title>@Model.Seo?.Title - Stotty</title>
+    @if (!string.IsNullOrWhiteSpace(Model.Seo?.Description))
+    {
+        <meta name="description" content="@Model.Seo.Description">
+    }
+    @if (!string.IsNullOrWhiteSpace(Model.Seo?.Title))
+    {
+        <meta property="og:title" content="@Model.Seo.Title" />
+    }
+    @if (!string.IsNullOrWhiteSpace(Model.Seo?.Description))
+    {
+        <meta property="og:description" content="@Model.Seo.Description" />
+    }
+    @if (!string.IsNullOrWhiteSpace(Model.Seo?.Image))
+    {
+        <meta property="og:image" content="@Model.Seo.Image" />
+    }
+    @if (!string.IsNullOrWhiteSpace(Model.Seo?.CanonicalUrl))
+    {
+        <meta property="og:url" content="@Model.Seo.CanonicalUrl" />
+    }
+    @if (!string.IsNullOrWhiteSpace(Model.Seo?.ContentType))
+    {
+        <meta property="og:type" content="@Model.Seo.ContentType" />
+    }
+
+    <link rel="canonical" href="@Model.Seo?.CanonicalUrl" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>

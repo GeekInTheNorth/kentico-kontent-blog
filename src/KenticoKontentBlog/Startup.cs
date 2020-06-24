@@ -10,6 +10,7 @@ using KenticoKontentBlog.Feature.Privacy;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -37,6 +38,7 @@ namespace KenticoKontentBlog
             services.AddDeliveryClient(Configuration);
 
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            services.AddSingleton<IUrlHelperFactory, UrlHelperFactory>();
 
             // View Model Builders
             services.AddTransient<IHomeViewModelBuilder, HomeViewModelBuilder>();

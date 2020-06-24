@@ -19,5 +19,7 @@ namespace KenticoKontentBlog.Feature.Article
         public Dictionary<string, string> Categories { get; set; }
 
         public Menu Menu { get; set; }
+
+        public SeoMetaData Seo { get; set; }
     }
 }

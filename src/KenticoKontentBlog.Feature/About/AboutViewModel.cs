@@ -13,5 +13,7 @@ namespace KenticoKontentBlog.Feature.About
         public string Content { get; set; }
 
         public Menu Menu { get; set; }
+
+        public SeoMetaData Seo { get; set; }
     }
 }

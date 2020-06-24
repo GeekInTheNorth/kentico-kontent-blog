@@ -1,6 +1,9 @@
 ﻿using Kentico.Kontent.Delivery.Abstractions;
 using KenticoKontentBlog.Feature.Framework;
 using KenticoKontentBlog.Feature.Kontent.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,8 +13,15 @@ namespace KenticoKontentBlog.Feature.ArticleList
     {
         private string _categoryCodeName;
 
-        public ArticleListViewModelBuilder(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
+        private readonly IUrlHelper _urlHelper;
+
+        public ArticleListViewModelBuilder(
+            IDeliveryClientFactory deliveryClientFactory,
+            IUrlHelperFactory urlHelperFactory,
+            IActionContextAccessor actionContextAccessor) : 
+            base(deliveryClientFactory)
         {
+            _urlHelper = urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext);
         }
 
         public IArticleListViewModelBuilder WithCategory(string categoryCodeName)
@@ -30,12 +40,19 @@ namespace KenticoKontentBlog.Feature.ArticleList
             {
                 articles = articles?.Where(x => x.Categories != null && x.Categories.Any(y => y.Codename.Equals(_categoryCodeName))).ToList();
                 categoryName = articles.SelectMany(x => x.Categories).FirstOrDefault(x => x.Codename.Equals(_categoryCodeName))?.Name;
+                categoryName = $"{categoryName} Articles";
             }
 
             return articles == null ? null : new ArticleListViewModel
             {
                 Articles = articles.Select(x => new ArticlePreview(x)).ToList(),
-                CategoryName = categoryName
+                CategoryName = categoryName,
+                Seo = new SeoMetaData
+                {
+                    Title = categoryName,
+                    ContentType = "website",
+                    CanonicalUrl = _urlHelper.Action("List", "Article", new { category = _categoryCodeName }, "https")
+                }
             };
         }
     }
