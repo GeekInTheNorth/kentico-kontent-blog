@@ -47,8 +47,8 @@ namespace KenticoKontentBlog.Feature.Article
                     Title = string.IsNullOrWhiteSpace(article.SeoMetaDataSeoTitle) ? article.Title : article.SeoMetaDataSeoTitle,
                     Description = article.SeoMetaDataSeoDescription,
                     Image = article.SeoMetaDataSeoImage?.FirstOrDefault()?.Url ?? article.HeaderImage?.FirstOrDefault()?.Url,
-                    ContentType = "article",
-                    CanonicalUrl = _urlHelper.Action("Index", "Article", new { articleStub = article.System.Codename }, "https"),
+                    ContentType = Globals.Seo.ArticleContentType,
+                    CanonicalUrl = _urlHelper.Action(Globals.Routing.Index, Globals.Routing.ArticleController, new { articleStub = article.System.Codename }, Globals.Routing.DefaultProtocol),
                     TwitterAuthor = article.SeoMetaDataTwitterAccountName?.Select(x => x.Name).FirstOrDefault() ?? Globals.Seo.TwitterSiteAuthor
                 }
             };

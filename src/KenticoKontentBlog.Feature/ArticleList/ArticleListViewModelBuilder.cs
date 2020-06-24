@@ -50,8 +50,8 @@ namespace KenticoKontentBlog.Feature.ArticleList
                 Seo = new SeoMetaData
                 {
                     Title = categoryName,
-                    ContentType = "website",
-                    CanonicalUrl = _urlHelper.Action("List", "Article", new { category = _categoryCodeName }, "https")
+                    ContentType = Globals.Seo.ContentType,
+                    CanonicalUrl = _urlHelper.Action(Globals.Routing.List, Globals.Routing.ArticleController, new { category = _categoryCodeName }, Globals.Routing.DefaultProtocol)
                 }
             };
         }
