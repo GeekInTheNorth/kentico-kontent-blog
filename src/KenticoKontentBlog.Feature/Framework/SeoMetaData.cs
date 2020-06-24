@@ -11,5 +11,7 @@
         public string CanonicalUrl { get; set; }
 
         public string ContentType { get; set; }
+
+        public string TwitterAuthor { get; set; }
     }
 }

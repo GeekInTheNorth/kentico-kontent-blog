@@ -44,11 +44,12 @@ namespace KenticoKontentBlog.Feature.Article
                 Categories = article?.Categories?.ToDictionary(x => x.Codename, y => y.Name),
                 Seo = new SeoMetaData
                 {
-                    Title = string.IsNullOrWhiteSpace(article.SeoMetaDataSeoTitle)? article.Title : article.SeoMetaDataSeoTitle,
+                    Title = string.IsNullOrWhiteSpace(article.SeoMetaDataSeoTitle) ? article.Title : article.SeoMetaDataSeoTitle,
                     Description = article.SeoMetaDataSeoDescription,
                     Image = article.SeoMetaDataSeoImage?.FirstOrDefault()?.Url ?? article.HeaderImage?.FirstOrDefault()?.Url,
                     ContentType = "article",
-                    CanonicalUrl = _urlHelper.Action("Index", "Article", new { articleStub = article.System.Codename }, "https")
+                    CanonicalUrl = _urlHelper.Action("Index", "Article", new { articleStub = article.System.Codename }, "https"),
+                    TwitterAuthor = article.SeoMetaDataTwitterAccountName?.Select(x => x.Name).FirstOrDefault() ?? Globals.Seo.TwitterSiteAuthor
                 }
             };
         }
