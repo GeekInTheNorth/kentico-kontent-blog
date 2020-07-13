@@ -10,8 +10,9 @@ namespace KenticoKontentBlog.Feature.Kontent.Delivery
     {
         private static readonly Dictionary<Type, string> _codenames = new Dictionary<Type, string>
         {
-            { typeof(BlogArticle), "blogarticle" },
-            { typeof(AboutUsPage), "about_us" }
+            { typeof(ArticlePage), ArticlePage.Codename },
+            { typeof(HomePage), HomePage.Codename },
+            { typeof(NotFoundPage), NotFoundPage.Codename }
         };
 
         public Type GetType(string contentType)
