@@ -5,7 +5,7 @@ using KenticoKontentBlog.Feature.Kontent.Models;
 
 namespace KenticoKontentBlog.Feature.Error
 {
-    public class ErrorViewModelBuilder : BaseViewModelBuilder<ErrorViewModel, BlogArticle>, IErrorViewModelBuilder
+    public class ErrorViewModelBuilder : BaseViewModelBuilder<ErrorViewModel, ArticlePage>, IErrorViewModelBuilder
     {
         public ErrorViewModelBuilder(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
         {

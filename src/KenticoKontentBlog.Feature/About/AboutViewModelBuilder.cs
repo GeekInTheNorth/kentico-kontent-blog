@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KenticoKontentBlog.Feature.About
 {
-    public class AboutViewModelBuilder : BaseViewModelBuilder<AboutViewModel, AboutUsPage>, IAboutViewModelBuilder
+    public class AboutViewModelBuilder : BaseViewModelBuilder<AboutViewModel, HomePage>, IAboutViewModelBuilder
     {
         private string _contentStub;
 
@@ -27,9 +27,9 @@ namespace KenticoKontentBlog.Feature.About
 
             return content == null ? null : new AboutViewModel
             {
-                Title = content?.Header,
-                Content = content?.Content,
-                HeroImage = content?.HeaderImage?.FirstOrDefault()?.Url,
+                Title = content?.HeroHeader,
+                Content = content?.Introduction,
+                HeroImage = content?.HeroHeaderImage?.FirstOrDefault()?.Url,
             };
         }
     }

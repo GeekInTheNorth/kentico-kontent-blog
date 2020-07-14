@@ -11,6 +11,7 @@ namespace KenticoKontentBlog.Feature.Kontent.Delivery
         private static readonly Dictionary<Type, string> _codenames = new Dictionary<Type, string>
         {
             { typeof(ArticlePage), ArticlePage.Codename },
+            { typeof(CodeSample), CodeSample.Codename },
             { typeof(HomePage), HomePage.Codename },
             { typeof(NotFoundPage), NotFoundPage.Codename }
         };

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace KenticoKontentBlog.Feature.Article
 {
-    public class ArticleViewModelBuilder : BaseViewModelBuilder<ArticleViewModel, BlogArticle>, IArticleViewModelBuilder
+    public class ArticleViewModelBuilder : BaseViewModelBuilder<ArticleViewModel, ArticlePage>, IArticleViewModelBuilder
     {
         private string articleCodeName;
 
@@ -37,19 +37,19 @@ namespace KenticoKontentBlog.Feature.Article
 
             return article == null ? null : new ArticleViewModel
             {
-                Title = article?.Title,
+                Title = article?.HeroHeader,
                 Content = article?.ArticleContent,
-                HeroImage = article?.HeaderImage?.FirstOrDefault()?.Url,
-                PublishedDate = article?.PublishedDate,
-                Categories = article?.Categories?.ToDictionary(x => x.Codename, y => y.Name),
+                HeroImage = article?.HeroHeaderImage?.FirstOrDefault()?.Url,
+                PublishedDate = article?.PublishedDate ?? article.System.LastModified,
+                Categories = article?.Category?.ToDictionary(x => x.Codename, y => y.Name),
                 Seo = new SeoMetaData
                 {
-                    Title = string.IsNullOrWhiteSpace(article.SeoMetaDataSeoTitle) ? article.Title : article.SeoMetaDataSeoTitle,
-                    Description = article.SeoMetaDataSeoDescription,
-                    Image = article.SeoMetaDataSeoImage?.FirstOrDefault()?.Url ?? article.HeaderImage?.FirstOrDefault()?.Url,
+                    Title = string.IsNullOrWhiteSpace(article.SeoMetaDataMetaTitle) ? article.HeroHeader : article.SeoMetaDataMetaTitle,
+                    Description = article.SeoMetaDataMetaDescription,
+                    Image = article.SeoMetaDataMetaImages?.FirstOrDefault()?.Url ?? article.HeroHeaderImage?.FirstOrDefault()?.Url,
                     ContentType = Globals.Seo.ArticleContentType,
                     CanonicalUrl = _urlHelper.Action(Globals.Routing.Index, Globals.Routing.ArticleController, new { articleStub = article.System.Codename }, Globals.Routing.DefaultProtocol),
-                    TwitterAuthor = article.SeoMetaDataTwitterAccountName?.Select(x => x.Name).FirstOrDefault() ?? Globals.Seo.TwitterSiteAuthor
+                    TwitterAuthor = article.SeoMetaDataTwitterAccount?.Select(x => x.Name).FirstOrDefault() ?? Globals.Seo.TwitterSiteAuthor
                 }
             };
         }

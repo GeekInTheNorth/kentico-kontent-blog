@@ -1,4 +1,5 @@
-﻿using Kentico.Kontent.Delivery.Abstractions;
+﻿using Kentico.Kontent.Delivery;
+using Kentico.Kontent.Delivery.Abstractions;
 using KenticoKontentBlog.Feature.Kontent.Models;
 using System;
 using System.Collections.Generic;
@@ -35,9 +36,9 @@ namespace KenticoKontentBlog.Feature.Framework
         {
             try
             {
+                // TODO - https://docs.kontent.ai/tutorials/develop-apps/get-content/structured-rich-text
                 var client = _deliveryClientFactory.Get();
-
-                var response = await client.GetItemAsync<TContent>(codeName);
+                var response = await client.GetItemAsync<TContent>(codeName, new DepthParameter(1));
 
                 return response.Item;
             }
@@ -68,11 +69,11 @@ namespace KenticoKontentBlog.Feature.Framework
             try
             {
                 var client = _deliveryClientFactory.Get();
-                var response = await client.GetItemsAsync<BlogArticle>();
+                var response = await client.GetItemsAsync<ArticlePage>();
 
                 return new Menu
                 {
-                    Categories = response.Items.SelectMany(x => x.Categories).Distinct().ToDictionary(x => x.Codename, y => y.Name)
+                    Categories = response.Items.SelectMany(x => x.Category).Distinct().ToDictionary(x => x.Codename, y => y.Name)
                 };
             }
             catch (Exception)

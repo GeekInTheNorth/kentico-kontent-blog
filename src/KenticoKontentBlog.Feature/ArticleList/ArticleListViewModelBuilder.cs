@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace KenticoKontentBlog.Feature.ArticleList
 {
-    public class ArticleListViewModelBuilder : BaseViewModelBuilder<ArticleListViewModel, BlogArticle>, IArticleListViewModelBuilder
+    public class ArticleListViewModelBuilder : BaseViewModelBuilder<ArticleListViewModel, ArticlePage>, IArticleListViewModelBuilder
     {
         private string _categoryCodeName;
 
@@ -38,8 +38,8 @@ namespace KenticoKontentBlog.Feature.ArticleList
 
             if (!string.IsNullOrWhiteSpace(_categoryCodeName))
             {
-                articles = articles?.Where(x => x.Categories != null && x.Categories.Any(y => y.Codename.Equals(_categoryCodeName))).ToList();
-                categoryName = articles.SelectMany(x => x.Categories).FirstOrDefault(x => x.Codename.Equals(_categoryCodeName))?.Name;
+                articles = articles?.Where(x => x.Category != null && x.Category.Any(y => y.Codename.Equals(_categoryCodeName))).ToList();
+                categoryName = articles.SelectMany(x => x.Category).FirstOrDefault(x => x.Codename.Equals(_categoryCodeName))?.Name;
                 categoryName = $"{categoryName} Articles";
             }
 
