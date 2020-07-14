@@ -225,3 +225,10 @@ div.hero-text {
     right: 0;
     color: #90949a;
 }
+
+code p {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 1em;
+    margin-right: 1em;
+}

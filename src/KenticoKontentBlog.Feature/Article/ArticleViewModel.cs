@@ -1,6 +1,9 @@
-﻿using KenticoKontentBlog.Feature.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
+
+using Kentico.Kontent.Delivery.Abstractions;
+
+using KenticoKontentBlog.Feature.Framework;
 
 namespace KenticoKontentBlog.Feature.Article
 {
@@ -12,7 +15,7 @@ namespace KenticoKontentBlog.Feature.Article
 
         public bool HasHeroImage => !string.IsNullOrWhiteSpace(HeroImage);
 
-        public string Content { get; set; }
+        public IRichTextContent Content { get; set; }
 
         public DateTime? PublishedDate { get; set; }
 

@@ -1,11 +1,14 @@
-﻿using Kentico.Kontent.Delivery.Abstractions;
+﻿using System.Linq;
+using System.Threading.Tasks;
+
+using Kentico.Kontent.Delivery.Abstractions;
+
 using KenticoKontentBlog.Feature.Framework;
 using KenticoKontentBlog.Feature.Kontent.Models;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace KenticoKontentBlog.Feature.Article
 {
@@ -16,7 +19,7 @@ namespace KenticoKontentBlog.Feature.Article
         private readonly IUrlHelper _urlHelper;
 
         public ArticleViewModelBuilder(
-            IDeliveryClientFactory deliveryClientFactory,
+            IDeliveryClientFactory deliveryClientFactory, 
             IUrlHelperFactory urlHelperFactory,
             IActionContextAccessor actionContextAccessor) : 
             base(deliveryClientFactory)
