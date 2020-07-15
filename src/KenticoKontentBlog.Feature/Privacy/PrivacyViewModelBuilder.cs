@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace KenticoKontentBlog.Feature.Privacy
 {
-    public class PrivacyViewModelBuilder : BaseViewModelBuilder<PrivacyViewModel, BlogArticle>, IPrivacyViewModelBuilder
+    public class PrivacyViewModelBuilder : BaseViewModelBuilder<PrivacyViewModel, ArticlePage>, IPrivacyViewModelBuilder
     {
         public PrivacyViewModelBuilder(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
         {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KenticoKontentBlog.Feature.Home
 {
-    public class HomeViewModelBuilder : BaseViewModelBuilder<HomeViewModel, BlogArticle>, IHomeViewModelBuilder
+    public class HomeViewModelBuilder : BaseViewModelBuilder<HomeViewModel, ArticlePage>, IHomeViewModelBuilder
     {
         public HomeViewModelBuilder(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
         {

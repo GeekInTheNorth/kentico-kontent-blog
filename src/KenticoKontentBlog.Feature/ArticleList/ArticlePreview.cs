@@ -6,13 +6,13 @@ namespace KenticoKontentBlog.Feature.ArticleList
 {
     public class ArticlePreview
     {
-        public ArticlePreview(BlogArticle blogArticle)
+        public ArticlePreview(ArticlePage article)
         {
-            Title = blogArticle.Title;
-            Description = blogArticle.SeoMetaDataSeoDescription;
-            Image = blogArticle.HeaderImage?.FirstOrDefault()?.Url;
-            CodeName = blogArticle.System.Codename;
-            PublishedDate = blogArticle.PublishedDate ?? blogArticle.System.LastModified;
+            Title = article.HeroHeader;
+            Description = article.SeoMetaDataMetaDescription;
+            Image = article.HeroHeaderImage?.FirstOrDefault()?.Url;
+            CodeName = article.System.Codename;
+            PublishedDate = article.PublishedDate ?? article.System.LastModified;
         }
 
         public string Title { get; set; }

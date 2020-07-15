@@ -26,10 +26,12 @@ namespace KenticoKontentBlog.Feature.Kontent.Delivery
 
             switch (link.ContentTypeCodename)
             {
-                case BlogArticle.Codename:
+                case ArticlePage.Codename:
                     return urlHelper.Action("Index", "Articles", new { articleStub = link.Codename });
-                case AboutUsPage.Codename:
-                    return urlHelper.Action("Index", "GeneralContent", new { contentStub = link.Codename });
+                case HomePage.Codename:
+                    return urlHelper.Action("Index", "Home");
+                // case AboutUsPage.Codename:
+                //     return urlHelper.Action("Index", "GeneralContent", new { contentStub = link.Codename });
                 default:
                     return urlHelper.Action("NotFound", "Errors");
             }

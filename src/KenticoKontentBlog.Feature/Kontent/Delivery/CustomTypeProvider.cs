@@ -1,17 +1,22 @@
-﻿using Kentico.Kontent.Delivery.Abstractions;
-using KenticoKontentBlog.Feature.Kontent.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace KenticoKontentBlog.Feature.Kontent.Delivery
+﻿namespace KenticoKontentBlog.Feature.Kontent.Delivery
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using Kentico.Kontent.Delivery.Abstractions;
+
+    using KenticoKontentBlog.Feature.Kontent.Models;
+
     public class CustomTypeProvider : ITypeProvider
     {
         private static readonly Dictionary<Type, string> _codenames = new Dictionary<Type, string>
         {
-            { typeof(BlogArticle), "blogarticle" },
-            { typeof(AboutUsPage), "about_us" }
+            { typeof(ArticlePage), ArticlePage.Codename },
+            { typeof(CodeSample), CodeSample.Codename },
+            { typeof(HomePage), HomePage.Codename },
+            { typeof(NotFoundPage), NotFoundPage.Codename },
+            { typeof(Quote), Quote.Codename }
         };
 
         public Type GetType(string contentType)

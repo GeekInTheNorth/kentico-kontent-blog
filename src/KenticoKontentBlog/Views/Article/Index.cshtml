@@ -22,7 +22,8 @@
         <p class="text-muted small">@($"Published: {Model.PublishedDate:D}")</p>
     }
 }
-@Html.Raw(Model.Content)
+
+@Html.DisplayFor(x => x.Content)
 
 @if (Model.Categories != null && Model.Categories.Any())
 {

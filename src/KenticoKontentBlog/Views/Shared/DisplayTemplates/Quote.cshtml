@@ -1,0 +1,17 @@
+﻿@model KenticoKontentBlog.Feature.Kontent.Models.Quote
+
+<blockquote cite="@Model.SourceUrl">
+    @Html.DisplayFor(x => x.Quotation)
+    @if (!string.IsNullOrWhiteSpace(Model.Author) && !string.IsNullOrWhiteSpace(Model.SourceName))
+    {
+        <cite><span>@Model.Author</span><br />@Model.SourceName</cite>
+    }
+    else if (!string.IsNullOrWhiteSpace(Model.Author))
+    {
+        <footer>@Model.Author</footer>
+    }
+    else if (!string.IsNullOrWhiteSpace(Model.SourceName))
+    {
+        <footer>@Model.SourceName</footer>
+    }
+</blockquote>
