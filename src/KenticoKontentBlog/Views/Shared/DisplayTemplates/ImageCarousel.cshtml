@@ -1,0 +1,37 @@
+﻿@model KenticoKontentBlog.Feature.Kontent.Models.ImageCarousel
+
+@if (Model.CarouselImages != null && Model.CarouselImages.Any())
+{
+    var alphabetise = Model.SortOrder.Any(x => x.Codename.Equals("alphabetical"));
+    var carouselImages = alphabetise ? Model.CarouselImages.OrderBy(x => x.Name.ToLower()).ToList() : Model.CarouselImages.ToList();
+
+    <div id="articleCousel" class="carousel slide" data-ride="carousel" v-show="hasCarousel">
+        <ol class="carousel-indicators">
+            @foreach (var carouselImage in carouselImages)
+            {
+                var index = carouselImages.IndexOf(carouselImage);
+                var indicatorClass = index == 0 ? "active" : string.Empty;
+                <li data-target="#articleCousel" data-slide-to="@index" class="@indicatorClass"></li>
+            }
+        </ol>
+        <div class="carousel-inner">
+            @foreach (var carouselImage in carouselImages)
+            {
+                var index = carouselImages.IndexOf(carouselImage);
+                var containerClass = index == 0 ? "carousel-item active" : "carousel-item";
+                <div class="@containerClass">
+                    <img src="@carouselImage.Url" alt="@carouselImage.Description" class="d-block w-100">
+                </div>
+            }
+        </div>
+        <a class="carousel-control-prev" href="#articleCousel" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#articleCousel" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+}
+

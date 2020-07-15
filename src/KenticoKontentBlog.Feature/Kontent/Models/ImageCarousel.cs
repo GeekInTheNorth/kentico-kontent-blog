@@ -4,19 +4,22 @@
 // Changes to this file may cause incorrect behavior and will be lost if the code is regenerated. 
 // For further modifications of the class, create a separate file with the partial class.
 
+using System;
 using System.Collections.Generic;
 using Kentico.Kontent.Delivery.Abstractions;
 
 namespace KenticoKontentBlog.Feature.Kontent.Models
 {
-    public partial class CodeSample
+    public partial class ImageCarousel
     {
-        public const string Codename = "code_sample";
-        public const string CodeCodename = "code";
-        public const string CodeLanguageCodename = "code_language";
+        public const string Codename = "image_carousel";
+        public const string CarouselImagesCodename = "carousel_images";
+        public const string SortOrderCodename = "sort_order";
+        public const string TitleCodename = "title";
 
-        public string Code { get; set; }
-        public IEnumerable<MultipleChoiceOption> CodeLanguage { get; set; }
+        public IEnumerable<Asset> CarouselImages { get; set; }
+        public IEnumerable<MultipleChoiceOption> SortOrder { get; set; }
         public ContentItemSystemAttributes System { get; set; }
+        public string Title { get; set; }
     }
 }
