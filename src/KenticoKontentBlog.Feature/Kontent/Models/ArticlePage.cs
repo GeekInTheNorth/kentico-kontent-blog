@@ -13,7 +13,6 @@ namespace KenticoKontentBlog.Feature.Kontent.Models
     public partial class ArticlePage
     {
         public const string Codename = "article_page";
-        public const string ArticleCarouselCodename = "article_carousel";
         public const string ArticleContentCodename = "article_content";
         public const string CategoryCodename = "category";
         public const string HeroHeaderCodename = "hero__header";
@@ -25,7 +24,6 @@ namespace KenticoKontentBlog.Feature.Kontent.Models
         public const string SeoMetaDataMetaTitleCodename = "seo_meta_data__meta_title";
         public const string SeoMetaDataTwitterAccountCodename = "seo_meta_data__twitter_account";
 
-        public IEnumerable<Asset> ArticleCarousel { get; set; }
         public IRichTextContent ArticleContent { get; set; }
         public IEnumerable<TaxonomyTerm> Category { get; set; }
         public string HeroHeader { get; set; }

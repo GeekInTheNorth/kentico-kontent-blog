@@ -15,6 +15,7 @@
             { typeof(ArticlePage), ArticlePage.Codename },
             { typeof(CodeSample), CodeSample.Codename },
             { typeof(HomePage), HomePage.Codename },
+            { typeof(ImageCarousel), ImageCarousel.Codename },
             { typeof(NotFoundPage), NotFoundPage.Codename },
             { typeof(Quote), Quote.Codename }
         };
