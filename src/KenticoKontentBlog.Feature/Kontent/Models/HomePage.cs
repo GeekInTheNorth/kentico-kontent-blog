@@ -24,7 +24,7 @@ namespace KenticoKontentBlog.Feature.Kontent.Models
         public IEnumerable<object> FeaturedContent { get; set; }
         public string HeroHeader { get; set; }
         public IEnumerable<Asset> HeroHeaderImage { get; set; }
-        public string Introduction { get; set; }
+        public IRichTextContent Introduction { get; set; }
         public string SeoMetaDataMetaDescription { get; set; }
         public IEnumerable<Asset> SeoMetaDataMetaImages { get; set; }
         public string SeoMetaDataMetaTitle { get; set; }

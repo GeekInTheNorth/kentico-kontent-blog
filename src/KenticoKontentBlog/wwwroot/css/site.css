@@ -232,3 +232,26 @@ code p {
     margin-left: 1em;
     margin-right: 1em;
 }
+
+div.hero-image {
+    background-size: cover;
+    background-position-x: center;
+    background-position-y: bottom;
+    background-repeat: no-repeat;
+    height: 60vh;
+    position: relative;
+}
+
+div.hero-text {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    margin: 0;
+    padding:0;
+    background-color: rgba(0,0,0,0.8);
+}
+
+div.hero-text h1,p {
+    margin: 10px;
+    padding:0;
+}

@@ -1,4 +1,5 @@
-﻿using KenticoKontentBlog.Feature.Framework;
+﻿using Kentico.Kontent.Delivery.Abstractions;
+using KenticoKontentBlog.Feature.Framework;
 
 namespace KenticoKontentBlog.Feature.About
 {
@@ -10,7 +11,7 @@ namespace KenticoKontentBlog.Feature.About
 
         public bool HasHeroImage => !string.IsNullOrWhiteSpace(HeroImage);
 
-        public string Content { get; set; }
+        public IRichTextContent Content { get; set; }
 
         public Menu Menu { get; set; }
 
