@@ -1,9 +1,7 @@
-﻿using Kentico.Kontent.Delivery;
-using Kentico.Kontent.Delivery.Abstractions;
-using KenticoKontentBlog.Feature.ArticleList;
+﻿using KenticoKontentBlog.Feature.ArticleList;
 using KenticoKontentBlog.Feature.Framework;
+using KenticoKontentBlog.Feature.Framework.Service;
 using KenticoKontentBlog.Feature.Kontent.Models;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,20 +9,21 @@ namespace KenticoKontentBlog.Feature.Home
 {
     public class HomeViewModelBuilder : IHomeViewModelBuilder
     {
-        private readonly IDeliveryClient _client;
+        private readonly IContentService _contentService;
 
-        public HomeViewModelBuilder(IDeliveryClientFactory deliveryClientFactory)
+        public HomeViewModelBuilder(IContentService contentService)
         {
-            _client = deliveryClientFactory.Get();
+            _contentService = contentService;
         }
 
         public async Task<HomeViewModel> BuildAsync()
         {
-            var homePage = await GetHomePage();
+            var results = await _contentService.GetLatestContentAsync<HomePage>();
+            var homePage = results?.FirstOrDefault() ?? new HomePage();
 
             return new HomeViewModel
             {
-                Menu = await BuildMenuAsync(),
+                Menu = await _contentService.GetCategoriesAsync(),
                 Title = homePage?.HeroHeader,
                 HeroImage = homePage?.HeroHeaderImage?.Select(x => x.Url).FirstOrDefault(),
                 IntroText = homePage?.Introduction,
@@ -39,30 +38,6 @@ namespace KenticoKontentBlog.Feature.Home
                     TwitterAuthor = homePage.SeoMetaDataTwitterAccount?.Select(x => x.Name).FirstOrDefault() ?? Globals.Seo.TwitterSiteAuthor
                 }
             };
-        }
-
-        private async Task<HomePage> GetHomePage()
-        {
-            var response = await _client.GetItemsAsync<HomePage>(new LimitParameter(1), new OrderParameter($"system.last_modified", SortOrder.Descending));
-
-            return response.Items.FirstOrDefault();
-        }
-
-        private async Task<Menu> BuildMenuAsync()
-        {
-            try
-            {
-                var response = await _client.GetItemsAsync<ArticlePage>();
-
-                return new Menu
-                {
-                    Categories = response.Items.SelectMany(x => x.Category).Distinct().ToDictionary(x => x.Codename, y => y.Name)
-                };
-            }
-            catch (Exception)
-            {
-                return new Menu();
-            }
         }
     }
 }

@@ -1,9 +1,9 @@
 using Kentico.Kontent.Delivery;
 using Kentico.Kontent.Delivery.Abstractions;
-using KenticoKontentBlog.Feature.About;
 using KenticoKontentBlog.Feature.Article;
 using KenticoKontentBlog.Feature.ArticleList;
 using KenticoKontentBlog.Feature.Error;
+using KenticoKontentBlog.Feature.Framework.Service;
 using KenticoKontentBlog.Feature.Home;
 using KenticoKontentBlog.Feature.Kontent.Delivery;
 using KenticoKontentBlog.Feature.Privacy;
@@ -46,7 +46,7 @@ namespace KenticoKontentBlog
             services.AddTransient<IArticleListViewModelBuilder, ArticleListViewModelBuilder>();
             services.AddTransient<IPrivacyViewModelBuilder, PrivacyViewModelBuilder>();
             services.AddTransient<IErrorViewModelBuilder, ErrorViewModelBuilder>();
-            services.AddTransient<IAboutViewModelBuilder, AboutViewModelBuilder>();
+            services.AddTransient<IContentService, ContentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

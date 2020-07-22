@@ -2,19 +2,15 @@
 using KenticoKontentBlog.Feature.Error;
 
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace KenticoKontentBlog.Controllers
 {
     public class ErrorController : Controller
     {
-        private readonly ILogger<ErrorController> _logger;
-
         private readonly IErrorViewModelBuilder _viewModelBuilder;
 
-        public ErrorController(ILogger<ErrorController> logger, IErrorViewModelBuilder homeViewModelBuilder)
+        public ErrorController(IErrorViewModelBuilder homeViewModelBuilder)
         {
-            _logger = logger;
             _viewModelBuilder = homeViewModelBuilder;
         }
 
