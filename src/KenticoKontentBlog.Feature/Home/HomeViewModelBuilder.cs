@@ -1,28 +1,42 @@
-﻿using Kentico.Kontent.Delivery.Abstractions;
-using KenticoKontentBlog.Feature.ArticleList;
+﻿using KenticoKontentBlog.Feature.ArticleList;
 using KenticoKontentBlog.Feature.Framework;
+using KenticoKontentBlog.Feature.Framework.Service;
 using KenticoKontentBlog.Feature.Kontent.Models;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace KenticoKontentBlog.Feature.Home
 {
-    public class HomeViewModelBuilder : BaseViewModelBuilder<HomeViewModel, ArticlePage>, IHomeViewModelBuilder
+    public class HomeViewModelBuilder : IHomeViewModelBuilder
     {
-        public HomeViewModelBuilder(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
+        private readonly IContentService _contentService;
+
+        public HomeViewModelBuilder(IContentService contentService)
         {
+            _contentService = contentService;
         }
 
-        protected override async Task<HomeViewModel> BuildModelAsync()
+        public async Task<HomeViewModel> BuildAsync()
         {
-            var articles = await this.ListAsync();
+            var results = await _contentService.GetLatestContentAsync<HomePage>();
+            var homePage = results?.FirstOrDefault() ?? new HomePage();
 
             return new HomeViewModel
             {
-                Articles = articles.OrderByDescending(x => x.PublishedDate ?? x.System.LastModified)
-                                   .Take(6)
-                                   .Select(x => new ArticlePreview(x))
-                                   .ToList()
+                Menu = await _contentService.GetCategoriesAsync(),
+                Title = homePage?.HeroHeader,
+                HeroImage = homePage?.HeroHeaderImage?.Select(x => x.Url).FirstOrDefault(),
+                IntroText = homePage?.Introduction,
+                Articles = homePage?.FeaturedContent?.Select(x => new ArticlePreview(x as ArticlePage)).ToList(),
+                Seo = new SeoMetaData
+                {
+                    Title = string.IsNullOrWhiteSpace(homePage.SeoMetaDataMetaTitle) ? homePage.HeroHeader : homePage.SeoMetaDataMetaTitle,
+                    Description = homePage.SeoMetaDataMetaDescription,
+                    Image = homePage.SeoMetaDataMetaImages?.FirstOrDefault()?.Url ?? homePage.HeroHeaderImage?.FirstOrDefault()?.Url,
+                    ContentType = Globals.Seo.ArticleContentType,
+                    CanonicalUrl = "/",
+                    TwitterAuthor = homePage.SeoMetaDataTwitterAccount?.Select(x => x.Name).FirstOrDefault() ?? Globals.Seo.TwitterSiteAuthor
+                }
             };
         }
     }
