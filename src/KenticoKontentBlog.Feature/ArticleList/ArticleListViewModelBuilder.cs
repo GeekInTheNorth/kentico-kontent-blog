@@ -48,19 +48,19 @@ namespace KenticoKontentBlog.Feature.ArticleList
         private async Task<ArticleListViewModel> BuildModelAsync()
         {
             var articles = await _contentService.GetListAsync<ArticlePage>();
-            var categoryName = "All Articles";
+            var categoryName = await GetCategoryNameAsync();
+            var title = "All Articles";
 
-            if (!string.IsNullOrWhiteSpace(_categoryCodeName))
+            if (!string.IsNullOrWhiteSpace(_categoryCodeName)  && !string.IsNullOrWhiteSpace(categoryName))
             {
                 articles = articles?.Where(x => x.Category != null && x.Category.Any(y => y.Codename.Equals(_categoryCodeName))).ToList();
-                categoryName = articles.SelectMany(x => x.Category).FirstOrDefault(x => x.Codename.Equals(_categoryCodeName))?.Name;
-                categoryName = $"{categoryName} Articles";
+                title = $"{categoryName} Articles";
             }
 
             return articles == null ? null : new ArticleListViewModel
             {
                 Articles = articles.Select(x => new ArticlePreview(x)).ToList(),
-                CategoryName = categoryName,
+                CategoryName = title,
                 Seo = new SeoMetaData
                 {
                     Title = categoryName,
@@ -68,6 +68,13 @@ namespace KenticoKontentBlog.Feature.ArticleList
                     CanonicalUrl = _urlHelper.Action(Globals.Routing.List, Globals.Routing.ArticleController, new { category = _categoryCodeName }, Globals.Routing.DefaultProtocol)
                 }
             };
+        }
+
+        private async Task<string> GetCategoryNameAsync()
+        {
+            var menu = await _contentService.GetCategoriesAsync();
+
+            return menu.Categories.ContainsKey(_categoryCodeName) ? menu.Categories[_categoryCodeName] : null;
         }
     }
 }

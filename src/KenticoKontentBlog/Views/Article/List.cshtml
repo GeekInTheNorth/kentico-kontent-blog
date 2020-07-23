@@ -6,4 +6,11 @@
 
 <h1>@Model.CategoryName</h1>
 
-<partial name="_ArticleList" model="Model.Articles" />
+@if(Model.Articles != null && Model.Articles.Any())
+{
+    <partial name="_ArticleList" model="Model.Articles" />
+}
+else
+{
+    <p>No articles exist with for this category</p>
+}

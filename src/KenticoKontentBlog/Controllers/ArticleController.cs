@@ -41,11 +41,6 @@ namespace KenticoKontentBlog.Controllers
         {
             var articleList = await _listViewModelBuilder.WithCategory(category).BuildAsync();
 
-            if (articleList?.Articles == null || !articleList.Articles.Any())
-            {
-                return NotFound();
-            }
-
             return View("~/Views/Article/List.cshtml", articleList);
         }
     }
