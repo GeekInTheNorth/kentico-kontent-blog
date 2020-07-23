@@ -18,7 +18,7 @@ namespace KenticoKontentBlog.Feature.Kontent.Models
 
         public string HeroHeader { get; set; }
         public IEnumerable<Asset> HeroHeaderImage { get; set; }
-        public string NotFoundContent { get; set; }
+        public IRichTextContent NotFoundContent { get; set; }
         public ContentItemSystemAttributes System { get; set; }
     }
 }
