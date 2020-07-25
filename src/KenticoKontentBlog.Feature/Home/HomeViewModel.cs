@@ -7,17 +7,13 @@ namespace KenticoKontentBlog.Feature.Home
 {
     public class HomeViewModel : IPageModel
     {
+        public HeroModel Hero { get; set; }
+
         public List<ArticlePreview> Articles { get; set; }
 
         public Menu Menu { get; set; }
 
         public SeoMetaData Seo { get; set; }
-
-        public string Title { get; set; }
-
-        public bool HasHeroImage => !string.IsNullOrWhiteSpace(HeroImage);
-
-        public string HeroImage { get; set; }
 
         public IRichTextContent IntroText { get; set; }
     }

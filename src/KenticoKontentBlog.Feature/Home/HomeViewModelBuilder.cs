@@ -23,9 +23,12 @@ namespace KenticoKontentBlog.Feature.Home
 
             return new HomeViewModel
             {
+                Hero = new HeroModel
+                {
+                    Title = homePage?.HeroHeader,
+                    Image = homePage?.HeroHeaderImage?.Select(x => x.Url).FirstOrDefault(),
+                },
                 Menu = await _contentService.GetCategoriesAsync(),
-                Title = homePage?.HeroHeader,
-                HeroImage = homePage?.HeroHeaderImage?.Select(x => x.Url).FirstOrDefault(),
                 IntroText = homePage?.Introduction,
                 Articles = homePage?.FeaturedContent?.Select(x => new ArticlePreview(x as ArticlePage)).ToList(),
                 Seo = new SeoMetaData

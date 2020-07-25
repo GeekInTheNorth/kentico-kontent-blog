@@ -7,7 +7,6 @@ using KenticoKontentBlog.Feature.Framework.Service;
 using KenticoKontentBlog.Feature.Home;
 using KenticoKontentBlog.Feature.Kontent.Delivery;
 using KenticoKontentBlog.Feature.NotFound;
-using KenticoKontentBlog.Feature.Privacy;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -45,7 +44,6 @@ namespace KenticoKontentBlog
             services.AddTransient<IHomeViewModelBuilder, HomeViewModelBuilder>();
             services.AddTransient<IArticleViewModelBuilder, ArticleViewModelBuilder>();
             services.AddTransient<IArticleListViewModelBuilder, ArticleListViewModelBuilder>();
-            services.AddTransient<IPrivacyViewModelBuilder, PrivacyViewModelBuilder>();
             services.AddTransient<IErrorViewModelBuilder, ErrorViewModelBuilder>();
             services.AddTransient<INotFoundViewModelBuilder, NotFoundViewModelBuilder>();
 

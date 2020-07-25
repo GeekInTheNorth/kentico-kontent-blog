@@ -1,11 +1,5 @@
 ﻿@model KenticoKontentBlog.Feature.ArticleList.ArticleListViewModel
 
-@{
-    ViewData["Title"] = Model.CategoryName;
-}
-
-<h1>@Model.CategoryName</h1>
-
 @if(Model.Articles != null && Model.Articles.Any())
 {
     <partial name="_ArticleList" model="Model.Articles" />

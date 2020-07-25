@@ -1,0 +1,18 @@
+﻿@model KenticoKontentBlog.Feature.Framework.HeroModel
+
+<header class="masthead" style="background-image: url('@Model.Image')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>@Model.Title</h1>
+                    @if (Model.PublishedDate.HasValue)
+                    {
+                        <span class="subheading">@($"Published: {Model.PublishedDate.Value:D}")</span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

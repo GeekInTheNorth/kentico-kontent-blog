@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using KenticoKontentBlog.Feature.Framework;
 using KenticoKontentBlog.Feature.Framework.Service;
 using KenticoKontentBlog.Feature.Kontent.Models;
 
@@ -22,9 +23,12 @@ namespace KenticoKontentBlog.Feature.NotFound
 
             return new NotFoundViewModel
             {
-                Title = notFoundPage?.HeroHeader,
+                Hero = new HeroModel
+                {
+                    Title = notFoundPage?.HeroHeader,
+                    Image = notFoundPage?.HeroHeaderImage?.FirstOrDefault()?.Url
+                },
                 Content = notFoundPage?.NotFoundContent,
-                HeroImage = notFoundPage?.HeroHeaderImage?.FirstOrDefault()?.Url,
                 Menu = menu
             };
         }

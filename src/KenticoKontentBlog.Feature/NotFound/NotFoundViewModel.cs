@@ -5,11 +5,7 @@ namespace KenticoKontentBlog.Feature.NotFound
 {
     public class NotFoundViewModel : IPageModel
     {
-        public string Title { get; set; }
-
-        public string HeroImage { get; set; }
-
-        public bool HasHeroImage => !string.IsNullOrWhiteSpace(HeroImage);
+        public HeroModel Hero { get; set; }
 
         public IRichTextContent Content { get; set; }
 

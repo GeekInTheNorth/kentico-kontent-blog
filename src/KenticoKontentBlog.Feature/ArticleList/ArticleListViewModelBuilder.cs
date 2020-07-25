@@ -59,8 +59,8 @@ namespace KenticoKontentBlog.Feature.ArticleList
 
             return articles == null ? null : new ArticleListViewModel
             {
+                Hero = new HeroModel { Title = title },
                 Articles = articles.Select(x => new ArticlePreview(x)).ToList(),
-                CategoryName = title,
                 Seo = new SeoMetaData
                 {
                     Title = categoryName,
