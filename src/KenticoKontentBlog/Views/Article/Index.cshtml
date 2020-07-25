@@ -1,34 +1,21 @@
 ﻿@model KenticoKontentBlog.Feature.Article.ArticleViewModel
 
-@{
-    ViewData["Title"] = Model.Title;
-}
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                @Html.DisplayFor(x => x.Content)
 
-@if (Model.HasHeroImage)
-{
-    <div class="hero-image" style="background-image: url(@Model.HeroImage);">
-        <div class="hero-text">
-            <h1>@Model.Title</h1>
-            <p>@($"Published: {Model.PublishedDate:D}")</p>
+                @if (Model.Categories != null && Model.Categories.Any())
+                {
+                    <div class="clearfix">
+                        @foreach (var category in Model.Categories)
+                        {
+                            <a asp-controller="Article" asp-action="List" asp-route-category="@category.Key" class="btn btn-dark btn-secondary">@category.Value</a>
+                        }
+                    </div>
+                }
+            </div>
         </div>
     </div>
-}
-
-@if (!Model.HasHeroImage)
-{
-    <h1>@Model.Title</h1>
-    @if (Model.PublishedDate.HasValue)
-    {
-        <p class="text-muted small">@($"Published: {Model.PublishedDate:D}")</p>
-    }
-}
-
-@Html.DisplayFor(x => x.Content)
-
-@if (Model.Categories != null && Model.Categories.Any())
-{
-    @foreach (var category in Model.Categories)
-    {
-        <a asp-controller="Article" asp-action="List" asp-route-category="@category.Key" class="btn btn-dark btn-secondary">@category.Value</a>
-    }
-}
+</article>

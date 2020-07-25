@@ -1,16 +1,16 @@
 ﻿@model KenticoKontentBlog.Feature.ArticleList.ArticleListViewModel
 
-@{
-    ViewData["Title"] = Model.CategoryName;
-}
-
-<h1>@Model.CategoryName</h1>
-
-@if(Model.Articles != null && Model.Articles.Any())
+@if (Model.Articles != null && Model.Articles.Any())
 {
     <partial name="_ArticleList" model="Model.Articles" />
 }
 else
 {
-    <p>No articles exist with for this category</p>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <p>No articles exist with for this category</p>
+            </div>
+        </div>
+    </div>
 }

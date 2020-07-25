@@ -5,7 +5,7 @@ namespace KenticoKontentBlog.Feature.ArticleList
 {
     public class ArticleListViewModel : IPageModel
     {
-        public string CategoryName { get; set; }
+        public HeroModel Hero { get; set; }
 
         public List<ArticlePreview> Articles { get; set; }
 

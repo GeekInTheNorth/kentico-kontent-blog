@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using Kentico.Kontent.Delivery.Abstractions;
 
@@ -9,15 +8,9 @@ namespace KenticoKontentBlog.Feature.Article
 {
     public class ArticleViewModel : IPageModel
     {
-        public string Title { get; set; }
-
-        public string HeroImage { get; set; }
-
-        public bool HasHeroImage => !string.IsNullOrWhiteSpace(HeroImage);
+        public HeroModel Hero { get; set; }
 
         public IRichTextContent Content { get; set; }
-
-        public DateTime? PublishedDate { get; set; }
 
         public Dictionary<string, string> Categories { get; set; }
 

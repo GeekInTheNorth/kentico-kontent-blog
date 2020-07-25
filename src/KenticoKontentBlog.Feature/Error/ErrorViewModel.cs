@@ -4,6 +4,8 @@ namespace KenticoKontentBlog.Feature.Error
 {
     public class ErrorViewModel : IPageModel
     {
+        public HeroModel Hero { get; set; }
+
         public string RequestId { get; set; }
 
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);

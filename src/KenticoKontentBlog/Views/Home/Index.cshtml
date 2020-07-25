@@ -1,23 +1,14 @@
 ﻿@model KenticoKontentBlog.Feature.Home.HomeViewModel
 
-@{
-    ViewData["Title"] = "Home";
-}
-
-@if (Model.HasHeroImage)
+@if (Model.IntroText != null && Model.IntroText.Any())
 {
-    <div class="hero-image" style="background-image: url(@Model.HeroImage);">
-        <div class="hero-text">
-            <h1>@Model.Title</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                @Html.DisplayFor(x => x.IntroText)
+            </div>
         </div>
     </div>
 }
-
-@if (!Model.HasHeroImage)
-{
-    <h1>@Model.Title</h1>
-}
-
-@Html.DisplayFor(x => x.IntroText)
 
 <partial name="_ArticleList" model="Model.Articles" />

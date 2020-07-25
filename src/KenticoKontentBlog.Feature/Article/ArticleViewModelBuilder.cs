@@ -52,10 +52,13 @@ namespace KenticoKontentBlog.Feature.Article
 
             return article == null ? null : new ArticleViewModel
             {
-                Title = article?.HeroHeader,
+                Hero = new HeroModel
+                {
+                    Title = article?.HeroHeader,
+                    Image = article?.HeroHeaderImage?.FirstOrDefault()?.Url,
+                    PublishedDate = article?.PublishedDate ?? article.System.LastModified
+                },
                 Content = article?.ArticleContent,
-                HeroImage = article?.HeroHeaderImage?.FirstOrDefault()?.Url,
-                PublishedDate = article?.PublishedDate ?? article.System.LastModified,
                 Categories = article?.Category?.ToDictionary(x => x.Codename, y => y.Name),
                 Seo = new SeoMetaData
                 {
