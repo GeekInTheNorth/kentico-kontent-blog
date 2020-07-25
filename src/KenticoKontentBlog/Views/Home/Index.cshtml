@@ -1,5 +1,14 @@
 ﻿@model KenticoKontentBlog.Feature.Home.HomeViewModel
 
-@Html.DisplayFor(x => x.IntroText)
+@if (Model.IntroText != null && Model.IntroText.Any())
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                @Html.DisplayFor(x => x.IntroText)
+            </div>
+        </div>
+    </div>
+}
 
 <partial name="_ArticleList" model="Model.Articles" />
