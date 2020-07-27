@@ -1,12 +1,13 @@
 using Kentico.Kontent.Delivery;
 using Kentico.Kontent.Delivery.Abstractions;
+
 using KenticoKontentBlog.Feature.Article;
 using KenticoKontentBlog.Feature.ArticleList;
 using KenticoKontentBlog.Feature.Error;
 using KenticoKontentBlog.Feature.Framework.Service;
 using KenticoKontentBlog.Feature.Home;
 using KenticoKontentBlog.Feature.Kontent.Delivery;
-using KenticoKontentBlog.Feature.NotFound;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -45,7 +46,6 @@ namespace KenticoKontentBlog
             services.AddTransient<IArticleViewModelBuilder, ArticleViewModelBuilder>();
             services.AddTransient<IArticleListViewModelBuilder, ArticleListViewModelBuilder>();
             services.AddTransient<IErrorViewModelBuilder, ErrorViewModelBuilder>();
-            services.AddTransient<INotFoundViewModelBuilder, NotFoundViewModelBuilder>();
 
             services.AddTransient<IContentService, ContentService>();
         }
@@ -59,10 +59,12 @@ namespace KenticoKontentBlog
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler("/Error/500");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseStatusCodePagesWithReExecute("/Error/{0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -72,9 +74,7 @@ namespace KenticoKontentBlog
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

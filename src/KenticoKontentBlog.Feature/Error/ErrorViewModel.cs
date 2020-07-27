@@ -1,4 +1,6 @@
-﻿using KenticoKontentBlog.Feature.Framework;
+﻿using Kentico.Kontent.Delivery.Abstractions;
+
+using KenticoKontentBlog.Feature.Framework;
 
 namespace KenticoKontentBlog.Feature.Error
 {
@@ -6,10 +8,8 @@ namespace KenticoKontentBlog.Feature.Error
     {
         public HeroModel Hero { get; set; }
 
-        public string RequestId { get; set; }
-
-        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
-
+        public IRichTextContent Content { get; set; }
+        
         public Menu Menu { get; set; }
 
         public SeoMetaData Seo { get; set; }
