@@ -16,8 +16,8 @@
             { typeof(CodeSample), CodeSample.Codename },
             { typeof(HomePage), HomePage.Codename },
             { typeof(ImageCarousel), ImageCarousel.Codename },
-            { typeof(NotFoundPage), NotFoundPage.Codename },
-            { typeof(Quote), Quote.Codename }
+            { typeof(Quote), Quote.Codename },
+            { typeof(SiteSettings), SiteSettings.Codename }
         };
 
         public Type GetType(string contentType)

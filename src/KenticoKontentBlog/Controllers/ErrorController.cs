@@ -15,9 +15,10 @@ namespace KenticoKontentBlog.Controllers
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public async Task<IActionResult> Index()
+        [Route("error/{statusCode}")]
+        public async Task<IActionResult> Index(int statusCode = 500)
         {
-            var model = await _viewModelBuilder.BuildAsync();
+            var model = await _viewModelBuilder.WithStatusCode(statusCode).BuildAsync();
 
             return View(model);
         }
