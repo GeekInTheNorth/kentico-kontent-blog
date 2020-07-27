@@ -13,7 +13,6 @@ namespace KenticoKontentBlog.Controllers
             _viewModelBuilder = viewModelBuilder;
         }
 
-        [Route("{*url}", Order = 999)]
         public async Task<IActionResult> Index()
         {
             var model = await _viewModelBuilder.BuildAsync();
