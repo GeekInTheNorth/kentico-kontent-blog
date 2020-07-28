@@ -17,15 +17,17 @@
                             </h3>
                         }
                     </a>
-                    <p class="post-meta">
-                        Posted by
-                        <a href="#">Start Bootstrap</a>
-                        on @article.PublishedDate.ToString("D")
-                    </p>
+                    @if (!string.IsNullOrWhiteSpace(article.AuthorTwitter))
+                    {
+                        <p class="post-meta">Posted by <a href="https://twitter.com/@article.AuthorTwitter">@article.AuthorTwitter</a> on @article.PublishedDate.ToString("D")</p>
+                    }
+                    else
+                    {
+                        <p class="post-meta">Posted on @article.PublishedDate.ToString("D")</p>
+                    }
                 </div>
                 <hr>
             }
-
             <div class="clearfix">
                 <a class="btn btn-primary float-right" asp-controller="Article" asp-action="List" asp-route-category="All">All Articles &rarr;</a>
             </div>
