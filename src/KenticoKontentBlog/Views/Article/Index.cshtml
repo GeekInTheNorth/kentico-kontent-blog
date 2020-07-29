@@ -6,6 +6,11 @@
             <div class="col-lg-8 col-md-10 mx-auto">
                 @Html.DisplayFor(x => x.Content)
 
+                @if (!string.IsNullOrWhiteSpace(@Model.Author) && Model.PublishedDate.HasValue)
+                {
+                    <p class="post-meta">Posted by <a href="https://twitter.com/@Model.Author">@Model.Author</a> on @Model.PublishedDate.Value.ToString("D")</p>
+                }
+
                 @if (Model.Categories != null && Model.Categories.Any())
                 {
                     <div class="clearfix">
