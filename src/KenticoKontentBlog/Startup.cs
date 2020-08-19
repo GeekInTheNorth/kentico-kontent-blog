@@ -7,6 +7,7 @@ using KenticoKontentBlog.Feature.Error;
 using KenticoKontentBlog.Feature.Framework.Service;
 using KenticoKontentBlog.Feature.Home;
 using KenticoKontentBlog.Feature.Kontent.Delivery;
+using KenticoKontentBlog.Feature.Kontent.Models;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
