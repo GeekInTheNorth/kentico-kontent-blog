@@ -28,7 +28,7 @@ namespace KenticoKontentBlog.Feature.Home
                     Title = homePage?.HeroHeader,
                     Image = homePage?.HeroHeaderImage?.Select(x => x.Url).FirstOrDefault(),
                 },
-                Menu = await _contentService.GetCategoriesAsync(),
+                Menu = await _contentService.GetCategoryMenuAsync(),
                 IntroText = homePage?.Introduction,
                 Articles = homePage?.FeaturedContent?.Select(x => new ArticlePreview(x as ArticlePage)).ToList(),
                 Seo = new SeoMetaData

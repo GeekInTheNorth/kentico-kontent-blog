@@ -29,7 +29,7 @@ namespace KenticoKontentBlog.Feature.Error
         {
             var response = await _contentService.GetLatestContentAsync<SiteSettings>();
             var siteSettings = response.FirstOrDefault();
-            var menu = await _contentService.GetCategoriesAsync();
+            var menu = await _contentService.GetCategoryMenuAsync();
 
             var model = new ErrorViewModel
             {

@@ -39,7 +39,7 @@ namespace KenticoKontentBlog.Feature.ArticleList
 
             if (model != null)
             {
-                model.Menu = await _contentService.GetCategoriesAsync();
+                model.Menu = await _contentService.GetCategoryMenuAsync();
             }
 
             return model;
@@ -72,7 +72,7 @@ namespace KenticoKontentBlog.Feature.ArticleList
 
         private async Task<string> GetCategoryNameAsync()
         {
-            var menu = await _contentService.GetCategoriesAsync();
+            var menu = await _contentService.GetCategoryMenuAsync();
 
             return menu.Categories.ContainsKey(_categoryCodeName) ? menu.Categories[_categoryCodeName] : null;
         }

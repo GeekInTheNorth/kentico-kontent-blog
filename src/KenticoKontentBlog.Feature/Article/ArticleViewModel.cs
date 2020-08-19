@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Kentico.Kontent.Delivery.Abstractions;
 
+using KenticoKontentBlog.Feature.ArticleList;
 using KenticoKontentBlog.Feature.Framework;
 
 namespace KenticoKontentBlog.Feature.Article
@@ -22,5 +23,7 @@ namespace KenticoKontentBlog.Feature.Article
         public Menu Menu { get; set; }
 
         public SeoMetaData Seo { get; set; }
+
+        public List<ArticlePreview> RelatedArticles { get; set; }
     }
 }

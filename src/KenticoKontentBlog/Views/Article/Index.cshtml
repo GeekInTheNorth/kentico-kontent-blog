@@ -24,3 +24,8 @@
         </div>
     </div>
 </article>
+
+@if (Model.RelatedArticles != null && Model.RelatedArticles.Any())
+{
+    <partial name="_ArticleList" model="Model.RelatedArticles" />
+}

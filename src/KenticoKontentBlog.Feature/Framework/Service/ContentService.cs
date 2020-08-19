@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Kentico.Kontent.Delivery;
 using Kentico.Kontent.Delivery.Abstractions;
+
+using KenticoKontentBlog.Feature.Kontent.Models;
 
 namespace KenticoKontentBlog.Feature.Framework.Service
 {
@@ -16,15 +19,16 @@ namespace KenticoKontentBlog.Feature.Framework.Service
             deliveryClient = deliveryClientFactory.Get();
         }
 
-        public async Task<Menu> GetCategoriesAsync()
+        public async Task<Menu> GetCategoryMenuAsync()
         {
             try
             {
-                var response = await deliveryClient.GetTaxonomyAsync("category");
-
+                var response = await GetLatestContentAsync<SiteSettings>();
+                var siteSettings = response.FirstOrDefault();
+                
                 return new Menu
                 {
-                    Categories = response.Taxonomy.Terms.ToDictionary(x => x.Codename, y => y.Name)
+                    Categories = siteSettings.Category.ToDictionary(x => x.Codename, y => y.Name)
                 };
             }
             catch (Exception)
@@ -74,16 +78,5 @@ namespace KenticoKontentBlog.Feature.Framework.Service
                 return new List<TContent>();
             }
         }
-    }
-
-    public interface IContentService
-    {
-        Task<Menu> GetCategoriesAsync();
-
-        Task<TContent> GetContentAsync<TContent>(string codeName);
-
-        Task<List<TContent>> GetLatestContentAsync<TContent>(int items = 1);
-
-        Task<List<TContent>> GetListAsync<TContent>();
     }
 }
