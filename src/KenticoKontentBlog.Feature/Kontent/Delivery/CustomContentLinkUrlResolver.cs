@@ -1,4 +1,6 @@
 ﻿using Kentico.Kontent.Delivery.Abstractions;
+
+using KenticoKontentBlog.Feature.Framework;
 using KenticoKontentBlog.Feature.Kontent.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -27,11 +29,9 @@ namespace KenticoKontentBlog.Feature.Kontent.Delivery
             switch (link.ContentTypeCodename)
             {
                 case ArticlePage.Codename:
-                    return urlHelper.Action("Index", "Articles", new { articleStub = link.Codename });
+                    return urlHelper.Action(Globals.Routing.Index, Globals.Routing.ArticleController, new { articleStub = link.Codename }, Globals.Routing.DefaultProtocol);
                 case HomePage.Codename:
-                    return urlHelper.Action("Index", "Home");
-                // case AboutUsPage.Codename:
-                //     return urlHelper.Action("Index", "GeneralContent", new { contentStub = link.Codename });
+                    return urlHelper.Action(Globals.Routing.Index, Globals.Routing.HomeController, null, Globals.Routing.DefaultProtocol);
                 default:
                     return urlHelper.Action("NotFound", "Errors");
             }

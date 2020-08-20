@@ -10,6 +10,8 @@
 
             public const string ArticleController = "Article";
 
+            public const string HomeController = "Home";
+
             public const string DefaultProtocol = "https";
         }
 

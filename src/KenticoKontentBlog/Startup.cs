@@ -8,6 +8,7 @@ using KenticoKontentBlog.Feature.Framework.Service;
 using KenticoKontentBlog.Feature.Home;
 using KenticoKontentBlog.Feature.Kontent.Delivery;
 using KenticoKontentBlog.Feature.Kontent.Models;
+using KenticoKontentBlog.Feature.SiteMap;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -47,6 +48,7 @@ namespace KenticoKontentBlog
             services.AddTransient<IArticleViewModelBuilder, ArticleViewModelBuilder>();
             services.AddTransient<IArticleListViewModelBuilder, ArticleListViewModelBuilder>();
             services.AddTransient<IErrorViewModelBuilder, ErrorViewModelBuilder>();
+            services.AddTransient<ISiteMapBuilder, SiteMapBuilder>();
 
             services.AddTransient<IContentService, ContentService>();
         }
