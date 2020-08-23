@@ -8,23 +8,35 @@ using Kentico.Kontent.Delivery.Abstractions;
 
 using KenticoKontentBlog.Feature.Kontent.Models;
 
+using Microsoft.Extensions.Caching.Memory;
+
 namespace KenticoKontentBlog.Feature.Framework.Service
 {
     public class ContentService : IContentService
     {
-        protected readonly IDeliveryClient deliveryClient;
+        private readonly IDeliveryClient deliveryClient;
 
-        public ContentService(IDeliveryClientFactory deliveryClientFactory)
+        private readonly IMemoryCache memoryCache;
+
+        public ContentService(
+            IDeliveryClientFactory deliveryClientFactory, 
+            IMemoryCache memoryCache)
         {
             deliveryClient = deliveryClientFactory.Get();
+            this.memoryCache = memoryCache;
         }
 
         public async Task<Menu> GetCategoryMenuAsync()
         {
             try
             {
-                var response = await GetLatestContentAsync<SiteSettings>();
-                var siteSettings = response.FirstOrDefault();
+                if (!memoryCache.TryGetValue<SiteSettings>(Globals.CacheKeys.SiteSettings, out var siteSettings))
+                {
+                    var response = await GetLatestContentAsync<SiteSettings>();
+                    siteSettings = response.First();
+
+                    memoryCache.Set(Globals.CacheKeys.SiteSettings, siteSettings);
+                }
                 
                 return new Menu
                 {
@@ -41,9 +53,17 @@ namespace KenticoKontentBlog.Feature.Framework.Service
         {
             try
             {
-                var response = await deliveryClient.GetItemAsync<TContent>(codeName, new DepthParameter(1));
+                var cacheKey = $"content.{codeName}";
+                if (!memoryCache.TryGetValue<TContent>(cacheKey, out var contentItem))
+                {
+                    var response = await deliveryClient.GetItemAsync<TContent>(codeName, new DepthParameter(1));
 
-                return response.Item;
+                    contentItem = response.Item;
+
+                    memoryCache.Set(cacheKey, contentItem);
+                }
+
+                return contentItem;
             }
             catch (Exception)
             {
@@ -69,9 +89,17 @@ namespace KenticoKontentBlog.Feature.Framework.Service
         {
             try
             {
-                var response = await deliveryClient.GetItemsAsync<TContent>();
+                var cacheKey = $"content.list.{typeof(TContent).Name}";
+                if (!memoryCache.TryGetValue<List<TContent>>(cacheKey, out var itemList))
+                {
+                    var response = await deliveryClient.GetItemsAsync<TContent>();
 
-                return response.Items.ToList();
+                    itemList = response.Items.ToList();
+
+                    memoryCache.Set(cacheKey, itemList);
+                }
+
+                return itemList;
             }
             catch (Exception)
             {

@@ -23,5 +23,10 @@
 
             public const string TwitterSiteAuthor = "@GeekInTheNorth";
         }
+
+        public class CacheKeys
+        {
+            public const string SiteSettings = "site.settings";
+        }
     }
 }
