@@ -30,7 +30,7 @@ namespace KenticoKontentBlog.Feature.Home
                 },
                 Menu = await _contentService.GetCategoryMenuAsync(),
                 IntroText = homePage?.Introduction,
-                Articles = homePage?.FeaturedContent?.Select(x => new ArticlePreview(x as ArticlePage)).ToList(),
+                Articles = homePage?.FeaturedContent?.Where(x => x is ArticlePage).Select(x => new ArticlePreview(x as ArticlePage)).OrderByDescending(x => x.PublishedDate).ToList(),
                 Seo = new SeoMetaData
                 {
                     Title = string.IsNullOrWhiteSpace(homePage.SeoMetaDataMetaTitle) ? homePage.HeroHeader : homePage.SeoMetaDataMetaTitle,
