@@ -60,7 +60,7 @@ namespace KenticoKontentBlog.Feature.ArticleList
             return articles == null ? null : new ArticleListViewModel
             {
                 Hero = new HeroModel { Title = title },
-                Articles = articles.Select(x => new ArticlePreview(x)).ToList(),
+                Articles = articles.Select(x => new ArticlePreview(x)).OrderByDescending(x => x.PublishedDate).ToList(),
                 Seo = new SeoMetaData
                 {
                     Title = categoryName,
