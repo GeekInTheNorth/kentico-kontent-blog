@@ -71,7 +71,7 @@ namespace KenticoKontentBlog.Feature.Article
                     CanonicalUrl = _urlHelper.Action(Globals.Routing.Index, Globals.Routing.ArticleController, new { articleStub = article.System.Codename }, Globals.Routing.DefaultProtocol),
                     TwitterAuthor = article.SeoMetaDataTwitterAccount?.Select(x => x.Name).FirstOrDefault() ?? Globals.Seo.TwitterSiteAuthor
                 },
-                RelatedArticles = article?.RelatedArticles?.Where(x => x is ArticlePage).Select(x => new ArticlePreview(x as ArticlePage)).ToList()
+                RelatedArticles = article?.RelatedArticles?.Where(x => x is ArticlePage).Select(x => new ArticlePreview(x as ArticlePage)).OrderByDescending(x => x.PublishedDate).ToList()
             };
         }
     }
