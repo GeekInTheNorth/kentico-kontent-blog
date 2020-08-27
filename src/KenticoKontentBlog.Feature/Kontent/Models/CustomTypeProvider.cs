@@ -14,7 +14,8 @@ namespace KenticoKontentBlog.Feature.Kontent.Models
             {typeof(HomePage), "home_page"},
             {typeof(ImageCarousel), "image_carousel"},
             {typeof(Quote), "quote"},
-            {typeof(SiteSettings), "site_settings"}
+            {typeof(SiteSettings), "site_settings"},
+            {typeof(YoutubeVideo), "youtube_video"}
         };
 
         public Type GetType(string contentType)
