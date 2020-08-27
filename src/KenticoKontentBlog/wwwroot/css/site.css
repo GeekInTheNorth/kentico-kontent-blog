@@ -1,4 +1,5 @@
-﻿.youtube-container {
+﻿/* Responsive Youtube Embed */
+.youtube-container {
     position: relative;
     width: 100%;
     padding-bottom: 56.25%;
@@ -11,4 +12,10 @@
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+/* Images embeded input articles */
+article figure img {
+    max-width: 100%;
+    height: auto;
 }
