@@ -19,3 +19,20 @@ article figure img {
     max-width: 100%;
     height: auto;
 }
+
+/* Header Alignments */
+header.masthead-left {
+    background-position-x: left !important;
+}
+
+header.masthead-left {
+    background-position-x: right !important;
+}
+
+header.masthead-top {
+    background-position-y: top !important;
+}
+
+header.masthead-bottom {
+    background-position-y: bottom !important;
+}

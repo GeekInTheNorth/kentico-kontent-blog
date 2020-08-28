@@ -11,5 +11,9 @@ namespace KenticoKontentBlog.Feature.Framework
         public bool HasHeroImage { get; set; }
 
         public DateTime? PublishedDate { get; set; }
+
+        public ImageHorizontalAlignment HorizontalAlignment { get; set; }
+
+        public ImageVerticalAlignment VerticalAlignment { get; set; }
     }
 }

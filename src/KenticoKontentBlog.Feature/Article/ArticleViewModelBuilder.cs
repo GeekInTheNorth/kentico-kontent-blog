@@ -58,7 +58,9 @@ namespace KenticoKontentBlog.Feature.Article
                 {
                     Title = article?.HeroHeader,
                     Image = article?.HeroHeaderImage?.FirstOrDefault()?.Url,
-                    PublishedDate = article?.PublishedDate ?? article.System.LastModified
+                    PublishedDate = article?.PublishedDate ?? article.System.LastModified,
+                    HorizontalAlignment = article?.HeroImageHorizontalAlignment ?? ImageHorizontalAlignment.Centre,
+                    VerticalAlignment = article?.HeroImageVerticalAlignment ?? ImageVerticalAlignment.Centre
                 },
                 Content = article?.ArticleContent,
                 Categories = article?.Category?.ToDictionary(x => x.Codename, y => y.Name),

@@ -16,6 +16,8 @@ namespace KenticoKontentBlog.Feature.Kontent.Models
         public const string FeaturedContentCodename = "featured_content";
         public const string HeroHeaderCodename = "hero__header";
         public const string HeroHeaderImageCodename = "hero__header_image";
+        public const string HeroHeaderImageHorizontalAlignmentCodename = "hero__header_image_horizontal_alignment";
+        public const string HeroHeaderImageVerticalAlignmentCodename = "hero__header_image_vertical_alignment";
         public const string IntroductionCodename = "introduction";
         public const string SeoMetaDataMetaDescriptionCodename = "seo_meta_data__meta_description";
         public const string SeoMetaDataMetaImagesCodename = "seo_meta_data__meta_images";
@@ -25,6 +27,8 @@ namespace KenticoKontentBlog.Feature.Kontent.Models
         public IEnumerable<object> FeaturedContent { get; set; }
         public string HeroHeader { get; set; }
         public IEnumerable<Asset> HeroHeaderImage { get; set; }
+        public IEnumerable<MultipleChoiceOption> HeroHeaderImageHorizontalAlignment { get; set; }
+        public IEnumerable<MultipleChoiceOption> HeroHeaderImageVerticalAlignment { get; set; }
         public IRichTextContent Introduction { get; set; }
         public string SeoMetaDataMetaDescription { get; set; }
         public IEnumerable<Asset> SeoMetaDataMetaImages { get; set; }
