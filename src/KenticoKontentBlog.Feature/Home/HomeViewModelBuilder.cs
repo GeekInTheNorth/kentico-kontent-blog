@@ -27,6 +27,8 @@ namespace KenticoKontentBlog.Feature.Home
                 {
                     Title = homePage?.HeroHeader,
                     Image = homePage?.HeroHeaderImage?.Select(x => x.Url).FirstOrDefault(),
+                    HorizontalAlignment = homePage?.HeroImageHorizontalAlignment ?? ImageHorizontalAlignment.Centre,
+                    VerticalAlignment = homePage?.HeroImageVerticalAlignment ?? ImageVerticalAlignment.Centre
                 },
                 Menu = await _contentService.GetCategoryMenuAsync(),
                 IntroText = homePage?.Introduction,
