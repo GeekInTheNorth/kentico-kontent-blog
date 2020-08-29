@@ -21,6 +21,11 @@ article figure img {
 }
 
 /* Header Alignments */
+header.masthead {
+    min-height: 80vh;
+    background-color: #007FFF !important;
+}
+
 header.masthead-left {
     background-position-x: left !important;
 }
