@@ -19,7 +19,7 @@ namespace KenticoKontentBlog.Feature.Framework.Service
         private readonly IMemoryCache memoryCache;
 
         public ContentService(
-            IDeliveryClientFactory deliveryClientFactory, 
+            IDeliveryClientFactory deliveryClientFactory,
             IMemoryCache memoryCache)
         {
             deliveryClient = deliveryClientFactory.Get();
@@ -35,7 +35,7 @@ namespace KenticoKontentBlog.Feature.Framework.Service
                     var response = await GetLatestContentAsync<SiteSettings>();
                     siteSettings = response.First();
 
-                    memoryCache.Set(Globals.CacheKeys.SiteSettings, siteSettings);
+                    memoryCache.Set(Globals.CacheKeys.SiteSettings, siteSettings, DateTimeOffset.Now.AddMinutes(15));
                 }
                 
                 return new Menu
@@ -60,7 +60,7 @@ namespace KenticoKontentBlog.Feature.Framework.Service
 
                     contentItem = response.Item;
 
-                    memoryCache.Set(cacheKey, contentItem);
+                    memoryCache.Set(cacheKey, contentItem, DateTimeOffset.Now.AddMinutes(15));
                 }
 
                 return contentItem;
@@ -96,7 +96,7 @@ namespace KenticoKontentBlog.Feature.Framework.Service
 
                     itemList = response.Items.ToList();
 
-                    memoryCache.Set(cacheKey, itemList);
+                    memoryCache.Set(cacheKey, itemList, DateTimeOffset.Now.AddMinutes(15));
                 }
 
                 return itemList;
