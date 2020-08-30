@@ -14,6 +14,7 @@ namespace KenticoKontentBlog.Feature.Kontent.Models
     {
         public const string Codename = "article_page";
         public const string ArticleContentCodename = "article_content";
+        public const string AuthorCodename = "author";
         public const string CategoryCodename = "category";
         public const string HeroHeaderCodename = "hero__header";
         public const string HeroHeaderImageCodename = "hero__header_image";
@@ -27,6 +28,7 @@ namespace KenticoKontentBlog.Feature.Kontent.Models
         public const string SeoMetaDataTwitterAccountCodename = "seo_meta_data__twitter_account";
 
         public IRichTextContent ArticleContent { get; set; }
+        public IEnumerable<object> Author { get; set; }
         public IEnumerable<TaxonomyTerm> Category { get; set; }
         public string HeroHeader { get; set; }
         public IEnumerable<Asset> HeroHeaderImage { get; set; }
