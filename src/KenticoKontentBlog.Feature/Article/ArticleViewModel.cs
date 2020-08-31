@@ -16,7 +16,7 @@ namespace KenticoKontentBlog.Feature.Article
 
         public DateTime? PublishedDate => Hero?.PublishedDate;
 
-        public string Author => Seo?.TwitterAuthor;
+        public ArticleAuthorViewModel Author { get; set; }
 
         public Dictionary<string, string> Categories { get; set; }
 

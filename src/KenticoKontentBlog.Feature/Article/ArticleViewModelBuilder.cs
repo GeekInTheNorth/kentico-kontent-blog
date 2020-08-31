@@ -51,6 +51,8 @@ namespace KenticoKontentBlog.Feature.Article
         private async Task<ArticleViewModel> BuildModelAsync()
         {
             var article = await _contentService.GetContentAsync<ArticlePage>(articleCodeName);
+            var author = article?.Author?.FirstOrDefault() as AuthorPage;
+            var authorImage = author?.ProfileImage?.FirstOrDefault();
 
             return article == null ? null : new ArticleViewModel
             {
@@ -64,6 +66,13 @@ namespace KenticoKontentBlog.Feature.Article
                 },
                 Content = article?.ArticleContent,
                 Categories = article?.Category?.ToDictionary(x => x.Codename, y => y.Name),
+                Author = new ArticleAuthorViewModel
+                {
+                    Name = author?.Name,
+                    ProfileImage = authorImage,
+                    TwitterAccount = author?.TwitterAccount,
+                    FacebookUserName = author?.FacebookUserName
+                },
                 Seo = new SeoMetaData
                 {
                     Title = string.IsNullOrWhiteSpace(article.SeoMetaDataMetaTitle) ? article.HeroHeader : article.SeoMetaDataMetaTitle,
@@ -71,7 +80,7 @@ namespace KenticoKontentBlog.Feature.Article
                     Image = article.SeoMetaDataMetaImages?.FirstOrDefault()?.Url ?? article.HeroHeaderImage?.FirstOrDefault()?.Url,
                     ContentType = Globals.Seo.ArticleContentType,
                     CanonicalUrl = _urlHelper.Action(Globals.Routing.Index, Globals.Routing.ArticleController, new { articleStub = article.System.Codename }, Globals.Routing.DefaultProtocol),
-                    TwitterAuthor = article.SeoMetaDataTwitterAccount?.Select(x => x.Name).FirstOrDefault() ?? Globals.Seo.TwitterSiteAuthor
+                    TwitterAuthor = author?.TwitterAccount ?? article.SeoMetaDataTwitterAccount?.Select(x => x.Name).FirstOrDefault() ?? Globals.Seo.TwitterSiteAuthor
                 },
                 RelatedArticles = article?.RelatedArticles?.Where(x => x is ArticlePage).Select(x => new ArticlePreview(x as ArticlePage)).OrderByDescending(x => x.PublishedDate).ToList()
             };
