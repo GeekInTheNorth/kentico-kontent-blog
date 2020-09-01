@@ -41,3 +41,12 @@ header.masthead-top {
 header.masthead-bottom {
     background-position-y: bottom !important;
 }
+
+/* Article Author Image*/
+img.author-profile {
+    width: 2.5em;
+    height: 2.5em;
+    background-size: cover;
+    border-radius: 50%;
+    object-fit: cover;
+}

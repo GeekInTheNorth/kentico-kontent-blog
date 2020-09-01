@@ -10,12 +10,11 @@
                 {
                     <p class="post-meta">Posted by <a href="https://twitter.com/@Model.Author.TwitterAccount">@Model.Author.Name</a> on @Model.PublishedDate.Value.ToString("D")</p>
                     <ul class="list-inline">
-                        @foreach (var category in Model.Categories)
-                        {
-                            <li class="list-inline-item">
-                                <a asp-controller="Article" asp-action="List" asp-route-category="@category.Key" class="btn btn-dark btn-secondary">@category.Value</a>
-                            </li>
-                        }
+                        <li class="list-inline-item">
+                            <a href="https://twitter.com/@Model.Author.TwitterAccount">
+                                <img src="@Model.Author.ProfileImage.Url" alt="@Model.Author.ProfileImage.Description" class="author-profile" />
+                            </a>
+                        </li>
                         <li class="list-inline-item">
                             <a href="https://twitter.com/@Model.Author.TwitterAccount" target="_blank">
                                 <span class="fa-stack fa-lg">
@@ -32,6 +31,14 @@
                                 </span>
                             </a>
                         </li>
+                    </ul>
+                    <ul class="list-inline">
+                        @foreach (var category in Model.Categories)
+                        {
+                            <li class="list-inline-item">
+                                <a asp-controller="Article" asp-action="List" asp-route-category="@category.Key" class="btn btn-dark btn-secondary">@category.Value</a>
+                            </li>
+                        }
                     </ul>
                 }
             </div>
