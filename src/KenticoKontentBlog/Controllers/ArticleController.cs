@@ -1,7 +1,8 @@
 ﻿using KenticoKontentBlog.Feature.Article;
 using KenticoKontentBlog.Feature.ArticleList;
+
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
+
 using System.Threading.Tasks;
 
 namespace KenticoKontentBlog.Controllers

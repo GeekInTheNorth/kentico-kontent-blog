@@ -3,6 +3,7 @@ using Kentico.Kontent.Delivery.Abstractions;
 
 using KenticoKontentBlog.Feature.Article;
 using KenticoKontentBlog.Feature.ArticleList;
+using KenticoKontentBlog.Feature.Author;
 using KenticoKontentBlog.Feature.Error;
 using KenticoKontentBlog.Feature.Framework.Service;
 using KenticoKontentBlog.Feature.Home;
@@ -49,6 +50,7 @@ namespace KenticoKontentBlog
             services.AddTransient<IArticleListViewModelBuilder, ArticleListViewModelBuilder>();
             services.AddTransient<IErrorViewModelBuilder, ErrorViewModelBuilder>();
             services.AddTransient<ISiteMapBuilder, SiteMapBuilder>();
+            services.AddTransient<IAuthorViewModelBuilder, AuthorViewModelBuilder>();
 
             services.AddTransient<IContentService, ContentService>();
         }
