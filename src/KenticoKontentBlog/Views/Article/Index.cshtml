@@ -6,9 +6,15 @@
             <div class="col-lg-8 col-md-10 mx-auto">
                 @Html.DisplayFor(x => x.Content)
 
-                @if (@Model.Author != null && Model.PublishedDate.HasValue)
+                @if (Model.Author != null && Model.Author.IsPopulated)
                 {
-                    <p class="post-meta">Posted by <a href="https://twitter.com/@Model.Author.TwitterAccount">@Model.Author.Name</a> on @Model.PublishedDate.Value.ToString("D")</p>
+                    <p class="post-meta">
+                        Posted by <a href="https://twitter.com/@Model.Author.TwitterAccount">@Model.Author.Name</a>
+                        @if (Model.PublishedDate.HasValue)
+                        {
+                            <span>on @Model.PublishedDate.Value.ToString("D")</span>
+                        }
+                    </p>
                     <ul class="list-inline">
                         <li class="list-inline-item">
                             <a href="https://twitter.com/@Model.Author.TwitterAccount">
@@ -32,6 +38,9 @@
                             </a>
                         </li>
                     </ul>
+                }
+                @if (Model.Categories != null && Model.Categories.Any())
+                {
                     <ul class="list-inline">
                         @foreach (var category in Model.Categories)
                         {
