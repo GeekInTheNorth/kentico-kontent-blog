@@ -13,12 +13,22 @@ namespace KenticoKontentBlog.Feature.Kontent.Models
     public partial class AuthorPage
     {
         public const string Codename = "author_page";
+        public const string BiographyCodename = "biography";
         public const string FacebookUserNameCodename = "facebook_user_name";
+        public const string HeroHeaderCodename = "hero__header";
+        public const string HeroHeaderImageCodename = "hero__header_image";
+        public const string HeroHeaderImageHorizontalAlignmentCodename = "hero__header_image_horizontal_alignment";
+        public const string HeroHeaderImageVerticalAlignmentCodename = "hero__header_image_vertical_alignment";
         public const string NameCodename = "name";
         public const string ProfileImageCodename = "profile_image";
         public const string TwitterAccountCodename = "twitter_account";
 
+        public IRichTextContent Biography { get; set; }
         public string FacebookUserName { get; set; }
+        public string HeroHeader { get; set; }
+        public IEnumerable<Asset> HeroHeaderImage { get; set; }
+        public IEnumerable<MultipleChoiceOption> HeroHeaderImageHorizontalAlignment { get; set; }
+        public IEnumerable<MultipleChoiceOption> HeroHeaderImageVerticalAlignment { get; set; }
         public string Name { get; set; }
         public IEnumerable<Asset> ProfileImage { get; set; }
         public ContentItemSystemAttributes System { get; set; }
