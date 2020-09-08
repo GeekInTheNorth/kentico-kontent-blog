@@ -24,6 +24,6 @@ namespace KenticoKontentBlog.Feature.Article
 
         public SeoMetaData Seo { get; set; }
 
-        public List<ArticlePreview> RelatedArticles { get; set; }
+        public ArticlePreviewCollection RelatedArticles { get; set; }
     }
 }

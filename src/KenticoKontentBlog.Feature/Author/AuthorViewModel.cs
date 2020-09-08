@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-using Kentico.Kontent.Delivery.Abstractions;
+﻿using Kentico.Kontent.Delivery.Abstractions;
 
 using KenticoKontentBlog.Feature.ArticleList;
 using KenticoKontentBlog.Feature.Framework;
@@ -11,7 +9,7 @@ namespace KenticoKontentBlog.Feature.Author
     {
         public HeroModel Hero { get; set; }
 
-        public List<ArticlePreview> Articles { get; set; }
+        public ArticlePreviewCollection Articles { get; set; }
 
         public Menu Menu { get; set; }
 

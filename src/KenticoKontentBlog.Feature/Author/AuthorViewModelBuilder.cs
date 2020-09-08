@@ -36,7 +36,8 @@ namespace KenticoKontentBlog.Feature.Author
             }
 
             var articles = await _contentService.GetListAsync<ArticlePage>();
-            var authorArticles = articles?.Where(x => IsArticleByAuthor(x, author.System.Codename)).Select(x => new ArticlePreview(x));
+            var authorArticles = articles?.Where(x => IsArticleByAuthor(x, author.System.Codename));
+            var authorArticlesTitle = $"Articles by {author.Name}";
 
             return new AuthorViewModel
             {
@@ -50,7 +51,7 @@ namespace KenticoKontentBlog.Feature.Author
                 Biography = author?.Biography,
                 TwitterAccount = author?.TwitterAccount,
                 FacebookUserName = author?.FacebookUserName,
-                Articles = authorArticles?.ToList(),
+                Articles = new ArticlePreviewCollection(authorArticlesTitle, authorArticles),
                 Menu = await _contentService.GetCategoryMenuAsync()
             };
         }

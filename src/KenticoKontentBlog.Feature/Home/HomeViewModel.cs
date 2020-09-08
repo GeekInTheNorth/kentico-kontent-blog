@@ -1,7 +1,7 @@
 ﻿using Kentico.Kontent.Delivery.Abstractions;
+
 using KenticoKontentBlog.Feature.ArticleList;
 using KenticoKontentBlog.Feature.Framework;
-using System.Collections.Generic;
 
 namespace KenticoKontentBlog.Feature.Home
 {
@@ -9,7 +9,7 @@ namespace KenticoKontentBlog.Feature.Home
     {
         public HeroModel Hero { get; set; }
 
-        public List<ArticlePreview> Articles { get; set; }
+        public ArticlePreviewCollection Articles { get; set; }
 
         public Menu Menu { get; set; }
 

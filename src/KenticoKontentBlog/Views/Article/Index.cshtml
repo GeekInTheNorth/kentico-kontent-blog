@@ -55,7 +55,7 @@
     </div>
 </article>
 
-@if (Model.RelatedArticles != null && Model.RelatedArticles.Any())
+@if (Model.RelatedArticles != null && Model.RelatedArticles.HasContent)
 {
     <partial name="_ArticleList" model="Model.RelatedArticles" />
 }

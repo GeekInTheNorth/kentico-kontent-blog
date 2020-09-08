@@ -1,20 +1,24 @@
-﻿@model List<KenticoKontentBlog.Feature.ArticleList.ArticlePreview>
+﻿@model KenticoKontentBlog.Feature.ArticleList.ArticlePreviewCollection
 
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-            @foreach (var article in Model)
+            @if (!string.IsNullOrWhiteSpace(Model.Title))
+            {
+                <h2>@Model.Title</h2>
+            }
+            @foreach (var article in Model.Articles)
             {
                 <div class="post-preview">
                     <a asp-controller="Article" asp-action="Index" asp-route-articleStub="@article.CodeName">
-                        <h2 class="post-title">
+                        <h3 class="post-title">
                             @article.Title
-                        </h2>
+                        </h3>
                         @if (!string.IsNullOrWhiteSpace(article.Description))
                         {
-                            <h3 class="post-subtitle">
+                            <span class="post-subtitle">
                                 @article.Description
-                            </h3>
+                            </span>
                         }
                     </a>
                     @if (!string.IsNullOrWhiteSpace(article.AuthorTwitter))
