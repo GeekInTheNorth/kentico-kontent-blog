@@ -12,6 +12,8 @@
 
             public const string HomeController = "Home";
 
+            public const string AuthorController = "Author";
+
             public const string DefaultProtocol = "https";
         }
 
