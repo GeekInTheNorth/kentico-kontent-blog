@@ -1,6 +1,6 @@
 ﻿@model KenticoKontentBlog.Feature.ArticleList.ArticleListViewModel
 
-@if (Model.Articles != null && Model.Articles.Any())
+@if (Model.Articles != null && Model.Articles.HasContent)
 {
     <partial name="_ArticleList" model="Model.Articles" />
 }

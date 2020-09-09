@@ -3,9 +3,9 @@
 using KenticoKontentBlog.Feature.ArticleList;
 using KenticoKontentBlog.Feature.Framework;
 
-namespace KenticoKontentBlog.Feature.Home
+namespace KenticoKontentBlog.Feature.Author
 {
-    public class HomeViewModel : IPageModel
+    public class AuthorViewModel : IPageModel
     {
         public HeroModel Hero { get; set; }
 
@@ -15,6 +15,10 @@ namespace KenticoKontentBlog.Feature.Home
 
         public SeoMetaData Seo { get; set; }
 
-        public IRichTextContent IntroText { get; set; }
+        public IRichTextContent Biography { get; set; }
+
+        public string TwitterAccount { get; set; }
+
+        public string FacebookUserName { get; set; }
     }
 }

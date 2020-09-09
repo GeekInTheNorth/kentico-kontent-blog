@@ -1,0 +1,58 @@
+﻿@model KenticoKontentBlog.Feature.Author.AuthorViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+
+            @if (!string.IsNullOrWhiteSpace(Model.TwitterAccount) && !string.IsNullOrWhiteSpace(Model.FacebookUserName))
+            {
+                <ul class="list-inline text-center">
+                    @if (!string.IsNullOrWhiteSpace(Model.TwitterAccount))
+                    {
+                        <li class="list-inline-item">
+                            <a href="https://twitter.com/@Model.TwitterAccount" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(Model.FacebookUserName))
+                    {
+                        <li class="list-inline-item">
+                            <a href="https://www.facebook.com/@Model.FacebookUserName" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    }
+
+                </ul>
+            }
+
+            @if (Model.Biography != null && Model.Biography.Any())
+            {
+                @Html.DisplayFor(x => x.Biography)
+            }
+
+        </div>
+    </div>
+</div>
+
+@if (Model.Articles != null && Model.Articles.HasContent)
+{
+    <partial name="_ArticleList" model="Model.Articles" />
+}
+else
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <p>This author has not written any articles</p>
+            </div>
+        </div>
+    </div>
+}

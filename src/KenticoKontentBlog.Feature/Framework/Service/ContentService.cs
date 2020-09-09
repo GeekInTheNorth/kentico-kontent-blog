@@ -75,7 +75,7 @@ namespace KenticoKontentBlog.Feature.Framework.Service
         {
             try
             {
-                var response = await deliveryClient.GetItemsAsync<TContent>(new LimitParameter(items), new OrderParameter($"system.last_modified", SortOrder.Descending));
+                var response = await deliveryClient.GetItemsAsync<TContent>(new LimitParameter(items), new DepthParameter(2), new OrderParameter($"system.last_modified", SortOrder.Descending));
 
                 return response.Items.ToList();
             }
@@ -92,7 +92,7 @@ namespace KenticoKontentBlog.Feature.Framework.Service
                 var cacheKey = $"content.list.{typeof(TContent).Name}";
                 if (!memoryCache.TryGetValue<List<TContent>>(cacheKey, out var itemList))
                 {
-                    var response = await deliveryClient.GetItemsAsync<TContent>();
+                    var response = await deliveryClient.GetItemsAsync<TContent>(new DepthParameter(2));
 
                     itemList = response.Items.ToList();
 

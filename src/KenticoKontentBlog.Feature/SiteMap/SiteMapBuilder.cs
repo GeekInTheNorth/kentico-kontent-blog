@@ -45,6 +45,9 @@ namespace KenticoKontentBlog.Feature.SiteMap
             var articles = await GetArticles();
             nodes.AddRange(articles);
 
+            var authors = await GetAuthors();
+            nodes.AddRange(authors);
+
             return nodes;
         }
 
@@ -71,6 +74,24 @@ namespace KenticoKontentBlog.Feature.SiteMap
                 nodes.AddRange(batch.Items.Select(x => new SitemapNode
                 {
                     Url = urlHelper.Action(Globals.Routing.Index, Globals.Routing.ArticleController, new { articleStub = x.System.Codename }, Globals.Routing.DefaultProtocol),
+                    LastModified = x.System.LastModified
+                }));
+            }
+
+            return nodes;
+        }
+
+        private async Task<IEnumerable<SitemapNode>> GetAuthors()
+        {
+            var nodes = new List<SitemapNode>();
+            var contentFeed = deliveryClient.GetItemsFeed<AuthorPage>();
+            while (contentFeed.HasMoreResults)
+            {
+                var batch = await contentFeed.FetchNextBatchAsync();
+
+                nodes.AddRange(batch.Items.Select(x => new SitemapNode
+                {
+                    Url = urlHelper.Action(Globals.Routing.Index, Globals.Routing.AuthorController, new { authorCodeName = x.System.Codename }, Globals.Routing.DefaultProtocol),
                     LastModified = x.System.LastModified
                 }));
             }

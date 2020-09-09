@@ -6,26 +6,56 @@
             <div class="col-lg-8 col-md-10 mx-auto">
                 @Html.DisplayFor(x => x.Content)
 
-                @if (!string.IsNullOrWhiteSpace(@Model.Author) && Model.PublishedDate.HasValue)
+                @if (Model.Author != null && Model.Author.IsPopulated)
                 {
-                    <p class="post-meta">Posted by <a href="https://twitter.com/@Model.Author">@Model.Author</a> on @Model.PublishedDate.Value.ToString("D")</p>
+                    <p class="post-meta">
+                        Posted by <a href="https://twitter.com/@Model.Author.TwitterAccount">@Model.Author.Name</a>
+                        @if (Model.PublishedDate.HasValue)
+                        {
+                            <span>on @Model.PublishedDate.Value.ToString("D")</span>
+                        }
+                    </p>
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <a href="@Model.Author.AuthorPage">
+                                <img src="@Model.Author.ProfileImage.Url" alt="@Model.Author.ProfileImage.Description" class="author-profile" />
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://twitter.com/@Model.Author.TwitterAccount" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://www.facebook.com/@Model.Author.FacebookUserName" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
                 }
-
                 @if (Model.Categories != null && Model.Categories.Any())
                 {
-                    <div class="clearfix">
+                    <ul class="list-inline">
                         @foreach (var category in Model.Categories)
                         {
-                            <a asp-controller="Article" asp-action="List" asp-route-category="@category.Key" class="btn btn-dark btn-secondary">@category.Value</a>
+                            <li class="list-inline-item">
+                                <a asp-controller="Article" asp-action="List" asp-route-category="@category.Key" class="btn btn-dark btn-secondary">@category.Value</a>
+                            </li>
                         }
-                    </div>
+                    </ul>
                 }
             </div>
         </div>
     </div>
 </article>
 
-@if (Model.RelatedArticles != null && Model.RelatedArticles.Any())
+@if (Model.RelatedArticles != null && Model.RelatedArticles.HasContent)
 {
     <partial name="_ArticleList" model="Model.RelatedArticles" />
 }

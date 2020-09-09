@@ -1,5 +1,4 @@
 ﻿using KenticoKontentBlog.Feature.Framework;
-using System.Collections.Generic;
 
 namespace KenticoKontentBlog.Feature.ArticleList
 {
@@ -7,7 +6,7 @@ namespace KenticoKontentBlog.Feature.ArticleList
     {
         public HeroModel Hero { get; set; }
 
-        public List<ArticlePreview> Articles { get; set; }
+        public ArticlePreviewCollection Articles { get; set; }
 
         public Menu Menu { get; set; }
 

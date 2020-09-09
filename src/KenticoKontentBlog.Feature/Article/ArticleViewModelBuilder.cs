@@ -20,13 +20,17 @@ namespace KenticoKontentBlog.Feature.Article
 
         private readonly IContentService _contentService;
 
+        private readonly IArticlePreviewCollectionBuilder _previewCollectionBuilder;
+
         public ArticleViewModelBuilder(
             IContentService contentService, 
             IUrlHelperFactory urlHelperFactory,
-            IActionContextAccessor actionContextAccessor)
+            IActionContextAccessor actionContextAccessor,
+            IArticlePreviewCollectionBuilder previewCollectionBuilder)
         {
             _contentService = contentService;
             _urlHelper = urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext);
+            _previewCollectionBuilder = previewCollectionBuilder;
         }
 
         public IArticleViewModelBuilder WithBlogArticle(string articleCodeName)
@@ -51,6 +55,9 @@ namespace KenticoKontentBlog.Feature.Article
         private async Task<ArticleViewModel> BuildModelAsync()
         {
             var article = await _contentService.GetContentAsync<ArticlePage>(articleCodeName);
+            var relatedArticles = article?.RelatedArticles?.Where(x => x is ArticlePage).Select(x => x as ArticlePage);
+            var relatedArticlesTitle = "Related Articles";
+            var author = GetAuthorViewModel(article);
 
             return article == null ? null : new ArticleViewModel
             {
@@ -64,6 +71,7 @@ namespace KenticoKontentBlog.Feature.Article
                 },
                 Content = article?.ArticleContent,
                 Categories = article?.Category?.ToDictionary(x => x.Codename, y => y.Name),
+                Author = author,
                 Seo = new SeoMetaData
                 {
                     Title = string.IsNullOrWhiteSpace(article.SeoMetaDataMetaTitle) ? article.HeroHeader : article.SeoMetaDataMetaTitle,
@@ -71,9 +79,30 @@ namespace KenticoKontentBlog.Feature.Article
                     Image = article.SeoMetaDataMetaImages?.FirstOrDefault()?.Url ?? article.HeroHeaderImage?.FirstOrDefault()?.Url,
                     ContentType = Globals.Seo.ArticleContentType,
                     CanonicalUrl = _urlHelper.Action(Globals.Routing.Index, Globals.Routing.ArticleController, new { articleStub = article.System.Codename }, Globals.Routing.DefaultProtocol),
-                    TwitterAuthor = article.SeoMetaDataTwitterAccount?.Select(x => x.Name).FirstOrDefault() ?? Globals.Seo.TwitterSiteAuthor
+                    TwitterAuthor = author?.TwitterAccount ?? article.SeoMetaDataTwitterAccount?.Select(x => x.Name).FirstOrDefault() ?? Globals.Seo.TwitterSiteAuthor
                 },
-                RelatedArticles = article?.RelatedArticles?.Where(x => x is ArticlePage).Select(x => new ArticlePreview(x as ArticlePage)).OrderByDescending(x => x.PublishedDate).ToList()
+                RelatedArticles = _previewCollectionBuilder.Build(relatedArticlesTitle, relatedArticles)
+            };
+        }
+
+        private ArticleAuthorViewModel GetAuthorViewModel(ArticlePage article)
+        {
+            var author = article?.Author?.FirstOrDefault() as AuthorPage;
+
+            if (author == null)
+            {
+                return null;
+            }
+
+            var authorImage = author?.ProfileImage?.FirstOrDefault();
+
+            return new ArticleAuthorViewModel
+            {
+                Name = author?.Name,
+                ProfileImage = authorImage,
+                TwitterAccount = author?.TwitterAccount,
+                FacebookUserName = author?.FacebookUserName,
+                AuthorPage = _urlHelper.Action(Globals.Routing.Index, Globals.Routing.AuthorController, new { authorCodeName = author?.System.Codename }, Globals.Routing.DefaultProtocol)
             };
         }
     }
