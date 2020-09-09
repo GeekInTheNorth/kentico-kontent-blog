@@ -20,13 +20,17 @@ namespace KenticoKontentBlog.Feature.Article
 
         private readonly IContentService _contentService;
 
+        private readonly IArticlePreviewCollectionBuilder _previewCollectionBuilder;
+
         public ArticleViewModelBuilder(
             IContentService contentService, 
             IUrlHelperFactory urlHelperFactory,
-            IActionContextAccessor actionContextAccessor)
+            IActionContextAccessor actionContextAccessor,
+            IArticlePreviewCollectionBuilder previewCollectionBuilder)
         {
             _contentService = contentService;
             _urlHelper = urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext);
+            _previewCollectionBuilder = previewCollectionBuilder;
         }
 
         public IArticleViewModelBuilder WithBlogArticle(string articleCodeName)
@@ -85,7 +89,7 @@ namespace KenticoKontentBlog.Feature.Article
                     CanonicalUrl = _urlHelper.Action(Globals.Routing.Index, Globals.Routing.ArticleController, new { articleStub = article.System.Codename }, Globals.Routing.DefaultProtocol),
                     TwitterAuthor = author?.TwitterAccount ?? article.SeoMetaDataTwitterAccount?.Select(x => x.Name).FirstOrDefault() ?? Globals.Seo.TwitterSiteAuthor
                 },
-                RelatedArticles = new ArticlePreviewCollection(relatedArticlesTitle, relatedArticles)
+                RelatedArticles = _previewCollectionBuilder.Build(relatedArticlesTitle, relatedArticles)
             };
         }
     }

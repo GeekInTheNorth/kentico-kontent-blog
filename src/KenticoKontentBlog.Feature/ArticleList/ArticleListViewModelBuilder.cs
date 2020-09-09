@@ -17,13 +17,17 @@ namespace KenticoKontentBlog.Feature.ArticleList
 
         private readonly IContentService _contentService;
 
+        private readonly IArticlePreviewCollectionBuilder _previewCollectionBuilder;
+
         public ArticleListViewModelBuilder(
             IContentService contentService,
             IUrlHelperFactory urlHelperFactory,
-            IActionContextAccessor actionContextAccessor)
+            IActionContextAccessor actionContextAccessor,
+            IArticlePreviewCollectionBuilder previewCollectionBuilder)
         {
             _contentService = contentService;
             _urlHelper = urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext);
+            _previewCollectionBuilder = previewCollectionBuilder;
         }
 
         public IArticleListViewModelBuilder WithCategory(string categoryCodeName)
@@ -60,7 +64,7 @@ namespace KenticoKontentBlog.Feature.ArticleList
             return articles == null ? null : new ArticleListViewModel
             {
                 Hero = new HeroModel { Title = title },
-                Articles = new ArticlePreviewCollection(articles),
+                Articles = _previewCollectionBuilder.Build(articles),
                 Seo = new SeoMetaData
                 {
                     Title = categoryName,

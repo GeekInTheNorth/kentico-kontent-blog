@@ -12,11 +12,14 @@ namespace KenticoKontentBlog.Feature.Author
     {
         private readonly IContentService _contentService;
 
+        private readonly IArticlePreviewCollectionBuilder _previewCollectionBuilder;
+
         private string _authorCodeName;
 
-        public AuthorViewModelBuilder(IContentService contentService)
+        public AuthorViewModelBuilder(IContentService contentService, IArticlePreviewCollectionBuilder previewCollectionBuilder)
         {
             _contentService = contentService;
+            _previewCollectionBuilder = previewCollectionBuilder;
         }
 
         public IAuthorViewModelBuilder WithAuthorCodeName(string authorCodeName)
@@ -51,7 +54,7 @@ namespace KenticoKontentBlog.Feature.Author
                 Biography = author?.Biography,
                 TwitterAccount = author?.TwitterAccount,
                 FacebookUserName = author?.FacebookUserName,
-                Articles = new ArticlePreviewCollection(authorArticlesTitle, authorArticles),
+                Articles = _previewCollectionBuilder.Build(authorArticlesTitle, authorArticles, false),
                 Menu = await _contentService.GetCategoryMenuAsync()
             };
         }

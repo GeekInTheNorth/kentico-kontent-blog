@@ -21,9 +21,9 @@
                             </span>
                         }
                     </a>
-                    @if (!string.IsNullOrWhiteSpace(article.AuthorTwitter))
+                    @if (!string.IsNullOrWhiteSpace(article.AuthorName))
                     {
-                        <p class="post-meta">Posted by <a href="https://twitter.com/@article.AuthorTwitter">@article.AuthorTwitter</a> on @article.PublishedDate.ToString("D")</p>
+                        <p class="post-meta">Posted by <a href="@article.AuthorUrl">@article.AuthorName</a> on @article.PublishedDate.ToString("D")</p>
                     }
                     else
                     {

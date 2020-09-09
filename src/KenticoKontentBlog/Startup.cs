@@ -53,6 +53,7 @@ namespace KenticoKontentBlog
             services.AddTransient<IAuthorViewModelBuilder, AuthorViewModelBuilder>();
 
             services.AddTransient<IContentService, ContentService>();
+            services.AddTransient<IArticlePreviewCollectionBuilder, ArticlePreviewCollectionBuilder>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

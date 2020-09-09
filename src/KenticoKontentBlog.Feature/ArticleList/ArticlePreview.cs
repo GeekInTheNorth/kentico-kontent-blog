@@ -1,23 +1,9 @@
-﻿using KenticoKontentBlog.Feature.Kontent.Models;
-
-using System;
-using System.Collections;
-using System.Linq;
+﻿using System;
 
 namespace KenticoKontentBlog.Feature.ArticleList
 {
     public class ArticlePreview
     {
-        public ArticlePreview(ArticlePage article)
-        {
-            Title = article.HeroHeader;
-            Description = article.SeoMetaDataMetaDescription;
-            Image = article.HeroHeaderImage?.FirstOrDefault()?.Url;
-            CodeName = article.System.Codename;
-            PublishedDate = article.PublishedDate ?? article.System.LastModified;
-            AuthorTwitter = article.SeoMetaDataTwitterAccount?.FirstOrDefault()?.Name;
-        }
-
         public string Title { get; set; }
 
         public string Description { get; set; }
@@ -26,8 +12,10 @@ namespace KenticoKontentBlog.Feature.ArticleList
 
         public string CodeName { get; set; }
 
-        public string AuthorTwitter { get; set; }
+        public string AuthorName { get; set; }
 
+        public string AuthorUrl { get; set; }
+        
         public DateTime PublishedDate { get; set; }
     }
 }

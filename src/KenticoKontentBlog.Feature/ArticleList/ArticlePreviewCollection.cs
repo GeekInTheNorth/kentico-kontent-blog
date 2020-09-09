@@ -1,25 +1,15 @@
-﻿using KenticoKontentBlog.Feature.Kontent.Models;
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace KenticoKontentBlog.Feature.ArticleList
 {
     public class ArticlePreviewCollection
     {
-        public ArticlePreviewCollection(IEnumerable<ArticlePage> articles) : this(null, articles)
-        {
-        }
+        public string Title { get; internal set; }
 
-        public ArticlePreviewCollection(string title, IEnumerable<ArticlePage> articles)
-        {
-            Title = title;
-            Articles = articles?.Select(x => new ArticlePreview(x)).OrderByDescending(x => x.PublishedDate).ToList() ?? new List<ArticlePreview>();
-        }
+        public List<ArticlePreview> Articles { get; internal set; }
 
-        public string Title { get; private set; }
-
-        public List<ArticlePreview> Articles { get; private set; }
+        public bool ShowAuthor { get; internal set; }
 
         public bool HasContent => Articles?.Any() ?? false;
     }

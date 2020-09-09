@@ -11,9 +11,12 @@ namespace KenticoKontentBlog.Feature.Home
     {
         private readonly IContentService _contentService;
 
-        public HomeViewModelBuilder(IContentService contentService)
+        private readonly IArticlePreviewCollectionBuilder _previewCollectionBuilder;
+
+        public HomeViewModelBuilder(IContentService contentService, IArticlePreviewCollectionBuilder previewCollectionBuilder)
         {
             _contentService = contentService;
+            _previewCollectionBuilder = previewCollectionBuilder;
         }
 
         public async Task<HomeViewModel> BuildAsync()
@@ -35,7 +38,7 @@ namespace KenticoKontentBlog.Feature.Home
                 },
                 Menu = await _contentService.GetCategoryMenuAsync(),
                 IntroText = homePage?.Introduction,
-                Articles = new ArticlePreviewCollection(featuredArticlesTitle, featuredArticles),
+                Articles = _previewCollectionBuilder.Build(featuredArticlesTitle, featuredArticles),
                 Seo = new SeoMetaData
                 {
                     Title = string.IsNullOrWhiteSpace(homePage.SeoMetaDataMetaTitle) ? homePage.HeroHeader : homePage.SeoMetaDataMetaTitle,
