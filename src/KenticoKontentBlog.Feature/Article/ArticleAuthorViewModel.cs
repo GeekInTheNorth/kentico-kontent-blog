@@ -12,6 +12,8 @@ namespace KenticoKontentBlog.Feature.Article
         
         public string FacebookUserName { get; internal set; }
 
+        public string AuthorPage { get; internal set; }
+
         public bool IsPopulated => !string.IsNullOrWhiteSpace(Name) && ProfileImage != null;
     }
 }

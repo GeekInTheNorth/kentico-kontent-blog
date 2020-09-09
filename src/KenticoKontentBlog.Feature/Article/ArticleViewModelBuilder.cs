@@ -55,11 +55,9 @@ namespace KenticoKontentBlog.Feature.Article
         private async Task<ArticleViewModel> BuildModelAsync()
         {
             var article = await _contentService.GetContentAsync<ArticlePage>(articleCodeName);
-            var author = article?.Author?.FirstOrDefault() as AuthorPage;
-            var authorImage = author?.ProfileImage?.FirstOrDefault();
-
             var relatedArticles = article?.RelatedArticles?.Where(x => x is ArticlePage).Select(x => x as ArticlePage);
             var relatedArticlesTitle = "Related Articles";
+            var author = GetAuthorViewModel(article);
 
             return article == null ? null : new ArticleViewModel
             {
@@ -73,13 +71,7 @@ namespace KenticoKontentBlog.Feature.Article
                 },
                 Content = article?.ArticleContent,
                 Categories = article?.Category?.ToDictionary(x => x.Codename, y => y.Name),
-                Author = new ArticleAuthorViewModel
-                {
-                    Name = author?.Name,
-                    ProfileImage = authorImage,
-                    TwitterAccount = author?.TwitterAccount,
-                    FacebookUserName = author?.FacebookUserName
-                },
+                Author = author,
                 Seo = new SeoMetaData
                 {
                     Title = string.IsNullOrWhiteSpace(article.SeoMetaDataMetaTitle) ? article.HeroHeader : article.SeoMetaDataMetaTitle,
@@ -90,6 +82,27 @@ namespace KenticoKontentBlog.Feature.Article
                     TwitterAuthor = author?.TwitterAccount ?? article.SeoMetaDataTwitterAccount?.Select(x => x.Name).FirstOrDefault() ?? Globals.Seo.TwitterSiteAuthor
                 },
                 RelatedArticles = _previewCollectionBuilder.Build(relatedArticlesTitle, relatedArticles)
+            };
+        }
+
+        private ArticleAuthorViewModel GetAuthorViewModel(ArticlePage article)
+        {
+            var author = article?.Author?.FirstOrDefault() as AuthorPage;
+
+            if (author == null)
+            {
+                return null;
+            }
+
+            var authorImage = author?.ProfileImage?.FirstOrDefault();
+
+            return new ArticleAuthorViewModel
+            {
+                Name = author?.Name,
+                ProfileImage = authorImage,
+                TwitterAccount = author?.TwitterAccount,
+                FacebookUserName = author?.FacebookUserName,
+                AuthorPage = _urlHelper.Action(Globals.Routing.Index, Globals.Routing.AuthorController, new { authorCodeName = author?.System.Codename }, Globals.Routing.DefaultProtocol)
             };
         }
     }
