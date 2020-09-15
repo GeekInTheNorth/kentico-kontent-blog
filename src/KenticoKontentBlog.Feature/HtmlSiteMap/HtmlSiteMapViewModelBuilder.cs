@@ -31,9 +31,12 @@ namespace KenticoKontentBlog.Feature.HtmlSiteMap
         {
             var articles = await _contentService.GetListAsync<ArticlePage>();
             var authors = await _contentService.GetListAsync<AuthorPage>();
+            var menu = await _contentService.GetCategoryMenuAsync();
 
             return new HtmlSiteMapViewModel
             {
+                Hero = new HeroModel { Title = "Site Map" },
+                Menu = menu,
                 Home = ConvertHomePage(),
                 Authors = ConvertAuthors(authors),
                 ArticleLists = ConvertArticles(articles).ToList()
