@@ -7,6 +7,7 @@ using KenticoKontentBlog.Feature.Author;
 using KenticoKontentBlog.Feature.Error;
 using KenticoKontentBlog.Feature.Framework.Service;
 using KenticoKontentBlog.Feature.Home;
+using KenticoKontentBlog.Feature.HtmlSiteMap;
 using KenticoKontentBlog.Feature.Kontent.Delivery;
 using KenticoKontentBlog.Feature.Kontent.Models;
 using KenticoKontentBlog.Feature.SiteMap;
@@ -51,6 +52,7 @@ namespace KenticoKontentBlog
             services.AddTransient<IErrorViewModelBuilder, ErrorViewModelBuilder>();
             services.AddTransient<ISiteMapBuilder, SiteMapBuilder>();
             services.AddTransient<IAuthorViewModelBuilder, AuthorViewModelBuilder>();
+            services.AddTransient<IHtmlSiteMapViewModelBuilder, HtmlSiteMapViewModelBuilder>();
 
             services.AddTransient<IContentService, ContentService>();
             services.AddTransient<IArticlePreviewCollectionBuilder, ArticlePreviewCollectionBuilder>();
