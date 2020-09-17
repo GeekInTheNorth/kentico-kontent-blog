@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 using KenticoKontentBlog.Feature.Framework;
 using KenticoKontentBlog.Feature.Framework.Service;
+using KenticoKontentBlog.Feature.Kontent.Comparables;
 using KenticoKontentBlog.Feature.Kontent.Models;
 
 using Microsoft.AspNetCore.Mvc;
@@ -45,7 +46,8 @@ namespace KenticoKontentBlog.Feature.HtmlSiteMap
 
         private List<HtmlSiteMapItemCollectionViewModel> ConvertArticles(List<ArticlePage> articles)
         {
-            var categories = articles.SelectMany(x => x.Category).Distinct();
+            var comparer = new TaxonomyTermComparer();
+            var categories = articles.SelectMany(x => x.Category).Distinct(comparer).OrderBy(x => x.Name);
 
             return categories.Select(x => new HtmlSiteMapItemCollectionViewModel
             {
@@ -54,7 +56,7 @@ namespace KenticoKontentBlog.Feature.HtmlSiteMap
                     Title = x.Name,
                     Url = _urlHelper.Action(Globals.Routing.List, Globals.Routing.ArticleController, new { category = x.Codename }, Globals.Routing.DefaultProtocol)
                 },
-                Children = articles.Where(y => y.Category.Equals(x)).Select(y => new HtmlSiteMapItemViewModel
+                Children = articles.Where(y => y.Category.Any(z => comparer.Equals(z, x))).OrderBy(y => y.HeroHeader).Select(y => new HtmlSiteMapItemViewModel
                 {
                     Title = y.HeroHeader,
                     Url = _urlHelper.Action(Globals.Routing.Index, Globals.Routing.ArticleController, new { articleStub = y.System.Codename }, Globals.Routing.DefaultProtocol)

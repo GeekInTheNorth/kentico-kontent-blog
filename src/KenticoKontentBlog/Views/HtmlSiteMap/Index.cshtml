@@ -1,1 +1,32 @@
 ﻿@model KenticoKontentBlog.Feature.HtmlSiteMap.HtmlSiteMapViewModel
+
+<section id="Authors">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <h2>@Model.Authors.Parent.Title</h2>
+            <ul>
+                @foreach (var author in Model.Authors.Children)
+                {
+                    <li><a href="@author.Url" title="@author.Title">@author.Title</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+</section>
+
+@foreach(var articleList in Model.ArticleLists)
+{
+    <section id="@articleList.Parent.Title">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <h2><a href="@articleList.Parent.Url">@articleList.Parent.Title</a></h2>
+                <ul>
+                    @foreach (var article in articleList.Children)
+                    {
+                        <li><a href="@article.Url" title="@article.Title">@article.Title</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </section>
+}
