@@ -2,13 +2,10 @@
 using System.Threading.Tasks;
 
 using KenticoKontentBlog.Feature.ArticleList;
-using KenticoKontentBlog.Feature.Framework;
+using KenticoKontentBlog.Feature.Framework.Builders;
+using KenticoKontentBlog.Feature.Framework.Routing;
 using KenticoKontentBlog.Feature.Framework.Service;
 using KenticoKontentBlog.Feature.Kontent.Models;
-
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace KenticoKontentBlog.Feature.Article
 {
@@ -16,20 +13,23 @@ namespace KenticoKontentBlog.Feature.Article
     {
         private string articleCodeName;
 
-        private readonly IUrlHelper _urlHelper;
+        private readonly IContentUrlHelper _urlHelper;
 
         private readonly IContentService _contentService;
 
         private readonly IArticlePreviewCollectionBuilder _previewCollectionBuilder;
 
+        private readonly IDefaultBuilder _defaultBuilder;
+
         public ArticleViewModelBuilder(
-            IContentService contentService, 
-            IUrlHelperFactory urlHelperFactory,
-            IActionContextAccessor actionContextAccessor,
+            IContentService contentService,
+            IContentUrlHelper urlHelper,
+            IDefaultBuilder defaultBuilder,
             IArticlePreviewCollectionBuilder previewCollectionBuilder)
         {
             _contentService = contentService;
-            _urlHelper = urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext);
+            _urlHelper = urlHelper;
+            _defaultBuilder = defaultBuilder;
             _previewCollectionBuilder = previewCollectionBuilder;
         }
 
@@ -42,47 +42,26 @@ namespace KenticoKontentBlog.Feature.Article
 
         public async Task<ArticleViewModel> BuildAsync()
         {
-            var model = await BuildModelAsync();
-
-            if (model != null)
-            {
-                model.Menu = await _contentService.GetCategoryMenuAsync();
-            }
-
-            return model;
-        }
-
-        private async Task<ArticleViewModel> BuildModelAsync()
-        {
             var article = await _contentService.GetContentAsync<ArticlePage>(articleCodeName);
             var relatedArticles = article?.RelatedArticles?.Where(x => x is ArticlePage).Select(x => x as ArticlePage);
             var relatedArticlesTitle = "Related Articles";
             var author = GetAuthorViewModel(article);
 
-            return article == null ? null : new ArticleViewModel
+            if (article == null) return null;
+
+            var model =  new ArticleViewModel
             {
-                Hero = new HeroModel
-                {
-                    Title = article?.HeroHeader,
-                    Image = article?.HeroHeaderImage?.FirstOrDefault()?.Url,
-                    PublishedDate = article?.PublishedDate ?? article.System.LastModified,
-                    HorizontalAlignment = article?.HeroImageHorizontalAlignment ?? ImageHorizontalAlignment.Centre,
-                    VerticalAlignment = article?.HeroImageVerticalAlignment ?? ImageVerticalAlignment.Centre
-                },
                 Content = article?.ArticleContent,
                 Categories = article?.Category?.ToDictionary(x => x.Codename, y => y.Name),
                 Author = author,
-                Seo = new SeoMetaData
-                {
-                    Title = string.IsNullOrWhiteSpace(article.SeoMetaDataMetaTitle) ? article.HeroHeader : article.SeoMetaDataMetaTitle,
-                    Description = article.SeoMetaDataMetaDescription,
-                    Image = article.SeoMetaDataMetaImages?.FirstOrDefault()?.Url ?? article.HeroHeaderImage?.FirstOrDefault()?.Url,
-                    ContentType = Globals.Seo.ArticleContentType,
-                    CanonicalUrl = _urlHelper.Action(Globals.Routing.Index, Globals.Routing.ArticleController, new { articleStub = article.System.Codename }, Globals.Routing.DefaultProtocol),
-                    TwitterAuthor = author?.TwitterAccount ?? article.SeoMetaDataTwitterAccount?.Select(x => x.Name).FirstOrDefault() ?? Globals.Seo.TwitterSiteAuthor
-                },
                 RelatedArticles = _previewCollectionBuilder.Build(relatedArticlesTitle, relatedArticles)
             };
+
+            _defaultBuilder.WithContent(article).WithModel(model).Build();
+
+            model.Seo.TwitterAuthor = model.Author?.TwitterAccount ?? model.Seo.TwitterAuthor;
+
+            return model;
         }
 
         private ArticleAuthorViewModel GetAuthorViewModel(ArticlePage article)
@@ -102,7 +81,7 @@ namespace KenticoKontentBlog.Feature.Article
                 ProfileImage = authorImage,
                 TwitterAccount = author?.TwitterAccount,
                 FacebookUserName = author?.FacebookUserName,
-                AuthorPage = _urlHelper.Action(Globals.Routing.Index, Globals.Routing.AuthorController, new { authorCodeName = author?.System.Codename }, Globals.Routing.DefaultProtocol)
+                AuthorPage = _urlHelper.GetUrl(author)
             };
         }
     }

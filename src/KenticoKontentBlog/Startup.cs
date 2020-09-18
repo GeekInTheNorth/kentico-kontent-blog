@@ -5,6 +5,8 @@ using KenticoKontentBlog.Feature.Article;
 using KenticoKontentBlog.Feature.ArticleList;
 using KenticoKontentBlog.Feature.Author;
 using KenticoKontentBlog.Feature.Error;
+using KenticoKontentBlog.Feature.Framework.Builders;
+using KenticoKontentBlog.Feature.Framework.Routing;
 using KenticoKontentBlog.Feature.Framework.Service;
 using KenticoKontentBlog.Feature.Home;
 using KenticoKontentBlog.Feature.HtmlSiteMap;
@@ -46,6 +48,8 @@ namespace KenticoKontentBlog
             services.AddSingleton<IUrlHelperFactory, UrlHelperFactory>();
 
             // View Model Builders
+            services.AddTransient<IContentUrlHelper, ContentUrlHelper>();
+            services.AddTransient<IDefaultBuilder, DefaultBuilder>();
             services.AddTransient<IHomeViewModelBuilder, HomeViewModelBuilder>();
             services.AddTransient<IArticleViewModelBuilder, ArticleViewModelBuilder>();
             services.AddTransient<IArticleListViewModelBuilder, ArticleListViewModelBuilder>();

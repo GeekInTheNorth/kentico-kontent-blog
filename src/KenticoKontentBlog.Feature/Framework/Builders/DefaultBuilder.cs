@@ -1,20 +1,24 @@
 ﻿using System.Linq;
 
 using KenticoKontentBlog.Feature.Framework.Routing;
+using KenticoKontentBlog.Feature.Framework.Service;
 
 namespace KenticoKontentBlog.Feature.Framework.Builders
 {
     public class DefaultBuilder : IDefaultBuilder
     {
+        private readonly IContentService _contentService;
+
         private readonly IContentUrlHelper _urlHelper;
 
         private IContentPage _content;
 
         private IPageModel _model;
 
-        public DefaultBuilder(IContentUrlHelper urlHelper)
+        public DefaultBuilder(IContentUrlHelper urlHelper, IContentService contentService)
         {
             _urlHelper = urlHelper;
+            _contentService = contentService;
         }
 
         public IDefaultBuilder WithContent(IContentPage content)
@@ -36,6 +40,7 @@ namespace KenticoKontentBlog.Feature.Framework.Builders
             if (_model == null) throw new ModelBuilderException($"{nameof(_model)} has not been instantiated.");
             if (_content == null) throw new ModelBuilderException($"{nameof(_content)} has not been instantiated.");
 
+            _model.Menu = _contentService.GetCategoryMenuAsync().Result;
             _model.Hero = new HeroModel
                               {
                                   Title = _content.HeroHeader,
