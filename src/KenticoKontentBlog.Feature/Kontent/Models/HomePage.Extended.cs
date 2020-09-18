@@ -1,10 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using KenticoKontentBlog.Feature.Framework;
 
 namespace KenticoKontentBlog.Feature.Kontent.Models
 {
-    public partial class HomePage
+    public partial class HomePage : IContentPage
     {
         public ImageHorizontalAlignment HeroImageHorizontalAlignment
         {
@@ -41,5 +42,7 @@ namespace KenticoKontentBlog.Feature.Kontent.Models
                 return ImageVerticalAlignment.Centre;
             }
         }
+
+        public DateTime? PublishedDate => null;
     }
 }

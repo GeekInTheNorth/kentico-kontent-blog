@@ -21,6 +21,10 @@ namespace KenticoKontentBlog.Feature.Kontent.Models
         public const string HeroHeaderImageVerticalAlignmentCodename = "hero__header_image_vertical_alignment";
         public const string NameCodename = "name";
         public const string ProfileImageCodename = "profile_image";
+        public const string SeoMetaDataMetaDescriptionCodename = "seo_meta_data__meta_description";
+        public const string SeoMetaDataMetaImagesCodename = "seo_meta_data__meta_images";
+        public const string SeoMetaDataMetaTitleCodename = "seo_meta_data__meta_title";
+        public const string SeoMetaDataTwitterAccountCodename = "seo_meta_data__twitter_account";
         public const string TwitterAccountCodename = "twitter_account";
 
         public IRichTextContent Biography { get; set; }
@@ -31,6 +35,10 @@ namespace KenticoKontentBlog.Feature.Kontent.Models
         public IEnumerable<MultipleChoiceOption> HeroHeaderImageVerticalAlignment { get; set; }
         public string Name { get; set; }
         public IEnumerable<Asset> ProfileImage { get; set; }
+        public string SeoMetaDataMetaDescription { get; set; }
+        public IEnumerable<Asset> SeoMetaDataMetaImages { get; set; }
+        public string SeoMetaDataMetaTitle { get; set; }
+        public IEnumerable<MultipleChoiceOption> SeoMetaDataTwitterAccount { get; set; }
         public ContentItemSystemAttributes System { get; set; }
         public string TwitterAccount { get; set; }
     }
