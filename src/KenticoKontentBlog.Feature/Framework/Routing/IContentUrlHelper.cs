@@ -3,5 +3,7 @@
     public interface IContentUrlHelper
     {
         string GetUrl(IContentPage contentPage);
+
+        string GetListingUrl(string categoryCodeName);
     }
 }

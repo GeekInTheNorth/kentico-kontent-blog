@@ -13,6 +13,7 @@ namespace KenticoKontentBlog.Feature.Kontent.Models
             {typeof(AuthorPage), "author_page"},
             {typeof(CodeSample), "code_sample"},
             {typeof(HomePage), "home_page"},
+            {typeof(HtmlSiteMapPage), "html_site_map_page"},
             {typeof(ImageCarousel), "image_carousel"},
             {typeof(Quote), "quote"},
             {typeof(SiteSettings), "site_settings"},

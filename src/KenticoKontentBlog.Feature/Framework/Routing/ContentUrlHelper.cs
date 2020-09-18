@@ -17,6 +17,11 @@ namespace KenticoKontentBlog.Feature.Framework.Routing
             _urlHelper = urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext);
         }
 
+        public string GetListingUrl(string categoryCodeName)
+        {
+            return _urlHelper.Action(Globals.Routing.List, Globals.Routing.ArticleController, new { category = categoryCodeName }, Globals.Routing.DefaultProtocol);
+        }
+
         public string GetUrl(IContentPage contentPage)
         {
             switch (contentPage)

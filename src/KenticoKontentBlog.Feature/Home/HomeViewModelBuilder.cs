@@ -25,9 +25,7 @@ namespace KenticoKontentBlog.Feature.Home
 
         public async Task<HomeViewModel> BuildAsync()
         {
-            var results = await _contentService.GetLatestContentAsync<HomePage>();
-            var homePage = results?.FirstOrDefault() ?? new HomePage();
-
+            var homePage = await _contentService.GetLatestContentAsync<HomePage>();
             var featuredArticles = homePage?.FeaturedContent?.Where(x => x is ArticlePage).Select(x => x as ArticlePage);
             var featuredArticlesTitle = "Featured Articles";
 

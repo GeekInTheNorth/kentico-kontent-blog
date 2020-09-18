@@ -32,8 +32,7 @@ namespace KenticoKontentBlog.Feature.Framework.Service
             {
                 if (!memoryCache.TryGetValue<SiteSettings>(Globals.CacheKeys.SiteSettings, out var siteSettings))
                 {
-                    var response = await GetLatestContentAsync<SiteSettings>();
-                    siteSettings = response.First();
+                    siteSettings = await GetLatestContentAsync<SiteSettings>();
 
                     memoryCache.Set(Globals.CacheKeys.SiteSettings, siteSettings, DateTimeOffset.Now.AddMinutes(15));
                 }
@@ -71,13 +70,13 @@ namespace KenticoKontentBlog.Feature.Framework.Service
             }
         }
 
-        public async Task<List<TContent>> GetLatestContentAsync<TContent>(int items = 1)
+        public async Task<TContent> GetLatestContentAsync<TContent>()
         {
             try
             {
-                var response = await deliveryClient.GetItemsAsync<TContent>(new LimitParameter(items), new DepthParameter(2), new OrderParameter($"system.last_modified", SortOrder.Descending));
+                var response = await deliveryClient.GetItemsAsync<TContent>(new LimitParameter(1), new DepthParameter(2), new OrderParameter($"system.last_modified", SortOrder.Descending));
 
-                return response.Items.ToList();
+                return response.Items.ToList().FirstOrDefault();
             }
             catch (Exception)
             {
