@@ -50,3 +50,8 @@ img.author-profile {
     border-radius: 50%;
     object-fit: cover;
 }
+
+img.card-img-top {
+    object-fit: cover;
+    max-height: 200px;
+}

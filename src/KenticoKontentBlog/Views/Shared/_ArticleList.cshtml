@@ -1,40 +1,36 @@
 ﻿@model KenticoKontentBlog.Feature.ArticleList.ArticlePreviewCollection
 
 <div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-            @if (!string.IsNullOrWhiteSpace(Model.Title))
-            {
-                <h2>@Model.Title</h2>
-            }
-            @foreach (var article in Model.Articles)
-            {
-                <div class="post-preview">
-                    <a asp-controller="Article" asp-action="Index" asp-route-articleStub="@article.CodeName">
-                        <h3 class="post-title">
-                            @article.Title
-                        </h3>
-                        @if (!string.IsNullOrWhiteSpace(article.Description))
-                        {
-                            <span class="post-subtitle">
-                                @article.Description
-                            </span>
-                        }
-                    </a>
+    @if (!string.IsNullOrWhiteSpace(Model.Title))
+    {
+        <h2 class="text-center">@Model.Title</h2>
+    }
+    <div class="card-deck">
+        @foreach (var article in Model.Articles)
+        {
+            <div class="card">
+                <img class="card-img-top" src="@article.Image" alt="@article.Title" style="max-width: 362px; height: auto;">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a asp-controller="Article" asp-action="Index" asp-route-articleStub="@article.CodeName">@article.Title</a>
+                    </h5>
+                    <p class="card-text">@article.Description</p>
                     @if (!string.IsNullOrWhiteSpace(article.AuthorName))
                     {
-                        <p class="post-meta">Posted by <a href="@article.AuthorUrl">@article.AuthorName</a> on @article.PublishedDate.ToString("D")</p>
+                        <p class="card-text"><small class="text-muted">Posted by <a href="@article.AuthorUrl">@article.AuthorName</a> on @article.PublishedDate.ToString("D")</small></p>
                     }
                     else
                     {
-                        <p class="post-meta">Posted on @article.PublishedDate.ToString("D")</p>
+                        <p class="card-text"><small class="text-muted">Posted on @article.PublishedDate.ToString("D")</small></p>
                     }
                 </div>
-                <hr>
-            }
-            <div class="clearfix">
-                <a class="btn btn-primary float-right" asp-controller="Article" asp-action="List" asp-route-category="All">All Articles &rarr;</a>
+                <div class="card-footer text-center">
+                    <a asp-controller="Article" asp-action="Index" asp-route-articleStub="@article.CodeName" class="btn btn-primary">Read More</a>
+                </div>
             </div>
-        </div>
+        }
+    </div>
+    <div class="clearfix text-center mt-4">
+        <a class="btn btn-primary" asp-controller="Article" asp-action="List" asp-route-category="All">All Articles &rarr;</a>
     </div>
 </div>
