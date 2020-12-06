@@ -20,11 +20,11 @@ namespace KenticoKontentBlog.Controllers
         }
 
         [Route("article/{articleStub}")]
-        public async Task<IActionResult> IndexAsync(string articleStub)
+        public async Task<IActionResult> Index(string articleStub)
         {
             if (!string.IsNullOrWhiteSpace(articleStub) && articleStub.Equals("list"))
             {
-                return await ListAsync(null);
+                return await this.List(null);
             }
 
             var article = await _viewModelBuilder.WithBlogArticle(articleStub).BuildAsync();
@@ -38,7 +38,7 @@ namespace KenticoKontentBlog.Controllers
         }
 
         [Route("article/list/{category}")]
-        public async Task<IActionResult> ListAsync(string category)
+        public async Task<IActionResult> List(string category)
         {
             var articleList = await _listViewModelBuilder.WithCategory(category).BuildAsync();
 
