@@ -1,9 +1,12 @@
 ﻿using KenticoKontentBlog.Feature.Framework;
 using KenticoKontentBlog.Feature.Framework.Service;
 using KenticoKontentBlog.Feature.Kontent.Models;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
+
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -63,7 +66,11 @@ namespace KenticoKontentBlog.Feature.ArticleList
 
             return articles == null ? null : new ArticleListViewModel
             {
-                Hero = new HeroModel { Title = title },
+                Hero = new HeroModel 
+                { 
+                    Title = title ,
+                    Image = GetHeroImage(articles)
+                },
                 Articles = _previewCollectionBuilder.Build(articles),
                 Seo = new SeoMetaData
                 {
@@ -79,6 +86,14 @@ namespace KenticoKontentBlog.Feature.ArticleList
             var menu = await _contentService.GetCategoryMenuAsync();
 
             return menu.Categories.ContainsKey(_categoryCodeName) ? menu.Categories[_categoryCodeName] : null;
+        }
+
+        private string GetHeroImage(IEnumerable<ArticlePage> articles)
+        {
+            return articles?.Where(x => x.HeroHeaderImage != null && x.HeroHeaderImage.Any())
+                            .OrderByDescending(x => x.PublishedDate)
+                            .SelectMany(x => x.HeroHeaderImage)
+                            .FirstOrDefault()?.Url;
         }
     }
 }

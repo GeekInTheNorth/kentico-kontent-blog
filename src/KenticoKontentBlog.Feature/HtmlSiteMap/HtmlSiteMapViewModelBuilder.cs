@@ -2,14 +2,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-using KenticoKontentBlog.Feature.Framework;
+using KenticoKontentBlog.Feature.Framework.Builders;
+using KenticoKontentBlog.Feature.Framework.Routing;
 using KenticoKontentBlog.Feature.Framework.Service;
 using KenticoKontentBlog.Feature.Kontent.Comparables;
 using KenticoKontentBlog.Feature.Kontent.Models;
-
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace KenticoKontentBlog.Feature.HtmlSiteMap
 {
@@ -17,31 +14,36 @@ namespace KenticoKontentBlog.Feature.HtmlSiteMap
     {
         private readonly IContentService _contentService;
 
-        private readonly IUrlHelper _urlHelper;
+        private readonly IDefaultBuilder _defaultBuilder;
+
+        private readonly IContentUrlHelper _urlHelper;
 
         public HtmlSiteMapViewModelBuilder(
             IContentService contentService,
-            IUrlHelperFactory urlHelperFactory,
-            IActionContextAccessor actionContextAccessor)
+            IDefaultBuilder defaultBuilder,
+            IContentUrlHelper urlHelper)
         {
             _contentService = contentService;
-            _urlHelper = urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext);
+            _defaultBuilder = defaultBuilder;
+            _urlHelper = urlHelper;
         }
 
         public async Task<HtmlSiteMapViewModel> BuildAsync()
         {
+            var htmlSiteMap = await _contentService.GetLatestContentAsync<HtmlSiteMapPage>();
             var articles = await _contentService.GetListAsync<ArticlePage>();
             var authors = await _contentService.GetListAsync<AuthorPage>();
-            var menu = await _contentService.GetCategoryMenuAsync();
+            var home = await _contentService.GetLatestContentAsync<HomePage>();
 
-            return new HtmlSiteMapViewModel
+            var model = new HtmlSiteMapViewModel
             {
-                Hero = new HeroModel { Title = "Site Map" },
-                Menu = menu,
-                Home = ConvertHomePage(),
-                Authors = ConvertAuthors(authors),
+                SitePages = ConvertAuthors(home, authors),
                 ArticleLists = ConvertArticles(articles).ToList()
             };
+
+            _defaultBuilder.WithContent(htmlSiteMap).WithModel(model).Build();
+
+            return model;
         }
 
         private List<HtmlSiteMapItemCollectionViewModel> ConvertArticles(List<ArticlePage> articles)
@@ -54,35 +56,31 @@ namespace KenticoKontentBlog.Feature.HtmlSiteMap
                 Parent = new HtmlSiteMapItemViewModel
                 {
                     Title = x.Name,
-                    Url = _urlHelper.Action(Globals.Routing.List, Globals.Routing.ArticleController, new { category = x.Codename }, Globals.Routing.DefaultProtocol)
+                    Url = _urlHelper.GetListingUrl(x.Codename)
                 },
                 Children = articles.Where(y => y.Category.Any(z => comparer.Equals(z, x))).OrderBy(y => y.HeroHeader).Select(y => new HtmlSiteMapItemViewModel
                 {
                     Title = y.HeroHeader,
-                    Url = _urlHelper.Action(Globals.Routing.Index, Globals.Routing.ArticleController, new { articleStub = y.System.Codename }, Globals.Routing.DefaultProtocol)
+                    Url = _urlHelper.GetUrl(y)
                 }).ToList()
             }).ToList();
         }
 
-        private HtmlSiteMapItemCollectionViewModel ConvertAuthors(List<AuthorPage> authorPages)
+        private HtmlSiteMapItemCollectionViewModel ConvertAuthors(HomePage homePage, List<AuthorPage> authorPages)
         {
             return new HtmlSiteMapItemCollectionViewModel
             {
                 Parent = new HtmlSiteMapItemViewModel
                 {
-                    Title = "Authors"
+                    Title = homePage.HeroHeader,
+                    Url = _urlHelper.GetUrl(homePage)
                 },
                 Children = authorPages.Select(y => new HtmlSiteMapItemViewModel
                 {
                     Title = y.HeroHeader,
-                    Url = _urlHelper.Action(Globals.Routing.Index, Globals.Routing.AuthorController, new { authorCodeName = y.System.Codename }, Globals.Routing.DefaultProtocol)
+                    Url = _urlHelper.GetUrl(y)
                 }).ToList()
             };
-        }
-
-        private HtmlSiteMapItemViewModel ConvertHomePage()
-        {
-            return new HtmlSiteMapItemViewModel { Title = "Home", Url = _urlHelper.Action(Globals.Routing.Index, Globals.Routing.HomeController, null, Globals.Routing.DefaultProtocol) };
         }
     }
 }

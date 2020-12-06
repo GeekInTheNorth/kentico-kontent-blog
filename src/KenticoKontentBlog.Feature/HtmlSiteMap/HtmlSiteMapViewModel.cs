@@ -12,9 +12,7 @@ namespace KenticoKontentBlog.Feature.HtmlSiteMap
 
         public Menu Menu { get; set; }
 
-        public HtmlSiteMapItemViewModel Home { get; set; }
-
-        public HtmlSiteMapItemCollectionViewModel Authors { get; set; }
+        public HtmlSiteMapItemCollectionViewModel SitePages { get; set; }
 
         public List<HtmlSiteMapItemCollectionViewModel> ArticleLists { get; set; }
     }

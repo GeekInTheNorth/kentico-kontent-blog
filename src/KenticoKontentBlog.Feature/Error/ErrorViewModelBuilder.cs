@@ -27,9 +27,11 @@ namespace KenticoKontentBlog.Feature.Error
 
         public async Task<ErrorViewModel> BuildAsync()
         {
-            var response = await _contentService.GetLatestContentAsync<SiteSettings>();
-            var siteSettings = response.FirstOrDefault();
-            var menu = await _contentService.GetCategoryMenuAsync();
+            var siteSettings = await _contentService.GetLatestContentAsync<SiteSettings>();
+            var menu = new Menu
+            {
+                Categories = siteSettings.Category.ToDictionary(x => x.Codename, y => y.Name)
+            };
 
             var model = new ErrorViewModel
             {

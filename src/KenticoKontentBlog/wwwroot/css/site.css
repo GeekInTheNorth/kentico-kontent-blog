@@ -51,7 +51,11 @@ img.author-profile {
     object-fit: cover;
 }
 
-img.card-img-top {
+div.card-header-image {
     object-fit: cover;
-    max-height: 200px;
+    object-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 15rem;
 }

@@ -10,36 +10,26 @@ using Kentico.Kontent.Delivery.Abstractions;
 
 namespace KenticoKontentBlog.Feature.Kontent.Models
 {
-    public partial class AuthorPage
+    public partial class HtmlSiteMapPage
     {
-        public const string Codename = "author_page";
-        public const string BiographyCodename = "biography";
-        public const string FacebookUserNameCodename = "facebook_user_name";
+        public const string Codename = "html_site_map_page";
         public const string HeroHeaderCodename = "hero__header";
         public const string HeroHeaderImageCodename = "hero__header_image";
         public const string HeroHeaderImageHorizontalAlignmentCodename = "hero__header_image_horizontal_alignment";
         public const string HeroHeaderImageVerticalAlignmentCodename = "hero__header_image_vertical_alignment";
-        public const string NameCodename = "name";
-        public const string ProfileImageCodename = "profile_image";
         public const string SeoMetaDataMetaDescriptionCodename = "seo_meta_data__meta_description";
         public const string SeoMetaDataMetaImagesCodename = "seo_meta_data__meta_images";
         public const string SeoMetaDataMetaTitleCodename = "seo_meta_data__meta_title";
         public const string SeoMetaDataTwitterAccountCodename = "seo_meta_data__twitter_account";
-        public const string TwitterAccountCodename = "twitter_account";
 
-        public IRichTextContent Biography { get; set; }
-        public string FacebookUserName { get; set; }
         public string HeroHeader { get; set; }
         public IEnumerable<Asset> HeroHeaderImage { get; set; }
         public IEnumerable<MultipleChoiceOption> HeroHeaderImageHorizontalAlignment { get; set; }
         public IEnumerable<MultipleChoiceOption> HeroHeaderImageVerticalAlignment { get; set; }
-        public string Name { get; set; }
-        public IEnumerable<Asset> ProfileImage { get; set; }
         public string SeoMetaDataMetaDescription { get; set; }
         public IEnumerable<Asset> SeoMetaDataMetaImages { get; set; }
         public string SeoMetaDataMetaTitle { get; set; }
         public IEnumerable<MultipleChoiceOption> SeoMetaDataTwitterAccount { get; set; }
         public ContentItemSystemAttributes System { get; set; }
-        public string TwitterAccount { get; set; }
     }
 }

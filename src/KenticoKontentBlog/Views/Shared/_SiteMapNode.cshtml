@@ -1,0 +1,15 @@
+﻿@model KenticoKontentBlog.Feature.HtmlSiteMap.HtmlSiteMapItemCollectionViewModel
+
+<section>
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <h2><a href="@Model.Parent.Url">@Model.Parent.Title</a></h2>
+            <ul>
+                @foreach (var child in Model.Children)
+                {
+                    <li><a href="@child.Url" title="@child.Title">@child.Title</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+</section>

@@ -9,7 +9,7 @@
 
         Task<TContent> GetContentAsync<TContent>(string codeName);
 
-        Task<List<TContent>> GetLatestContentAsync<TContent>(int items = 1);
+        Task<TContent> GetLatestContentAsync<TContent>();
 
         Task<List<TContent>> GetListAsync<TContent>();
     }

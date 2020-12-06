@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 
 using KenticoKontentBlog.Feature.ArticleList;
-using KenticoKontentBlog.Feature.Framework;
+using KenticoKontentBlog.Feature.Framework.Builders;
 using KenticoKontentBlog.Feature.Framework.Service;
 using KenticoKontentBlog.Feature.Kontent.Models;
 
@@ -12,13 +12,16 @@ namespace KenticoKontentBlog.Feature.Author
     {
         private readonly IContentService _contentService;
 
+        private readonly IDefaultBuilder _defaultBuilder;
+
         private readonly IArticlePreviewCollectionBuilder _previewCollectionBuilder;
 
         private string _authorCodeName;
 
-        public AuthorViewModelBuilder(IContentService contentService, IArticlePreviewCollectionBuilder previewCollectionBuilder)
+        public AuthorViewModelBuilder(IContentService contentService, IDefaultBuilder defaultBuilder, IArticlePreviewCollectionBuilder previewCollectionBuilder)
         {
             _contentService = contentService;
+            _defaultBuilder = defaultBuilder;
             _previewCollectionBuilder = previewCollectionBuilder;
         }
 
@@ -42,21 +45,17 @@ namespace KenticoKontentBlog.Feature.Author
             var authorArticles = articles?.Where(x => IsArticleByAuthor(x, author.System.Codename));
             var authorArticlesTitle = $"Articles by {author.Name}";
 
-            return new AuthorViewModel
+            var model = new AuthorViewModel
             {
-                Hero = new HeroModel
-                {
-                    Title = author?.HeroHeader,
-                    Image = author?.HeroHeaderImage?.FirstOrDefault()?.Url,
-                    HorizontalAlignment = author?.HeroImageHorizontalAlignment ?? ImageHorizontalAlignment.Centre,
-                    VerticalAlignment = author?.HeroImageVerticalAlignment ?? ImageVerticalAlignment.Centre
-                },
                 Biography = author?.Biography,
                 TwitterAccount = author?.TwitterAccount,
                 FacebookUserName = author?.FacebookUserName,
                 Articles = _previewCollectionBuilder.Build(authorArticlesTitle, authorArticles, false),
-                Menu = await _contentService.GetCategoryMenuAsync()
             };
+
+            _defaultBuilder.WithContent(author).WithModel(model).Build();
+
+            return model;
         }
 
         private bool IsArticleByAuthor(ArticlePage articlePage, string authorCodeName)

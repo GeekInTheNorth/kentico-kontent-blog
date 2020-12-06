@@ -4,7 +4,7 @@ using KenticoKontentBlog.Feature.Framework;
 
 namespace KenticoKontentBlog.Feature.Kontent.Models
 {
-    public partial class ArticlePage
+    public partial class ArticlePage : IContentPage
     {
         public ImageHorizontalAlignment HeroImageHorizontalAlignment
         {

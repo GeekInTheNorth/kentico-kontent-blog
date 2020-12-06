@@ -5,7 +5,7 @@ using KenticoKontentBlog.Feature.Framework;
 
 namespace KenticoKontentBlog.Feature.Kontent.Models
 {
-    public partial class AuthorPage : IContentPage
+    public partial class HtmlSiteMapPage : IContentPage
     {
         public ImageHorizontalAlignment HeroImageHorizontalAlignment
         {
