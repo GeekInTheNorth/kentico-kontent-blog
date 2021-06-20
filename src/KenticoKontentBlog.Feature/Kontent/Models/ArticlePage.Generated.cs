@@ -29,17 +29,17 @@ namespace KenticoKontentBlog.Feature.Kontent.Models
 
         public IRichTextContent ArticleContent { get; set; }
         public IEnumerable<object> Author { get; set; }
-        public IEnumerable<TaxonomyTerm> Category { get; set; }
+        public IEnumerable<ITaxonomyTerm> Category { get; set; }
         public string HeroHeader { get; set; }
-        public IEnumerable<Asset> HeroHeaderImage { get; set; }
-        public IEnumerable<MultipleChoiceOption> HeroHeaderImageHorizontalAlignment { get; set; }
-        public IEnumerable<MultipleChoiceOption> HeroHeaderImageVerticalAlignment { get; set; }
+        public IEnumerable<IAsset> HeroHeaderImage { get; set; }
+        public IEnumerable<IMultipleChoiceOption> HeroHeaderImageHorizontalAlignment { get; set; }
+        public IEnumerable<IMultipleChoiceOption> HeroHeaderImageVerticalAlignment { get; set; }
         public DateTime? PublishedDate { get; set; }
         public IEnumerable<object> RelatedArticles { get; set; }
         public string SeoMetaDataMetaDescription { get; set; }
-        public IEnumerable<Asset> SeoMetaDataMetaImages { get; set; }
+        public IEnumerable<IAsset> SeoMetaDataMetaImages { get; set; }
         public string SeoMetaDataMetaTitle { get; set; }
-        public IEnumerable<MultipleChoiceOption> SeoMetaDataTwitterAccount { get; set; }
-        public ContentItemSystemAttributes System { get; set; }
+        public IEnumerable<IMultipleChoiceOption> SeoMetaDataTwitterAccount { get; set; }
+        public IContentItemSystemAttributes System { get; set; }
     }
 }

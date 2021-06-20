@@ -6,7 +6,7 @@ namespace KenticoKontentBlog.Feature.Article
     {
         public string Name { get; internal set; }
         
-        public Asset ProfileImage { get; internal set; }
+        public IAsset ProfileImage { get; internal set; }
         
         public string TwitterAccount { get; internal set; }
         

@@ -9,7 +9,7 @@
     {
         string HeroHeader { get; }
 
-        IEnumerable<Asset> HeroHeaderImage { get; }
+        IEnumerable<IAsset> HeroHeaderImage { get; }
 
         ImageHorizontalAlignment HeroImageHorizontalAlignment { get; }
 
@@ -19,12 +19,12 @@
 
         string SeoMetaDataMetaDescription { get; }
 
-        IEnumerable<Asset> SeoMetaDataMetaImages { get; }
+        IEnumerable<IAsset> SeoMetaDataMetaImages { get; }
 
         string SeoMetaDataMetaTitle { get; }
 
-        IEnumerable<MultipleChoiceOption> SeoMetaDataTwitterAccount { get; }
+        IEnumerable<IMultipleChoiceOption> SeoMetaDataTwitterAccount { get; }
 
-        ContentItemSystemAttributes System { get; }
+        IContentItemSystemAttributes System { get; }
     }
 }
