@@ -102,3 +102,9 @@ div.card-header-image {
     background-position: center;
     height: 15rem;
 }
+
+article figure img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
