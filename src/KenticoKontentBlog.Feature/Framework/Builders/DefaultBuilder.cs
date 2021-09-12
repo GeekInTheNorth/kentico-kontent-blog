@@ -47,7 +47,8 @@ namespace KenticoKontentBlog.Feature.Framework.Builders
                                   Image = _content.HeroHeaderImage?.FirstOrDefault()?.Url,
                                   PublishedDate = _content.PublishedDate ?? _content.System.LastModified,
                                   HorizontalAlignment = _content.HeroImageHorizontalAlignment,
-                                  VerticalAlignment = _content.HeroImageVerticalAlignment
+                                  VerticalAlignment = _content.HeroImageVerticalAlignment,
+                                  TextColour = _content.HeroHeaderTextColour
                               };
             _model.Seo = new SeoMetaData
                              {

@@ -15,6 +15,8 @@
 
         ImageVerticalAlignment HeroImageVerticalAlignment { get; }
 
+        HeaderTextColour HeroHeaderTextColour { get; }
+
         DateTime? PublishedDate { get; }
 
         string SeoMetaDataMetaDescription { get; }

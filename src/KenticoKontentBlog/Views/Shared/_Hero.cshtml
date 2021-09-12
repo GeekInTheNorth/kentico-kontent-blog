@@ -29,20 +29,25 @@
                 return null;
         }
     }
+
+    string GetTextColourClass(HeaderTextColour textColour)
+    {
+        switch (textColour)
+        {
+            case HeaderTextColour.Dark:
+                return "text-dark";
+            default:
+                return "text-light";
+        }
+    }
 }
 
-<header class="masthead @GetHorizontalClass(Model.HorizontalAlignment) @GetVerticalClass(Model.VerticalAlignment)" style="background-image: url('@Model.Image')">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <div class="site-heading">
-                    <h1>@Model.Title</h1>
-                    @if (Model.PublishedDate.HasValue)
-                    {
-                        <span class="subheading">@($"Published: {Model.PublishedDate.Value:D}")</span>
-                    }
-                </div>
-            </div>
-        </div>
+<section id="hero" class="page-hero @GetHorizontalClass(Model.HorizontalAlignment) @GetVerticalClass(Model.VerticalAlignment)" style="background-image: url('@Model.Image');">
+    <div class="container page-hero--content mb-3 text-center">
+        <h1 class="@GetTextColourClass(Model.TextColour)">@Model.Title</h1>
+        @if (Model.PublishedDate.HasValue)
+        {
+            <span class="@GetTextColourClass(Model.TextColour)">@($"Published: {Model.PublishedDate.Value:D}")</span>
+        }
     </div>
-</header>
+</section>

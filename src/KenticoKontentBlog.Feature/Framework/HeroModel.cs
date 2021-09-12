@@ -15,5 +15,7 @@ namespace KenticoKontentBlog.Feature.Framework
         public ImageHorizontalAlignment HorizontalAlignment { get; set; }
 
         public ImageVerticalAlignment VerticalAlignment { get; set; }
+
+        public HeaderTextColour TextColour { get; set; }
     }
 }
