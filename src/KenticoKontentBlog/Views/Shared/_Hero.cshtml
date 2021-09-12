@@ -42,7 +42,7 @@
     }
 }
 
-<section id="hero" class="page-hero @GetHorizontalClass(Model.HorizontalAlignment) @GetVerticalClass(Model.VerticalAlignment)" style="background-image: url('@Model.Image');">
+<section id="hero" class="page-hero @GetHorizontalClass(Model.HorizontalAlignment) @GetVerticalClass(Model.VerticalAlignment) mb-3" style="background-image: url('@Model.Image');">
     <div class="container page-hero--content mb-3 text-center">
         <h1 class="@GetTextColourClass(Model.TextColour)">@Model.Title</h1>
         @if (Model.PublishedDate.HasValue)

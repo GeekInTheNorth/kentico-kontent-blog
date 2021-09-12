@@ -25,7 +25,7 @@ article figure img {
     display: flex;
     flex-flow: column nowrap;
     -ms-flex-flow: column nowrap;
-    height: 70vh;
+    height: 80vh;
     background: no-repeat center center;
     background-color: #FFFFFF !important;
     background-size: contain;
