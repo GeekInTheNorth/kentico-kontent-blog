@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using KenticoKontentBlog.Feature.ArticleList;
@@ -20,6 +21,8 @@ namespace KenticoKontentBlog.Feature.Article
         private readonly IArticlePreviewCollectionBuilder _previewCollectionBuilder;
 
         private readonly IDefaultBuilder _defaultBuilder;
+
+        private const int MaxRelatedArticles = 3;
 
         public ArticleViewModelBuilder(
             IContentService contentService,
@@ -43,7 +46,14 @@ namespace KenticoKontentBlog.Feature.Article
         public async Task<ArticleViewModel> BuildAsync()
         {
             var article = await _contentService.GetContentAsync<ArticlePage>(articleCodeName);
-            var relatedArticles = article?.RelatedArticles?.Where(x => x is ArticlePage).Select(x => x as ArticlePage);
+            var relatedArticles = GetRelatedArticles(article);
+            if (relatedArticles.Count < MaxRelatedArticles)
+            {
+                var matchingArticles = await GetMatchingArticles(article, relatedArticles);
+                relatedArticles.AddRange(matchingArticles);
+            }
+
+            relatedArticles = relatedArticles.Take(MaxRelatedArticles).ToList();
             var relatedArticlesTitle = "Related Articles";
             var author = GetAuthorViewModel(article);
 
@@ -83,6 +93,35 @@ namespace KenticoKontentBlog.Feature.Article
                 FacebookUserName = author?.FacebookUserName,
                 AuthorPage = _urlHelper.GetUrl(author)
             };
+        }
+
+        private List<ArticlePage> GetRelatedArticles(ArticlePage currentArticlePage)
+        {
+            if (currentArticlePage?.RelatedArticles == null)
+            {
+                return new List<ArticlePage>();
+            }
+
+            return currentArticlePage.RelatedArticles.OfType<ArticlePage>().ToList();
+        }
+
+        private async Task<List<ArticlePage>> GetMatchingArticles(ArticlePage currentArticlePage, List<ArticlePage> relatedArticles)
+        {
+            var allArticles = await _contentService.GetListAsync<ArticlePage>();
+
+            if (currentArticlePage.Category != null && currentArticlePage.Category.Any())
+            {
+                var categories = currentArticlePage.Category.Select(x => x.Name).ToList();
+                allArticles = allArticles.Where(x => x.Category?.Any(y => categories.Contains(y.Name)) ?? false).ToList();
+            }
+            
+            var codeNames = new List<string> { currentArticlePage.System.Codename };
+            if (relatedArticles != null)
+            {
+                codeNames.AddRange(relatedArticles.Select(x => x.System.Codename));
+            }
+
+            return allArticles.Where(x => !codeNames.Contains(x.System.Codename)).ToList();
         }
     }
 }
