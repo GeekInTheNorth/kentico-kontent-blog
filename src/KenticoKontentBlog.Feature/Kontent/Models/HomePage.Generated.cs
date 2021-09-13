@@ -4,8 +4,8 @@
 // Changes to this file may cause incorrect behavior and will be lost if the code is regenerated. 
 // For further modifications of the class, create a separate file with the partial class.
 
-using System;
 using System.Collections.Generic;
+
 using Kentico.Kontent.Delivery.Abstractions;
 
 namespace KenticoKontentBlog.Feature.Kontent.Models
@@ -18,6 +18,7 @@ namespace KenticoKontentBlog.Feature.Kontent.Models
         public const string HeroHeaderImageCodename = "hero__header_image";
         public const string HeroHeaderImageHorizontalAlignmentCodename = "hero__header_image_horizontal_alignment";
         public const string HeroHeaderImageVerticalAlignmentCodename = "hero__header_image_vertical_alignment";
+        public const string HeroHeaderTextColoursCodename = "hero__header_text_colours";
         public const string IntroductionCodename = "introduction";
         public const string SeoMetaDataMetaDescriptionCodename = "seo_meta_data__meta_description";
         public const string SeoMetaDataMetaImagesCodename = "seo_meta_data__meta_images";
@@ -26,14 +27,15 @@ namespace KenticoKontentBlog.Feature.Kontent.Models
 
         public IEnumerable<object> FeaturedContent { get; set; }
         public string HeroHeader { get; set; }
-        public IEnumerable<Asset> HeroHeaderImage { get; set; }
-        public IEnumerable<MultipleChoiceOption> HeroHeaderImageHorizontalAlignment { get; set; }
-        public IEnumerable<MultipleChoiceOption> HeroHeaderImageVerticalAlignment { get; set; }
+        public IEnumerable<IAsset> HeroHeaderImage { get; set; }
+        public IEnumerable<IMultipleChoiceOption> HeroHeaderImageHorizontalAlignment { get; set; }
+        public IEnumerable<IMultipleChoiceOption> HeroHeaderImageVerticalAlignment { get; set; }
+        public IEnumerable<IMultipleChoiceOption> HeroHeaderTextColours { get; set; }
         public IRichTextContent Introduction { get; set; }
         public string SeoMetaDataMetaDescription { get; set; }
-        public IEnumerable<Asset> SeoMetaDataMetaImages { get; set; }
+        public IEnumerable<IAsset> SeoMetaDataMetaImages { get; set; }
         public string SeoMetaDataMetaTitle { get; set; }
-        public IEnumerable<MultipleChoiceOption> SeoMetaDataTwitterAccount { get; set; }
-        public ContentItemSystemAttributes System { get; set; }
+        public IEnumerable<IMultipleChoiceOption> SeoMetaDataTwitterAccount { get; set; }
+        public IContentItemSystemAttributes System { get; set; }
     }
 }

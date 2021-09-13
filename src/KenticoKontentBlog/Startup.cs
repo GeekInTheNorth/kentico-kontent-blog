@@ -1,5 +1,6 @@
 using Kentico.Kontent.Delivery;
 using Kentico.Kontent.Delivery.Abstractions;
+using Kentico.Kontent.Delivery.Extensions;
 
 using KenticoKontentBlog.Feature.Article;
 using KenticoKontentBlog.Feature.ArticleList;

@@ -4,8 +4,8 @@
 // Changes to this file may cause incorrect behavior and will be lost if the code is regenerated. 
 // For further modifications of the class, create a separate file with the partial class.
 
-using System;
 using System.Collections.Generic;
+
 using Kentico.Kontent.Delivery.Abstractions;
 
 namespace KenticoKontentBlog.Feature.Kontent.Models
@@ -17,9 +17,9 @@ namespace KenticoKontentBlog.Feature.Kontent.Models
         public const string SortOrderCodename = "sort_order";
         public const string TitleCodename = "title";
 
-        public IEnumerable<Asset> CarouselImages { get; set; }
-        public IEnumerable<MultipleChoiceOption> SortOrder { get; set; }
-        public ContentItemSystemAttributes System { get; set; }
+        public IEnumerable<IAsset> CarouselImages { get; set; }
+        public IEnumerable<IMultipleChoiceOption> SortOrder { get; set; }
+        public IContentItemSystemAttributes System { get; set; }
         public string Title { get; set; }
     }
 }

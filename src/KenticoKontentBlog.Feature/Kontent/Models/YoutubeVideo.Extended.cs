@@ -1,17 +1,11 @@
-﻿using System;
-using System.Linq;
+﻿using KenticoKontentBlog.Feature.Kontent.Extensions;
 
 namespace KenticoKontentBlog.Feature.Kontent.Models
 {
     public partial class YoutubeVideo
     {
-        public bool AutoPlay => GetValue("autoplay");
+        public bool AutoPlay => Options.GetBoolean("autoplay");
 
-        public bool AllowFullscreen => GetValue("allow_fullscreen");
-
-        private bool GetValue(string codeName)
-        {
-            return Options?.Any(x => x.Codename.Equals(codeName, StringComparison.CurrentCultureIgnoreCase)) ?? false;
-        }
+        public bool AllowFullscreen => Options.GetBoolean("allow_fullscreen");
     }
 }

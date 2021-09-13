@@ -4,8 +4,8 @@
 // Changes to this file may cause incorrect behavior and will be lost if the code is regenerated. 
 // For further modifications of the class, create a separate file with the partial class.
 
-using System;
 using System.Collections.Generic;
+
 using Kentico.Kontent.Delivery.Abstractions;
 
 namespace KenticoKontentBlog.Feature.Kontent.Models
@@ -22,14 +22,14 @@ namespace KenticoKontentBlog.Feature.Kontent.Models
         public const string ServerErrorTitleCodename = "server_error_title";
         public const string SiteNameCodename = "site_name";
 
-        public IEnumerable<TaxonomyTerm> Category { get; set; }
+        public IEnumerable<ITaxonomyTerm> Category { get; set; }
         public IRichTextContent NotFoundCopy { get; set; }
-        public IEnumerable<Asset> NotFoundImage { get; set; }
+        public IEnumerable<IAsset> NotFoundImage { get; set; }
         public string NotFoundTitle { get; set; }
         public IRichTextContent ServerErrorCopy { get; set; }
-        public IEnumerable<Asset> ServerErrorImage { get; set; }
+        public IEnumerable<IAsset> ServerErrorImage { get; set; }
         public string ServerErrorTitle { get; set; }
         public string SiteName { get; set; }
-        public ContentItemSystemAttributes System { get; set; }
+        public IContentItemSystemAttributes System { get; set; }
     }
 }

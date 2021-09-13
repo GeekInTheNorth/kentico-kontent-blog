@@ -21,25 +21,68 @@ article figure img {
 }
 
 /* Header Alignments */
-header.masthead {
-    min-height: 80vh;
-    background-color: #007FFF !important;
+.page-hero {
+    display: flex;
+    flex-flow: column nowrap;
+    -ms-flex-flow: column nowrap;
+    height: 80vh;
+    background: no-repeat center center;
+    background-color: #FFFFFF !important;
+    background-size: contain;
 }
 
-header.masthead-left {
+.page-hero--content {
+    margin: auto;
+}
+
+.page-hero h1 {
+    font-size: 2rem;
+}
+
+.page-hero--left {
     background-position-x: left !important;
 }
 
-header.masthead-left {
+.page-hero--right {
     background-position-x: right !important;
 }
 
-header.masthead-top {
+.page-hero--top {
     background-position-y: top !important;
 }
 
-header.masthead-bottom {
+.page-hero--bottom {
     background-position-y: bottom !important;
+}
+
+@media only screen and (min-width: 768px) {
+    .page-hero {
+        background-size: cover;
+    }
+    
+    .page-hero h1 {
+        font-size: 2.5rem;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .page-hero {
+        background-size: cover;
+    }
+
+    .page-hero h1 {
+        font-size: 3rem;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .page-hero {
+        background-size: cover;
+    }
+
+    .page-hero h1 {
+        font-size: 3.5rem;
+    }
 }
 
 /* Article Author Image*/
@@ -58,4 +101,10 @@ div.card-header-image {
     background-size: cover;
     background-position: center;
     height: 15rem;
+}
+
+article figure img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }

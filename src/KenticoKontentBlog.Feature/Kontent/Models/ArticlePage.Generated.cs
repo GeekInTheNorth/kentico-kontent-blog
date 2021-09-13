@@ -20,6 +20,7 @@ namespace KenticoKontentBlog.Feature.Kontent.Models
         public const string HeroHeaderImageCodename = "hero__header_image";
         public const string HeroHeaderImageHorizontalAlignmentCodename = "hero__header_image_horizontal_alignment";
         public const string HeroHeaderImageVerticalAlignmentCodename = "hero__header_image_vertical_alignment";
+        public const string HeroHeaderTextColoursCodename = "hero__header_text_colours";
         public const string PublishedDateCodename = "published_date";
         public const string RelatedArticlesCodename = "related_articles";
         public const string SeoMetaDataMetaDescriptionCodename = "seo_meta_data__meta_description";
@@ -29,17 +30,18 @@ namespace KenticoKontentBlog.Feature.Kontent.Models
 
         public IRichTextContent ArticleContent { get; set; }
         public IEnumerable<object> Author { get; set; }
-        public IEnumerable<TaxonomyTerm> Category { get; set; }
+        public IEnumerable<ITaxonomyTerm> Category { get; set; }
         public string HeroHeader { get; set; }
-        public IEnumerable<Asset> HeroHeaderImage { get; set; }
-        public IEnumerable<MultipleChoiceOption> HeroHeaderImageHorizontalAlignment { get; set; }
-        public IEnumerable<MultipleChoiceOption> HeroHeaderImageVerticalAlignment { get; set; }
+        public IEnumerable<IAsset> HeroHeaderImage { get; set; }
+        public IEnumerable<IMultipleChoiceOption> HeroHeaderImageHorizontalAlignment { get; set; }
+        public IEnumerable<IMultipleChoiceOption> HeroHeaderImageVerticalAlignment { get; set; }
+        public IEnumerable<IMultipleChoiceOption> HeroHeaderTextColours { get; set; }
         public DateTime? PublishedDate { get; set; }
         public IEnumerable<object> RelatedArticles { get; set; }
         public string SeoMetaDataMetaDescription { get; set; }
-        public IEnumerable<Asset> SeoMetaDataMetaImages { get; set; }
+        public IEnumerable<IAsset> SeoMetaDataMetaImages { get; set; }
         public string SeoMetaDataMetaTitle { get; set; }
-        public IEnumerable<MultipleChoiceOption> SeoMetaDataTwitterAccount { get; set; }
-        public ContentItemSystemAttributes System { get; set; }
+        public IEnumerable<IMultipleChoiceOption> SeoMetaDataTwitterAccount { get; set; }
+        public IContentItemSystemAttributes System { get; set; }
     }
 }
