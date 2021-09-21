@@ -108,3 +108,12 @@ article figure img {
     margin-left: auto;
     margin-right: auto;
 }
+
+.carousel-caption p, .carousel-control-next-icon, .carousel-control-prev-icon {
+    background-color: #00000088;
+}
+
+.carousel-image {
+    height: 80vh;
+    width: auto;
+}
