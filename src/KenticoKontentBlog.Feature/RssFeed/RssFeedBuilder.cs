@@ -35,7 +35,6 @@ namespace KenticoKontentBlog.Feature.RssFeed
 
             return new Rss
             {
-                BlogChannel = urlHelper.Action(Globals.Routing.Index, Globals.Routing.HomeController, Globals.Routing.DefaultProtocol),
                 Channel = new RssChannel
                 {
                     Title = "Stotty",

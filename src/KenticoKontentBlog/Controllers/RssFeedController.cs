@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.IO;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
@@ -20,15 +18,22 @@ namespace KenticoKontentBlog.Controllers
             this.rssFeedBuilder = rssFeedBuilder;
         }
 
-        [Route("sitemap.xml")]
+        [Route("feed")]
         [Produces("application/xml")]
         public async Task<IActionResult> Index()
         {
             var rssFeedObject = await rssFeedBuilder.BuildAsync();
             var serializer = new XmlSerializer(typeof(Rss));
 
-            // TODO Serialize XML
-            return null;
+            using var stringWriter = new StringWriter();
+            serializer.Serialize(stringWriter, rssFeedObject);
+
+            return new ContentResult
+            {
+                Content = stringWriter.ToString(),
+                ContentType = "application/xml",
+                StatusCode = 200
+            };
         }
     }
 }
