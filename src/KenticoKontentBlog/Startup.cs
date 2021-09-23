@@ -13,6 +13,7 @@ using KenticoKontentBlog.Feature.Home;
 using KenticoKontentBlog.Feature.HtmlSiteMap;
 using KenticoKontentBlog.Feature.Kontent.Delivery;
 using KenticoKontentBlog.Feature.Kontent.Models;
+using KenticoKontentBlog.Feature.RssFeed;
 using KenticoKontentBlog.Feature.SiteMap;
 
 using Microsoft.AspNetCore.Builder;
@@ -58,6 +59,8 @@ namespace KenticoKontentBlog
             services.AddTransient<ISiteMapBuilder, SiteMapBuilder>();
             services.AddTransient<IAuthorViewModelBuilder, AuthorViewModelBuilder>();
             services.AddTransient<IHtmlSiteMapViewModelBuilder, HtmlSiteMapViewModelBuilder>();
+            services.AddTransient<ISiteMapBuilder, SiteMapBuilder>();
+            services.AddTransient<IRssFeedBuilder, RssFeedBuilder>();
 
             services.AddTransient<IContentService, ContentService>();
             services.AddTransient<IArticlePreviewCollectionBuilder, ArticlePreviewCollectionBuilder>();
