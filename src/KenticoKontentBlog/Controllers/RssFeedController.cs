@@ -31,7 +31,7 @@ namespace KenticoKontentBlog.Controllers
             return new ContentResult
             {
                 Content = stringWriter.ToString(),
-                ContentType = "application/xml",
+                ContentType = @"application/rss+xml",
                 StatusCode = 200
             };
         }
