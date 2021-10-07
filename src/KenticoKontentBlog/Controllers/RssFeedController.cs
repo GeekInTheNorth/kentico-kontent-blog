@@ -1,5 +1,7 @@
 ﻿using System.IO;
+using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Serialization;
 
 using KenticoKontentBlog.Feature.RssFeed;
@@ -23,17 +25,17 @@ namespace KenticoKontentBlog.Controllers
         public async Task<IActionResult> Index()
         {
             var rssFeedObject = await rssFeedBuilder.BuildAsync();
+            
             var serializer = new XmlSerializer(typeof(Rss));
+            var xmlWriterSettings = new XmlWriterSettings { Indent = false, Encoding = Encoding.UTF8 };
 
-            using var stringWriter = new StringWriter();
-            serializer.Serialize(stringWriter, rssFeedObject);
+            using var memoryStream = new MemoryStream();
+            using var xmlWriter = XmlWriter.Create(memoryStream, xmlWriterSettings);
 
-            return new ContentResult
-            {
-                Content = stringWriter.ToString(),
-                ContentType = @"application/rss+xml",
-                StatusCode = 200
-            };
+            serializer.Serialize(xmlWriter, rssFeedObject);
+            var utf8EncodedXml = memoryStream.ToArray();
+
+            return File(utf8EncodedXml, @"application/rss+xml");
         }
     }
 }
