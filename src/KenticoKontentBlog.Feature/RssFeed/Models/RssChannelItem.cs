@@ -5,19 +5,22 @@ namespace KenticoKontentBlog.Feature.RssFeed.Models
 {
     public class RssChannelItem
     {
-        [XmlElement(ElementName = "title")]
+        [XmlElement("guid")]
+        public string Id { get; set; }
+
+        [XmlElement("title")]
         public string Title { get; set; }
 
-        [XmlElement(ElementName = "link")]
+        [XmlElement("link")]
         public string Link { get; set; }
 
-        [XmlElement(ElementName = "description")]
+        [XmlElement("description")]
         public string Description { get; set; }
 
-        [XmlElement(ElementName = "pubDate")]
+        [XmlElement("pubDate")]
         public string PublishedDate { get; set; }
 
-        [XmlElement(ElementName = "category")]
+        [XmlElement("category")]
         public List<string> Category { get; set; }
     }
 }

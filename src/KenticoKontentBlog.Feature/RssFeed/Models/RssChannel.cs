@@ -10,22 +10,22 @@ namespace KenticoKontentBlog.Feature.RssFeed.Models
             Language = "en-GB";
         }
 
-        [XmlElement(ElementName = "title")]
+        [XmlElement("title")]
         public string Title { get; set; }
 
-        [XmlElement(ElementName = "link")]
+        [XmlElement("link")]
         public string Link { get; set; }
 
-        [XmlElement(ElementName = "description")]
+        [XmlElement("description")]
         public string Description { get; set; }
 
-        [XmlElement(ElementName = "language")]
+        [XmlElement("language")]
         public string Language { get; set; }
 
-        [XmlElement(ElementName = "lastBuildDate")]
+        [XmlElement("lastBuildDate")]
         public string LastModifiedDate { get; set; }
 
-        [XmlElement(ElementName = "item")]
+        [XmlElement("item")]
         public List<RssChannelItem> Items { get; set; }
     }
 }
