@@ -5,9 +5,6 @@ namespace KenticoKontentBlog.Feature.RssFeed.Models
 {
     public class RssChannelItem
     {
-        [XmlElement("guid")]
-        public string Id { get; set; }
-
         [XmlElement("title")]
         public string Title { get; set; }
 

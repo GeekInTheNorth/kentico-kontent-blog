@@ -64,7 +64,6 @@ namespace KenticoKontentBlog.Feature.RssFeed
         {
             return new RssChannelItem
             {
-                Id = articlePage.System.Id,
                 Title = articlePage.SeoMetaDataMetaTitle,
                 Description = articlePage.SeoMetaDataMetaDescription,
                 Link = urlHelper.Action(Globals.Routing.Index, Globals.Routing.ArticleController, new { articleStub = articlePage.System.Codename }, Globals.Routing.DefaultProtocol),
