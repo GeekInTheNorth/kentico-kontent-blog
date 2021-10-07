@@ -5,6 +5,11 @@ namespace KenticoKontentBlog.Feature.RssFeed.Models
 {
     public class RssChannel
     {
+        public RssChannel()
+        {
+            Language = "en-GB";
+        }
+
         [XmlElement(ElementName = "title")]
         public string Title { get; set; }
 
@@ -15,7 +20,10 @@ namespace KenticoKontentBlog.Feature.RssFeed.Models
         public string Description { get; set; }
 
         [XmlElement(ElementName = "language")]
-        public string Language => "en-GB";
+        public string Language { get; set; }
+
+        [XmlElement(ElementName = "lastBuildDate")]
+        public string LastModifiedDate { get; set; }
 
         [XmlElement(ElementName = "item")]
         public List<RssChannelItem> Items { get; set; }

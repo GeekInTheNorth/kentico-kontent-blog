@@ -17,9 +17,6 @@ namespace KenticoKontentBlog.Feature.RssFeed.Models
         [XmlElement(ElementName = "pubDate")]
         public string PublishedDate { get; set; }
 
-        [XmlElement(ElementName = "lastBuildDate")]
-        public string LastModifiedDate { get; set; }
-
         [XmlElement(ElementName = "category")]
         public List<string> Category { get; set; }
     }

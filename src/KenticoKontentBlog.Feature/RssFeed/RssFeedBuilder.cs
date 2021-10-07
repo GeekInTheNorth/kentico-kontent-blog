@@ -1,16 +1,16 @@
-﻿using System.Threading.Tasks;
-
-using KenticoKontentBlog.Feature.RssFeed.Models;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 using Kentico.Kontent.Delivery.Abstractions;
+
+using KenticoKontentBlog.Feature.Framework;
+using KenticoKontentBlog.Feature.Kontent.Models;
+using KenticoKontentBlog.Feature.RssFeed.Models;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
-using System.Collections.Generic;
-using KenticoKontentBlog.Feature.Kontent.Models;
-using System.Linq;
-using KenticoKontentBlog.Feature.Framework;
 
 namespace KenticoKontentBlog.Feature.RssFeed
 {
@@ -39,31 +39,37 @@ namespace KenticoKontentBlog.Feature.RssFeed
                 {
                     Title = "Stotty",
                     Description = "A blog by stotty",
-                    Items = articles.ToList()
+                    LastModifiedDate = articles?.Max(x => x.System.LastModified).ToString("r"),
+                    Link = urlHelper.Action(Globals.Routing.Index, Globals.Routing.HomeController, null, Globals.Routing.DefaultProtocol),
+                    Items = articles.Select(ToRssItem).ToList()
                 }
             };
         }
 
-        private async Task<IList<RssChannelItem>> GetArticles()
+        private async Task<IList<ArticlePage>> GetArticles()
         {
-            var nodes = new List<RssChannelItem>();
+            var articles = new List<ArticlePage>();
             var contentFeed = deliveryClient.GetItemsFeed<ArticlePage>();
             while (contentFeed.HasMoreResults)
             {
                 var batch = await contentFeed.FetchNextBatchAsync();
 
-                nodes.AddRange(batch.Items.Select(x => new RssChannelItem
-                {
-                    Title = x.SeoMetaDataMetaTitle,
-                    Description = x.SeoMetaDataMetaDescription,
-                    Link = urlHelper.Action(Globals.Routing.Index, Globals.Routing.ArticleController, new { articleStub = x.System.Codename }, Globals.Routing.DefaultProtocol),
-                    PublishedDate = x.PublishedDate?.ToString("r") ?? x.System.LastModified.ToString("r"),
-                    LastModifiedDate = x.System.LastModified.ToString("r"),
-                    Category = x.Category?.Select(y => y.Name).ToList()
-                }));
+                articles.AddRange(batch.Items);
             }
 
-            return nodes;
+            return articles;
+        }
+
+        private RssChannelItem ToRssItem(ArticlePage articlePage)
+        {
+            return new RssChannelItem
+            {
+                Title = articlePage.SeoMetaDataMetaTitle,
+                Description = articlePage.SeoMetaDataMetaDescription,
+                Link = urlHelper.Action(Globals.Routing.Index, Globals.Routing.ArticleController, new { articleStub = articlePage.System.Codename }, Globals.Routing.DefaultProtocol),
+                PublishedDate = articlePage.PublishedDate?.ToString("r") ?? articlePage.System.LastModified.ToString("r"),
+                Category = articlePage.Category?.Select(y => y.Name).ToList()
+            };
         }
     }
 }
