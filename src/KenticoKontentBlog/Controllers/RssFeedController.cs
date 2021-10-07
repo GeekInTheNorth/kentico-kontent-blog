@@ -25,14 +25,17 @@ namespace KenticoKontentBlog.Controllers
         public async Task<IActionResult> Index()
         {
             var rssFeedObject = await rssFeedBuilder.BuildAsync();
-            
+
+            var nameSpaces = new XmlSerializerNamespaces();
+            nameSpaces.Add(string.Empty, string.Empty);
+
             var serializer = new XmlSerializer(typeof(Rss));
             var xmlWriterSettings = new XmlWriterSettings { Indent = false, Encoding = Encoding.UTF8 };
 
             using var memoryStream = new MemoryStream();
             using var xmlWriter = XmlWriter.Create(memoryStream, xmlWriterSettings);
 
-            serializer.Serialize(xmlWriter, rssFeedObject);
+            serializer.Serialize(xmlWriter, rssFeedObject, nameSpaces);
             var utf8EncodedXml = memoryStream.ToArray();
 
             return File(utf8EncodedXml, @"application/rss+xml");

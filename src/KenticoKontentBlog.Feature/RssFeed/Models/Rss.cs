@@ -2,13 +2,18 @@
 
 namespace KenticoKontentBlog.Feature.RssFeed.Models
 {
-    [XmlRoot(ElementName = "rss")]
+    [XmlType("rss")]
     public class Rss
     {
+        public Rss()
+        {
+            Version = 2.0M;
+        }
+
         [XmlElement("channel")]
         public RssChannel Channel { get; set; }
 
         [XmlAttribute("version")]
-        public decimal Version => 2.0M;
+        public decimal Version { get; set; }
     }
 }
