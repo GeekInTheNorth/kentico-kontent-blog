@@ -2,6 +2,7 @@
 
 namespace KenticoKontentBlog.Feature.RssFeed.Models
 {
+    [XmlRoot(ElementName = "rss")]
     public class Rss
     {
         [XmlElement("channel")]
