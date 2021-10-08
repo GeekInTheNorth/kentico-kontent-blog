@@ -56,7 +56,6 @@ namespace KenticoKontentBlog
             services.AddTransient<IArticleViewModelBuilder, ArticleViewModelBuilder>();
             services.AddTransient<IArticleListViewModelBuilder, ArticleListViewModelBuilder>();
             services.AddTransient<IErrorViewModelBuilder, ErrorViewModelBuilder>();
-            services.AddTransient<ISiteMapBuilder, SiteMapBuilder>();
             services.AddTransient<IAuthorViewModelBuilder, AuthorViewModelBuilder>();
             services.AddTransient<IHtmlSiteMapViewModelBuilder, HtmlSiteMapViewModelBuilder>();
             services.AddTransient<ISiteMapBuilder, SiteMapBuilder>();
