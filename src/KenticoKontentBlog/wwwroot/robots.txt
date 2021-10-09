@@ -1,0 +1,4 @@
+﻿User-agent: *
+Disallow: /author/
+
+Sitemap: https://stotty.azurewebsites.net/sitemap.xml
