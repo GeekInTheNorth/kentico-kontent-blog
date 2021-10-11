@@ -9,6 +9,7 @@ namespace KenticoKontentBlog.Feature.Kontent.Models
     {
         private static readonly Dictionary<Type, string> _codenames = new Dictionary<Type, string>
         {
+            {typeof(ArticleListPage), "article_list_page"},
             {typeof(ArticlePage), "article_page"},
             {typeof(AuthorPage), "author_page"},
             {typeof(CodeSample), "code_sample"},
