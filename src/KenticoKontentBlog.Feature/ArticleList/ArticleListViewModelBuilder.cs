@@ -72,15 +72,17 @@ namespace KenticoKontentBlog.Feature.ArticleList
 
             return articles == null ? null : new ArticleListViewModel
             {
-                Hero = new HeroModel 
-                { 
-                    Title = title ,
+                Hero = new HeroModel
+                {
+                    Title = title,
                     Image = GetHeroImage(listingPage, articles)
                 },
                 Articles = _previewCollectionBuilder.Build(articles),
                 Seo = new SeoMetaData
                 {
-                    Title = categoryName,
+                    Title = listingPage?.SeoMetaDataMetaTitle ?? categoryName,
+                    Description = listingPage?.SeoMetaDataMetaDescription,
+                    TwitterAuthor = listingPage?.SeoMetaDataTwitterAccount?.FirstOrDefault()?.Name,
                     ContentType = Globals.Seo.ContentType,
                     CanonicalUrl = _urlHelper.Action(Globals.Routing.List, Globals.Routing.ArticleController, new { category = _categoryCodeName }, Globals.Routing.DefaultProtocol)
                 }
