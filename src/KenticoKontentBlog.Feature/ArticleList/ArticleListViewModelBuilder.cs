@@ -54,11 +54,17 @@ namespace KenticoKontentBlog.Feature.ArticleList
 
         private async Task<ArticleListViewModel> BuildModelAsync()
         {
+            var listingPage = await _contentService.GetLatestContentAsync<ArticleListPage>(_categoryCodeName);
             var articles = await _contentService.GetListAsync<ArticlePage>();
             var categoryName = await GetCategoryNameAsync();
             var title = "All Articles";
 
-            if (!string.IsNullOrWhiteSpace(_categoryCodeName)  && !string.IsNullOrWhiteSpace(categoryName))
+            if (listingPage != null)
+            {
+                articles = articles?.Where(x => x.Category != null && x.Category.Any(y => y.Codename.Equals(_categoryCodeName))).ToList();
+                title = listingPage.HeroHeader;
+            }
+            else if (!string.IsNullOrWhiteSpace(_categoryCodeName) && !string.IsNullOrWhiteSpace(categoryName))
             {
                 articles = articles?.Where(x => x.Category != null && x.Category.Any(y => y.Codename.Equals(_categoryCodeName))).ToList();
                 title = $"{categoryName} Articles";
@@ -69,7 +75,7 @@ namespace KenticoKontentBlog.Feature.ArticleList
                 Hero = new HeroModel 
                 { 
                     Title = title ,
-                    Image = GetHeroImage(articles)
+                    Image = GetHeroImage(listingPage, articles)
                 },
                 Articles = _previewCollectionBuilder.Build(articles),
                 Seo = new SeoMetaData
@@ -86,6 +92,16 @@ namespace KenticoKontentBlog.Feature.ArticleList
             var menu = await _contentService.GetCategoryMenuAsync();
 
             return menu.Categories.ContainsKey(_categoryCodeName) ? menu.Categories[_categoryCodeName] : null;
+        }
+
+        private string GetHeroImage(ArticleListPage articleListPage, IEnumerable<ArticlePage> articles)
+        {
+            return GetHeroImage(articleListPage) ?? GetHeroImage(articles);
+        }
+
+        private string GetHeroImage(ArticleListPage articleListPage)
+        {
+            return articleListPage?.HeroHeaderImage?.FirstOrDefault()?.Url;
         }
 
         private string GetHeroImage(IEnumerable<ArticlePage> articles)
