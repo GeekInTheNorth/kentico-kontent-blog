@@ -85,33 +85,6 @@ namespace KenticoKontentBlog.Feature.Framework.Service
             }
         }
 
-        public async Task<TContent> GetLatestContentAsync<TContent>(string categoryCodeName)
-        {
-            try
-            {
-                var cacheKey = $"content.latest.{typeof(TContent).Name}.{categoryCodeName}";
-
-                if (!memoryCache.TryGetValue<TContent>(cacheKey, out var latestVersion))
-                {
-                    var response = await deliveryClient.GetItemsAsync<TContent>(
-                        new EqualsFilter("category", categoryCodeName),
-                        new LimitParameter(1),
-                        new DepthParameter(2),
-                        new OrderParameter($"system.last_modified", SortOrder.Descending));
-
-                    latestVersion = response.Items.FirstOrDefault();
-
-                    memoryCache.Set(cacheKey, latestVersion, DateTimeOffset.Now.AddMinutes(15));
-                }
-
-                return latestVersion;
-            }
-            catch (Exception)
-            {
-                return default;
-            }
-        }
-
         public async Task<List<TContent>> GetListAsync<TContent>()
         {
             try

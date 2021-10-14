@@ -11,8 +11,6 @@
 
         Task<TContent> GetLatestContentAsync<TContent>();
 
-        Task<TContent> GetLatestContentAsync<TContent>(string categoryCodeName);
-
         Task<List<TContent>> GetListAsync<TContent>();
     }
 }
