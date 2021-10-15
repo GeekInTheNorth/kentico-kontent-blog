@@ -14,6 +14,7 @@ using KenticoKontentBlog.Feature.HtmlSiteMap;
 using KenticoKontentBlog.Feature.Kontent.Delivery;
 using KenticoKontentBlog.Feature.Kontent.Models;
 using KenticoKontentBlog.Feature.RssFeed;
+using KenticoKontentBlog.Feature.Security;
 using KenticoKontentBlog.Feature.SiteMap;
 
 using Microsoft.AspNetCore.Builder;
@@ -86,6 +87,8 @@ namespace KenticoKontentBlog
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseMiddleware<SecurityHeaderMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
