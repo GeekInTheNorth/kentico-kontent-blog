@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 using KenticoKontentBlog.Feature.Framework;
 using KenticoKontentBlog.Feature.Framework.Service;
+using KenticoKontentBlog.Feature.Kontent.Comparables;
 using KenticoKontentBlog.Feature.Kontent.Models;
 
 using Microsoft.AspNetCore.Mvc;
@@ -56,7 +57,7 @@ namespace KenticoKontentBlog.Feature.ArticleList
             ArticleListPage listingPage,
             List<ArticlePage> articles)
         {
-            var categoryName = GetCategoryName(categoryMenu);
+            var categoryName = GetCategoryName(articles, categoryMenu);
             var filteredArticles = articles?.Where(x => x.Category != null && x.Category.Any(y => y.Codename.Equals(_categoryCodeName))).ToList();
 
             return filteredArticles == null ? null : new ArticleListViewModel
@@ -87,7 +88,7 @@ namespace KenticoKontentBlog.Feature.ArticleList
             List<ArticlePage> articles)
         {
             var title = "All Articles";
-            var categoryName = GetCategoryName(categoryMenu);
+            var categoryName = GetCategoryName(articles, categoryMenu);
 
             if (!string.IsNullOrWhiteSpace(_categoryCodeName) && !string.IsNullOrWhiteSpace(categoryName))
             {
@@ -118,9 +119,13 @@ namespace KenticoKontentBlog.Feature.ArticleList
             };
         }
 
-        private string GetCategoryName(Menu categoryMenu)
+        private string GetCategoryName(List<ArticlePage> articles, Menu categoryMenu)
         {
-            return categoryMenu.Categories.ContainsKey(_categoryCodeName) ? categoryMenu.Categories[_categoryCodeName] : null;
+            var allArticleCategories = articles.SelectMany(x => x.Category).Distinct(new TaxonomyTermComparer()).ToList();
+            var categoryFromArticles = allArticleCategories.Where(x => string.Equals(x.Codename, _categoryCodeName)).FirstOrDefault()?.Name;
+            var categoryFromMenu = categoryMenu.Categories.ContainsKey(_categoryCodeName) ? categoryMenu.Categories[_categoryCodeName] : null;
+
+            return categoryFromArticles ?? categoryFromMenu;
         }
 
         private string GetHeroImage(ArticleListPage articleListPage)
