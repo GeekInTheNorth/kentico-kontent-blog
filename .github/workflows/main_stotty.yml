@@ -47,11 +47,20 @@ jobs:
       with:
         name: .net-app
 
-    - name: Deploy to Azure Web App
-      id: deploy-to-webapp
+    - name: Deploy to Azure Web App (Live)
+      id: deploy-to-webapp-main
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'stotty'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_d41ff8371383416b8276de56b2bcea71 }}
+        package: .
+
+    - name: Deploy to Azure Web App (Preview)
+      id: deploy-to-webapp-preview
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'stotty-preview'
+        slot-name: 'Production'
+        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9B88C8A5B31849DD8F3A1806B9BAD0B6 }}
         package: .
