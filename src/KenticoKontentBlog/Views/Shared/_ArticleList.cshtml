@@ -8,10 +8,9 @@
     <div class="row">
         @foreach (var article in Model.Articles)
         {
-            <div class="col-sm-4">
+            <div class="col-12 col-lg-6 col-xl-4 mb-2">
                 <div class="card mx-1 my-1">
-                    <div class="card-header-image" style="background-image: url('@article.Image?w=400');">
-                    </div>
+                    <div class="card-header-image" style="background-image: url('@article.Image?w=700');"></div>
                     <div class="card-body">
                         <h5 class="card-title">
                             <a asp-controller="Article" asp-action="Index" asp-route-articleStub="@article.CodeName">@article.Title</a>
@@ -33,7 +32,6 @@
             </div>
         }
     </div>
-
     <div class="clearfix text-center mt-4">
         <a class="btn btn-primary" asp-controller="Article" asp-action="List" asp-route-category="All">All Articles &rarr;</a>
     </div>
