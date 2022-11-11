@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Kentico.Kontent.Delivery.Abstractions;
-
 using KenticoKontentBlog.Feature.ArticleList;
 using KenticoKontentBlog.Feature.Framework;
+
+using Kontent.Ai.Delivery.Abstractions;
 
 namespace KenticoKontentBlog.Feature.Article
 {

@@ -1,6 +1,6 @@
-﻿using Kentico.Kontent.Delivery.Abstractions;
+﻿using KenticoKontentBlog.Feature.Framework;
 
-using KenticoKontentBlog.Feature.Framework;
+using Kontent.Ai.Delivery.Abstractions;
 
 namespace KenticoKontentBlog.Feature.Error
 {

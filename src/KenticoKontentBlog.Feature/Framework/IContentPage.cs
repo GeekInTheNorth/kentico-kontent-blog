@@ -1,10 +1,10 @@
-﻿namespace KenticoKontentBlog.Feature.Framework
+﻿using System;
+using System.Collections.Generic;
+
+using Kontent.Ai.Delivery.Abstractions;
+
+namespace KenticoKontentBlog.Feature.Framework
 {
-    using System;
-    using System.Collections.Generic;
-
-    using Kentico.Kontent.Delivery.Abstractions;
-
     public interface IContentPage
     {
         string HeroHeader { get; }

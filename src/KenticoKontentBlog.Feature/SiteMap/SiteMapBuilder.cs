@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Kentico.Kontent.Delivery.Abstractions;
-using Kentico.Kontent.Delivery.Urls.QueryParameters;
-
 using KenticoKontentBlog.Feature.Framework;
 using KenticoKontentBlog.Feature.Kontent.Models;
+
+using Kontent.Ai.Delivery.Abstractions;
+using Kontent.Ai.Urls.Delivery.QueryParameters;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;

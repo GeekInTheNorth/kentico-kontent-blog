@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Kentico.Kontent.Delivery.Abstractions;
+using Kontent.Ai.Delivery.Abstractions;
 
 namespace KenticoKontentBlog.Feature.Kontent.Comparables
 {
