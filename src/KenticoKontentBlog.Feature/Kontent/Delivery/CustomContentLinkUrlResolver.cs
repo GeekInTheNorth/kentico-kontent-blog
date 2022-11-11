@@ -1,12 +1,14 @@
-﻿using Kentico.Kontent.Delivery.Abstractions;
+﻿using System.Globalization;
+using System.Threading.Tasks;
 
 using KenticoKontentBlog.Feature.Framework;
 using KenticoKontentBlog.Feature.Kontent.Models;
+
+using Kontent.Ai.Delivery.Abstractions;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
-using System.Globalization;
-using System.Threading.Tasks;
 
 namespace KenticoKontentBlog.Feature.Kontent.Delivery
 {

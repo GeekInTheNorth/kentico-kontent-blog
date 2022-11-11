@@ -1,7 +1,3 @@
-using Kentico.Kontent.Delivery;
-using Kentico.Kontent.Delivery.Abstractions;
-using Kentico.Kontent.Delivery.Extensions;
-
 using KenticoKontentBlog.Feature.Article;
 using KenticoKontentBlog.Feature.ArticleList;
 using KenticoKontentBlog.Feature.Author;
@@ -16,6 +12,10 @@ using KenticoKontentBlog.Feature.Kontent.Models;
 using KenticoKontentBlog.Feature.RssFeed;
 using KenticoKontentBlog.Feature.Security;
 using KenticoKontentBlog.Feature.SiteMap;
+
+using Kontent.Ai.Delivery;
+using Kontent.Ai.Delivery.Abstractions;
+using Kontent.Ai.Delivery.Extensions;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

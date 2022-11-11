@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Kentico.Kontent.Delivery.Abstractions;
+
+using Kontent.Ai.Delivery.Abstractions;
 
 namespace KenticoKontentBlog.Feature.Kontent.Models
 {

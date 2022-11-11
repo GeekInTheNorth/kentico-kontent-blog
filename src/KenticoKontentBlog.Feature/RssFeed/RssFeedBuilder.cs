@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-using Kentico.Kontent.Delivery.Abstractions;
-
 using KenticoKontentBlog.Feature.Framework;
 using KenticoKontentBlog.Feature.Kontent.Models;
 using KenticoKontentBlog.Feature.RssFeed.Models;
+
+using Kontent.Ai.Delivery.Abstractions;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
